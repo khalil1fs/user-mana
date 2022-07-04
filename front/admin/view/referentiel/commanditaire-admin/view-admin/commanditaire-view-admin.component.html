@@ -1,0 +1,96 @@
+
+<p-dialog [(visible)]="viewCommanditaireDialog" [style]="{width: '70vw'}"
+        header="{{'commanditaireTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'commanditaireTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">{{'commanditaireLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'commanditaireLibelle' | i18next}}"  [(ngModel)]="selectedCommanditaire.libelle"
+                                           id="1" [(ngModel)]="selectedCommanditaire.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">{{'commanditaireCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'commanditaireCode' | i18next}}"  [(ngModel)]="selectedCommanditaire.code"
+                                           id="2" [(ngModel)]="selectedCommanditaire.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">{{'commanditaireDescription' | i18next}}</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true"
+                                              placeholder="{{'commanditaireDescription' | i18next}}"  [(ngModel)]="selectedCommanditaire.description"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="4">{{'commanditairePays' | i18next}}</label>
+                                    <p-dropdown [options]="payss" [(ngModel)]="selectedCommanditaire.paysVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="{{'commanditairePays' | i18next}}">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">{{'commanditaireArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedCommanditaire.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="6">{{'commanditaireDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="6" [disabled]="true"
+                                                placeholder="{{'commanditaireDateArchivage' | i18next}}"  [(ngModel)]="selectedCommanditaire.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="7">{{'commanditaireDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="7" [disabled]="true"
+                                                placeholder="{{'commanditaireDateCreation' | i18next}}"  [(ngModel)]="selectedCommanditaire.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-pays-create-admin></app-pays-create-admin>
+
+
+
+</p-dialog>
+
+
+

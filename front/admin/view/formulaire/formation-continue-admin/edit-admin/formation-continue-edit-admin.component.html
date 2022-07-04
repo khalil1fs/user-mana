@@ -1,0 +1,513 @@
+
+        <p-dialog [(visible)]="editFormationContinueDialog" [style]="{width: '70vw'}"
+                header="Formation continue" [modal]="true"
+                styleClass="p-fluid">
+
+            <ng-template pTemplate="content">
+                <p-tabView>
+                    <p-tabPanel header="Formation continue">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">Intitule</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Intitule"
+                                                   id="1" [(ngModel)]="selectedFormationContinue.intitule"
+                                                   />
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="3">Nombre heures dispensees dans annee</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="3"
+                                                           placeholder="Nombre heures dispensees dans annee"  [(ngModel)]="selectedFormationContinue.nombreHeuresDispenseesDansAnnee"
+                                                    [(ngModel)]="selectedFormationContinue.nombreHeuresDispenseesDansAnnee"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="4">Modalite formation continue</label>
+                                            <p-dropdown [options]="modaliteFormationContinues" [(ngModel)]="selectedFormationContinue.modaliteFormationContinueVo"
+                                                    id="4" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Modalite formation continue">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatemodaliteFormationContinue('modaliteFormationContinue')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="11">Enseignement et formation</label>
+                                            <p-dropdown [options]="enseignementEtFormations" [(ngModel)]="selectedFormationContinue.enseignementEtFormationVo"
+                                                    id="11" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Enseignement et formation">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateenseignementEtFormation('enseignementEtFormation')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="12">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedFormationContinue.etatEtapeCampagneVo"
+                                                    id="12" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Formation continue publique professionels">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Publique professionel</label>
+                                                        <p-dropdown [options]="publiqueProfessionels" [(ngModel)]="selectedFormationContinuePubliqueProfessionels.publiqueProfessionelVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Publique professionel"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepubliqueProfessionel('publiqueProfessionel')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addFormationContinuePubliqueProfessionels()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.formationContinuePubliqueProfessionelsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Publique professionel</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.publiqueProfessionelVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteFormationContinuePubliqueProfessionels(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Formation continue objet formation generiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Objet formation generique</label>
+                                                        <p-dropdown [options]="objetFormationGeneriques" [(ngModel)]="selectedFormationContinueObjetFormationGeneriques.objetFormationGeneriqueVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Objet formation generique"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateobjetFormationGenerique('objetFormationGenerique')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addFormationContinueObjetFormationGeneriques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.formationContinueObjetFormationGeneriquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Objet formation generique</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.objetFormationGeneriqueVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteFormationContinueObjetFormationGeneriques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Formation continue enjeux irds">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Enjeux ird</label>
+                                                        <p-dropdown [options]="enjeuxIrds" [(ngModel)]="selectedFormationContinueEnjeuxIrds.enjeuxIrdVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Enjeux ird"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateenjeuxIrd('enjeuxIrd')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addFormationContinueEnjeuxIrds()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.formationContinueEnjeuxIrdsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Enjeux ird</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteFormationContinueEnjeuxIrds(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Formation continue discipline scientifiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Discipline scientifique</label>
+                                                        <p-dropdown [options]="disciplineScientifiques" [(ngModel)]="selectedFormationContinueDisciplineScientifiques.disciplineScientifiqueVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Discipline scientifique"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatedisciplineScientifique('disciplineScientifique')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addFormationContinueDisciplineScientifiques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.formationContinueDisciplineScientifiquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Discipline scientifique</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteFormationContinueDisciplineScientifiques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Pays formation continues">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedPaysFormationContinues.paysVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addPaysFormationContinues()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.paysFormationContinuesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deletePaysFormationContinues(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Zone geographique formation continues">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Zone geographique</label>
+                                                        <p-dropdown [options]="zoneGeographiques" [(ngModel)]="selectedZoneGeographiqueFormationContinues.zoneGeographiqueVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Zone geographique"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatezoneGeographique('zoneGeographique')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addZoneGeographiqueFormationContinues()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.zoneGeographiqueFormationContinuesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Zone geographique</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.zoneGeographiqueVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteZoneGeographiqueFormationContinues(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Formation continue commanditaires">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Commanditaire</label>
+                                                        <p-dropdown [options]="commanditaires" [(ngModel)]="selectedFormationContinueCommanditaires.commanditaireVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Commanditaire"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatecommanditaire('commanditaire')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedFormationContinueCommanditaires.paysVo"
+                                                                id="2"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addFormationContinueCommanditaires()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedFormationContinue.formationContinueCommanditairesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Commanditaire</th>
+                                                                    <th>Pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.commanditaireVo?.libelle |truncate}}</td>
+                                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteFormationContinueCommanditaires(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check"  style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-modalite-formation-continue-create-admin></app-modalite-formation-continue-create-admin>
+                    <app-enseignement-et-formation-create-admin></app-enseignement-et-formation-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                            <app-publique-professionel-create-admin></app-publique-professionel-create-admin>
+                            <app-objet-formation-generique-create-admin></app-objet-formation-generique-create-admin>
+                            <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                            <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+                            <app-zone-geographique-create-admin></app-zone-geographique-create-admin>
+                            <app-commanditaire-create-admin></app-commanditaire-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+
+
+    </p-dialog>
+
+
+

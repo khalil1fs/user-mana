@@ -1,0 +1,73 @@
+<p-dialog [(visible)]="createTypeOutilCultureScientifiqueOutilPedagogiqueDialog" [modal]="true"
+          [style]="{width: '70vw'}" header="Type outil culture scientifique outil pedagogique"
+          styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Type outil culture scientifique outil pedagogique">
+                <div class="p-grid">
+
+                    <div class="p-field p-col-12 p-md-5">
+                        <label for="1">Culture scientifique outil pedagogique</label>
+                        <p-dropdown [(ngModel)]="selectedTypeOutilCultureScientifiqueOutilPedagogique.cultureScientifiqueOutilPedagogiqueVo"
+                                    [filter]="true"
+                                    [options]="cultureScientifiqueOutilPedagogiques" [showClear]="true" filterMatchMode="contains"
+                                    id="1"
+                                    optionLabel="id"
+                                    placeholder="Culture scientifique outil pedagogique">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-1">
+                        <label></label>
+                        <button (click)="openCreatecultureScientifiqueOutilPedagogique('cultureScientifiqueOutilPedagogique')" class="p-button-success one-colonne-btn-success-align" icon="pi pi-plus"
+                                pButton
+                                pRipple
+                                type="button"></button>
+                    </div>
+
+                    <div class="p-field p-col-12 p-md-5">
+                        <label for="2">Type outil</label>
+                        <p-dropdown [(ngModel)]="selectedTypeOutilCultureScientifiqueOutilPedagogique.typeOutilVo"
+                                    [filter]="true"
+                                    [options]="typeOutils" [showClear]="true" filterMatchMode="contains"
+                                    id="2"
+                                    optionLabel="libelle"
+                                    placeholder="Type outil">
+                        </p-dropdown>
+                    </div>
+                    <div class="p-field p-col-12 p-md-1">
+                        <label></label>
+                        <button (click)="openCreatetypeOutil('typeOutil')" class="p-button-success one-colonne-btn-success-align" icon="pi pi-plus"
+                                pButton pRipple
+                                type="button"></button>
+                    </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="p-grid">
+            <div>
+                <button (click)="hideCreateDialog()" class="p-button-text" icon="pi pi-times" label="Annuler"
+                        pButton pRipple></button>
+            </div>
+            <div>
+                <button (click)="save()" icon="pi pi-check" label="Valider" pButton pRipple
+                        style="margin:10px"></button>
+            </div>
+        </div>
+    </ng-template>
+
+    <app-culture-scientifique-outil-pedagogique-create-admin></app-culture-scientifique-outil-pedagogique-create-admin>
+    <app-type-outil-create-admin></app-type-outil-create-admin>
+
+
+</p-dialog>
+
+
+

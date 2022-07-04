@@ -1,0 +1,271 @@
+
+<p-dialog [(visible)]="viewFormationContinueDialog" [style]="{width: '70vw'}"
+        header="Formation continue" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Formation continue">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Intitule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Intitule"  [(ngModel)]="selectedFormationContinue.intitule"
+                                           id="1" [(ngModel)]="selectedFormationContinue.intitule"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Nombre heures dispensees dans annee</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="3" [disabled]="true"
+                                                   placeholder="Nombre heures dispensees dans annee"  [(ngModel)]="selectedFormationContinue.nombreHeuresDispenseesDansAnnee"
+                                            [(ngModel)]="selectedFormationContinue.nombreHeuresDispenseesDansAnnee"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">Modalite formation continue</label>
+                                    <p-dropdown [options]="modaliteFormationContinues" [(ngModel)]="selectedFormationContinue.modaliteFormationContinueVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Modalite formation continue">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="11">Enseignement et formation</label>
+                                    <p-dropdown [options]="enseignementEtFormations" [(ngModel)]="selectedFormationContinue.enseignementEtFormationVo"
+                                            id="11" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="id"
+                                            placeholder="Enseignement et formation">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="12">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedFormationContinue.etatEtapeCampagneVo"
+                                            id="12" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Formation continue publique professionels">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.formationContinuePubliqueProfessionelsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Publique professionel</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.publiqueProfessionelVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Formation continue objet formation generiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.formationContinueObjetFormationGeneriquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Objet formation generique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.objetFormationGeneriqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Formation continue enjeux irds">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.formationContinueEnjeuxIrdsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Enjeux ird</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Formation continue discipline scientifiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.formationContinueDisciplineScientifiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Discipline scientifique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Pays formation continues">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.paysFormationContinuesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Zone geographique formation continues">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.zoneGeographiqueFormationContinuesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Zone geographique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.zoneGeographiqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Formation continue commanditaires">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedFormationContinue.formationContinueCommanditairesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Commanditaire</th>
+                                                            <th>Pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.commanditaireVo?.libelle |truncate}}</td>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-modalite-formation-continue-create-admin></app-modalite-formation-continue-create-admin>
+            <app-enseignement-et-formation-create-admin></app-enseignement-et-formation-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                    <app-publique-professionel-create-admin></app-publique-professionel-create-admin>
+                    <app-objet-formation-generique-create-admin></app-objet-formation-generique-create-admin>
+                    <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                    <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+                    <app-zone-geographique-create-admin></app-zone-geographique-create-admin>
+                    <app-commanditaire-create-admin></app-commanditaire-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+
+
+</p-dialog>
+
+
+

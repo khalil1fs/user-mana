@@ -1,0 +1,80 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="E-mail rappel" icon="pi pi-plus"
+                        class="p-button-success p-mr-2 p-mb-2" (click)="openSendEmail()"></button>
+                </ng-template>
+            </p-toolbar>
+            <p-table #dt [value]="campagneRappels" [columns]="cols" [rows]="8" [paginator]="true" [rowsPerPageOptions]="[10,25,50,100,500]"
+                [globalFilterFields]="['dateRappel', 'objet', 'message']" [(selection)]="selectedCampagneRappel"
+                [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} des entrées"
+                [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Rappel campagne</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..."
+                                (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+                        <th pSortableColumn="dateRappel">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Date de rappel planifié</span>
+                                <p-sortIcon field="dateRappel"></p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="objet">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Objet</span>
+                                <p-sortIcon field="objet"></p-sortIcon>
+                            </div>
+                        </th>
+                        <th pSortableColumn="message">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Message</span>
+                                <p-sortIcon field="message"></p-sortIcon>
+                            </div>
+                        </th>
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-campagneRappel>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="campagneRappel"></p-tableCheckbox>
+                        </td>
+                        <td>{{campagneRappel.dateRappel | date :'dd/MM/yyyy HH:mm' |truncate}}</td>
+                        <td>{{campagneRappel.objetRappel |truncate}}</td>
+                        <td>{{campagneRappel.messageRappel |truncate}}</td>
+                        <td>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                (click)="viewCampagneRappel(campagneRappel)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{campagnes ? campagnes.length == 1 ? 'y a' : 'y a' : 'y a' }} {{campagnes ? campagnes.length
+                        : 0 }} {{campagnes ? campagnes.length == 1 ? 'campagneRappel' : 'campagnes' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+        <app-email-rappel-details></app-email-rappel-details>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+        <app-campagne-send-email-rappel> </app-campagne-send-email-rappel>
+    </div>
+</div>

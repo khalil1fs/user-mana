@@ -1,0 +1,298 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateResponsabilitePedagogiqueEcoleDoctorale('responsabilitePedagogiqueEcoleDoctorale')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="statutEcoleDoctorales" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.statutEcoleDoctoraleVo"
+                                        id="3"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Statut ecole doctorale</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="4" [options]="yesno" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.appelServiceRenforcementCapaciteSud"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="4">Appel service renforcement capacite sud</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="5" [options]="yesno" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleInternational"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="5">Ecole doctorale international</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="ecoleDoctorales" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleVo"
+                                        id="6"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="intitule">
+                                </p-dropdown>
+                                <label for="6">Ecole doctorale</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etablissements" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.etablissementVo"
+                                        id="7"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="7">Etablissement</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.etatEtapeCampagneVo"
+                                        id="8"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="8">Etat etape campagne</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.chercheurVo"
+                                        id="9"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="numeroMatricule">
+                                </p-dropdown>
+                                <label for="9">Chercheur</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="campagnes" [(ngModel)]="searchResponsabilitePedagogiqueEcoleDoctorale.campagneVo"
+                                        id="10"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="10">Campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="responsabilitePedagogiqueEcoleDoctorales" [columns]="cols" [rows]="8" [paginator]="true" [rowsPerPageOptions]="[10,25,50,100,500]"
+                    [globalFilterFields]="['annee', 'tempsEstimePourCetteAnnne', 'libelle', 'appelServiceRenforcementCapaciteSud', 'ecoleDoctoraleInternational', 'intitule', 'libelle', 'libelle', 'numeroMatricule', 'libelle']" [(selection)]="selectedResponsabilitePedagogiqueEcoleDoctorale"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Responsabilite pedagogique ecole doctorales</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="annee">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Annee</span>
+                                        <p-sortIcon field="annee"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="tempsEstimePourCetteAnnne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Temps estime pour cette année</span>
+                                        <p-sortIcon field="tempsEstimePourCetteAnnne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="statutEcoleDoctorale">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Statut ecole doctorale</span>
+                                        <p-sortIcon field="statutEcoleDoctorale"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="appelServiceRenforcementCapaciteSud">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Appel service renforcement capacite sud</span>
+                                        <p-sortIcon field="appelServiceRenforcementCapaciteSud"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="ecoleDoctoraleInternational">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Ecole doctorale international</span>
+                                        <p-sortIcon field="ecoleDoctoraleInternational"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="ecoleDoctorale">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Ecole doctorale</span>
+                                        <p-sortIcon field="ecoleDoctorale"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="etablissement">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etablissement</span>
+                                        <p-sortIcon field="etablissement"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="etatEtapeCampagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etat etape campagne</span>
+                                        <p-sortIcon field="etatEtapeCampagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                <!-- 
+                                <th pSortableColumn="chercheur">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Chercheur</span>
+                                        <p-sortIcon field="chercheur"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                                <!-- 
+                                <th pSortableColumn="campagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Campagne</span>
+                                        <p-sortIcon field="campagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-responsabilitePedagogiqueEcoleDoctorale>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="responsabilitePedagogiqueEcoleDoctorale"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{responsabilitePedagogiqueEcoleDoctorale.annee |truncate}}</td>
+                            
+
+                            
+                                 <td>{{responsabilitePedagogiqueEcoleDoctorale.tempsEstimePourCetteAnnne |truncate}}</td>
+                            
+
+                            
+                                <td>{{responsabilitePedagogiqueEcoleDoctorale.statutEcoleDoctoraleVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td><i *ngIf="responsabilitePedagogiqueEcoleDoctorale.appelServiceRenforcementCapaciteSud" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!responsabilitePedagogiqueEcoleDoctorale.appelServiceRenforcementCapaciteSud" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td><i *ngIf="responsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleInternational" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!responsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleInternational" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{responsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleVo?.intitule |truncate}}</td>
+                            
+
+                            
+                                <td>{{responsabilitePedagogiqueEcoleDoctorale.etablissementVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{responsabilitePedagogiqueEcoleDoctorale.etatEtapeCampagneVo?.libelle |truncate}}</td>
+                            
+
+                            <!-- 
+                                <td>{{responsabilitePedagogiqueEcoleDoctorale.chercheurVo?.numeroMatricule |truncate}}</td>
+                            --> 
+
+                            <!-- 
+                                <td>{{responsabilitePedagogiqueEcoleDoctorale.campagneVo?.libelle |truncate}}</td>
+                            --> 
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editResponsabilitePedagogiqueEcoleDoctorale(responsabilitePedagogiqueEcoleDoctorale)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewResponsabilitePedagogiqueEcoleDoctorale(responsabilitePedagogiqueEcoleDoctorale)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteResponsabilitePedagogiqueEcoleDoctorale(responsabilitePedagogiqueEcoleDoctorale)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateResponsabilitePedagogiqueEcoleDoctorale(responsabilitePedagogiqueEcoleDoctorale)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{responsabilitePedagogiqueEcoleDoctorales ? responsabilitePedagogiqueEcoleDoctorales.length == 1 ? 'y a' : 'y a' : 'y a' }} {{responsabilitePedagogiqueEcoleDoctorales ? responsabilitePedagogiqueEcoleDoctorales.length : 0 }} {{responsabilitePedagogiqueEcoleDoctorales ? responsabilitePedagogiqueEcoleDoctorales.length == 1 ? 'responsabilitePedagogiqueEcoleDoctorale' : 'responsabilitePedagogiqueEcoleDoctorales' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-responsabilite-pedagogique-ecole-doctorale-create-admin></app-responsabilite-pedagogique-ecole-doctorale-create-admin>
+        <app-responsabilite-pedagogique-ecole-doctorale-edit-admin></app-responsabilite-pedagogique-ecole-doctorale-edit-admin>
+        <app-responsabilite-pedagogique-ecole-doctorale-view-admin></app-responsabilite-pedagogique-ecole-doctorale-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

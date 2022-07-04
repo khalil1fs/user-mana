@@ -1,0 +1,76 @@
+        <p-dialog [(visible)]="createResponsabiliteEncadrementEtudiantDialog" [style]="{width: '70vw'}"
+                header="{{'responsabiliteEncadrementEtudiantTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'responsabiliteEncadrementEtudiantTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">{{'responsabiliteEncadrementEtudiantLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'responsabiliteEncadrementEtudiantLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedResponsabiliteEncadrementEtudiant.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validResponsabiliteEncadrementEtudiantLibelle}"  />
+                                            <small class='p-error' *ngIf='!validResponsabiliteEncadrementEtudiantLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">{{'responsabiliteEncadrementEtudiantCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'responsabiliteEncadrementEtudiantCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedResponsabiliteEncadrementEtudiant.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validResponsabiliteEncadrementEtudiantCode}"  />
+                                            <small class='p-error' *ngIf='!validResponsabiliteEncadrementEtudiantCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'responsabiliteEncadrementEtudiantArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="3"  [(ngModel)]="selectedResponsabiliteEncadrementEtudiant.archive"
+                                                     >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">{{'responsabiliteEncadrementEtudiantDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="4"
+                                                        placeholder="{{'responsabiliteEncadrementEtudiantDateArchivage' | i18next}}"  [(ngModel)]="selectedResponsabiliteEncadrementEtudiant.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

@@ -1,0 +1,554 @@
+
+        <p-dialog [(visible)]="editEnseignementDialog" [style]="{width: '70vw'}"
+                header="Enseignement" [modal]="true"
+                styleClass="p-fluid">
+
+            <ng-template pTemplate="content">
+                <p-tabView>
+                    <p-tabPanel header="Enseignement">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">Intitule</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Intitule"
+                                                   id="1" [(ngModel)]="selectedEnseignement.intitule"
+                                                   />
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">Nombre heure</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="2"
+                                                           placeholder="Nombre heure"  [(ngModel)]="selectedEnseignement.nombreHeure"
+                                                    [(ngModel)]="selectedEnseignement.nombreHeure"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="3">Modalite etude</label>
+                                            <p-dropdown [options]="modaliteEtudes" [(ngModel)]="selectedEnseignement.modaliteEtudeVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Modalite etude">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatemodaliteEtude('modaliteEtude')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="7">Etabilssement non reconnu</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="7"  [(ngModel)]="selectedEnseignement.etabilssementNonReconnu"></p-inputSwitch>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="13">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedEnseignement.etatEtapeCampagneVo"
+                                                    id="13" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-5">
+                                            <label for="14">Enseignement et formation</label>
+                                            <p-dropdown [options]="enseignementEtFormations" [(ngModel)]="selectedEnseignement.enseignementEtFormationVo"
+                                                    id="14" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Enseignement et formation">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateenseignementEtFormation('enseignementEtFormation')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Type etude enseignements">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Type etude</label>
+                                                        <p-dropdown [options]="typeEtudes" [(ngModel)]="selectedTypeEtudeEnseignements.typeEtudeVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Type etude"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatetypeEtude('typeEtude')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addTypeEtudeEnseignements()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.typeEtudeEnseignementsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Type etude</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.typeEtudeVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteTypeEtudeEnseignements(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Enseignement natures">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Nature enseignement</label>
+                                                        <p-dropdown [options]="natureEnseignements" [(ngModel)]="selectedEnseignementNatures.natureEnseignementVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Nature enseignement"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatenatureEnseignement('natureEnseignement')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEnseignementNatures()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.enseignementNaturesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Nature enseignement</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.natureEnseignementVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEnseignementNatures(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Niveau etude enseignements">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Niveau etude</label>
+                                                        <p-dropdown [options]="niveauEtudes" [(ngModel)]="selectedNiveauEtudeEnseignements.niveauEtudeVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Niveau etude"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateniveauEtude('niveauEtude')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addNiveauEtudeEnseignements()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.niveauEtudeEnseignementsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Niveau etude</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.niveauEtudeVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteNiveauEtudeEnseignements(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Etablissement enseignements">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Etablissement</label>
+                                                        <p-dropdown [options]="etablissements" [(ngModel)]="selectedEtablissementEnseignements.etablissementVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Etablissement"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEtablissementEnseignements()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.etablissementEnseignementsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Etablissement</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEtablissementEnseignements(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Enseignement payss">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedEnseignementPayss.paysVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEnseignementPayss()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.enseignementPayssVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEnseignementPayss(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Enseignement zone geographiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Zone geographique</label>
+                                                        <p-dropdown [options]="zoneGeographiques" [(ngModel)]="selectedEnseignementZoneGeographiques.zoneGeographiqueVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Zone geographique"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatezoneGeographique('zoneGeographique')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEnseignementZoneGeographiques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.enseignementZoneGeographiquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Zone geographique</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.zoneGeographiqueVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEnseignementZoneGeographiques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Enseignement enjeux irds">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Enjeux ird</label>
+                                                        <p-dropdown [options]="enjeuxIrds" [(ngModel)]="selectedEnseignementEnjeuxIrds.enjeuxIrdVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Enjeux ird"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateenjeuxIrd('enjeuxIrd')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEnseignementEnjeuxIrds()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.enseignementEnjeuxIrdsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Enjeux ird</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEnseignementEnjeuxIrds(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+                            <p-tabPanel header="Enseignement discipline scientifiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Discipline scientifique</label>
+                                                        <p-dropdown [options]="disciplineScientifiques" [(ngModel)]="selectedEnseignementDisciplineScientifiques.disciplineScientifiqueVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Discipline scientifique"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatedisciplineScientifique('disciplineScientifique')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEnseignementDisciplineScientifiques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEnseignement.enseignementDisciplineScientifiquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Discipline scientifique</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEnseignementDisciplineScientifiques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check"  style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-modalite-etude-create-admin></app-modalite-etude-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+                    <app-enseignement-et-formation-create-admin></app-enseignement-et-formation-create-admin>
+
+                            <app-type-etude-create-admin></app-type-etude-create-admin>
+                            <app-nature-enseignement-create-admin></app-nature-enseignement-create-admin>
+                            <app-niveau-etude-create-admin></app-niveau-etude-create-admin>
+                            <app-etablissement-create-admin></app-etablissement-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+                            <app-zone-geographique-create-admin></app-zone-geographique-create-admin>
+                            <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                            <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+
+
+    </p-dialog>
+
+
+

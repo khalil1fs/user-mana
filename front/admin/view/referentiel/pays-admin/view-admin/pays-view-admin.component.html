@@ -1,0 +1,99 @@
+
+<p-dialog [(visible)]="viewPaysDialog" [style]="{width: '70vw'}"
+        header="{{'paysTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'paysTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">{{'paysLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'paysLibelle' | i18next}}"  [(ngModel)]="selectedPays.libelle"
+                                           id="1" [(ngModel)]="selectedPays.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">{{'paysCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'paysCode' | i18next}}"  [(ngModel)]="selectedPays.code"
+                                           id="2" [(ngModel)]="selectedPays.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">{{'paysContinent' | i18next}}</label>
+                                    <p-dropdown [options]="continents" [(ngModel)]="selectedPays.continentVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="{{'paysContinent' | i18next}}">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="4">{{'paysIdGraph' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'paysIdGraph' | i18next}}"  [(ngModel)]="selectedPays.idGraph"
+                                           id="4" [(ngModel)]="selectedPays.idGraph"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">{{'paysArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedPays.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="6">{{'paysDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="6" [disabled]="true"
+                                                placeholder="{{'paysDateArchivage' | i18next}}"  [(ngModel)]="selectedPays.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="7">{{'paysDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="7" [disabled]="true"
+                                                placeholder="{{'paysDateCreation' | i18next}}"  [(ngModel)]="selectedPays.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-continent-create-admin></app-continent-create-admin>
+
+
+
+</p-dialog>
+
+
+

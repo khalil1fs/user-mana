@@ -1,0 +1,219 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateDeveloppementDeSavoirEtInnovationScientifique('developpementDeSavoirEtInnovationScientifique')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text" maxlength="30"    [(ngModel)]="searchDeveloppementDeSavoirEtInnovationScientifique.titreInstrument">
+                                    <label for="2">Titre instrument</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="roleDeveloppementDeSavoirs" [(ngModel)]="searchDeveloppementDeSavoirEtInnovationScientifique.roleDeveloppementDeSavoirVo"
+                                        id="3"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Role developpement de savoir</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="12"
+                                           type="text" maxlength="30"    [(ngModel)]="searchDeveloppementDeSavoirEtInnovationScientifique.lienWeb">
+                                    <label for="12">Lien web</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="savoirEtInnovations" [(ngModel)]="searchDeveloppementDeSavoirEtInnovationScientifique.savoirEtInnovationVo"
+                                        id="13"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="id">
+                                </p-dropdown>
+                                <label for="13">Savoir et innovation</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="searchDeveloppementDeSavoirEtInnovationScientifique.etatEtapeCampagneVo"
+                                        id="14"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="14">Etat etape campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="developpementDeSavoirEtInnovationScientifiques" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['titreInstrument', 'libelle', 'anneeMiseEnOeuvre', 'lienWeb', 'id', 'libelle']" [(selection)]="selectedDeveloppementDeSavoirEtInnovationScientifique"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Developpement de savoir et innovation scientifiques</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+
+                                
+                                <th pSortableColumn="titreInstrument">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Titre instrument</span>
+                                        <p-sortIcon field="titreInstrument"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="roleDeveloppementDeSavoir">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Role developpement de savoir</span>
+                                        <p-sortIcon field="roleDeveloppementDeSavoir"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="anneeMiseEnOeuvre">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Annee mise en oeuvre</span>
+                                        <p-sortIcon field="anneeMiseEnOeuvre"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+
+
+
+
+
+                                
+                                <th pSortableColumn="lienWeb">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Lien web</span>
+                                        <p-sortIcon field="lienWeb"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="savoirEtInnovation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Savoir et innovation</span>
+                                        <p-sortIcon field="savoirEtInnovation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="etatEtapeCampagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etat etape campagne</span>
+                                        <p-sortIcon field="etatEtapeCampagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-developpementDeSavoirEtInnovationScientifique>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="developpementDeSavoirEtInnovationScientifique"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{developpementDeSavoirEtInnovationScientifique.titreInstrument |truncate}}</td>
+                            
+
+                            
+                                <td>{{developpementDeSavoirEtInnovationScientifique.roleDeveloppementDeSavoirVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                 <td>{{developpementDeSavoirEtInnovationScientifique.anneeMiseEnOeuvre |truncate}}</td>
+                            
+
+                            
+                                 <td>{{developpementDeSavoirEtInnovationScientifique.lienWeb |truncate}}</td>
+                            
+
+                            
+                                <td>{{developpementDeSavoirEtInnovationScientifique.savoirEtInnovationVo?.id |truncate}}</td>
+                            
+
+                            
+                                <td>{{developpementDeSavoirEtInnovationScientifique.etatEtapeCampagneVo?.libelle |truncate}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editDeveloppementDeSavoirEtInnovationScientifique(developpementDeSavoirEtInnovationScientifique)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewDeveloppementDeSavoirEtInnovationScientifique(developpementDeSavoirEtInnovationScientifique)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteDeveloppementDeSavoirEtInnovationScientifique(developpementDeSavoirEtInnovationScientifique)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateDeveloppementDeSavoirEtInnovationScientifique(developpementDeSavoirEtInnovationScientifique)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{developpementDeSavoirEtInnovationScientifiques ? developpementDeSavoirEtInnovationScientifiques.length == 1 ? 'y a' : 'y a' : 'y a' }} {{developpementDeSavoirEtInnovationScientifiques ? developpementDeSavoirEtInnovationScientifiques.length : 0 }} {{developpementDeSavoirEtInnovationScientifiques ? developpementDeSavoirEtInnovationScientifiques.length == 1 ? 'developpementDeSavoirEtInnovationScientifique' : 'developpementDeSavoirEtInnovationScientifiques' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-developpement-de-savoir-et-innovation-scientifique-create-admin></app-developpement-de-savoir-et-innovation-scientifique-create-admin>
+        <app-developpement-de-savoir-et-innovation-scientifique-edit-admin></app-developpement-de-savoir-et-innovation-scientifique-edit-admin>
+        <app-developpement-de-savoir-et-innovation-scientifique-view-admin></app-developpement-de-savoir-et-innovation-scientifique-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

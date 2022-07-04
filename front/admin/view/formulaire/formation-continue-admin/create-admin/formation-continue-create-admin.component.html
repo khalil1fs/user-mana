@@ -1,0 +1,213 @@
+        <p-dialog [(visible)]="createFormationContinueDialog" [style]="{width: '70vw'}"
+                header="Formation continue" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="Formation continue">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">Intitule<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Intitule"
+                                                   id="1" [(ngModel)]="selectedFormationContinue.intitule"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : validIntitule}" required />
+                                            <small class='p-error' *ngIf='!validIntitule'>Intitule est obligatoire.</small>
+                                        </div>
+
+
+
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Publique professionel</label>
+                                        <p-multiSelect [options]="formationContinuePubliqueProfessionels"
+                                                       [(ngModel)]="selectedFormationContinue.formationContinuePubliqueProfessionelsVo" defaultLabel="Sélectionnez un publique professionnel" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="3">Nombre heures dispensees dans annee<span style="color: red;">*</span></label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="3"
+                                                           placeholder="Nombre heures dispensees dans annee"
+                                                    [(ngModel)]="selectedFormationContinue.nombreHeuresDispenseesDansAnnee" [ngClass]="{'ng-invalid ng-dirty' : validNombreHeuresDispenseesDansAnnee}" required >
+                                            </p-inputNumber>
+                                            <small class='p-error' *ngIf='!validNombreHeuresDispenseesDansAnnee'>NombreHeuresDispenseesDansAnnee est obligatoire.</small>
+                                        </div>
+
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="4">Modalite formation continue<span style="color: red;">*</span></label>
+                                            <p-dropdown [options]="modaliteFormationContinues" [(ngModel)]="selectedFormationContinue.modaliteFormationContinueVo"
+                                                    id="4" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Modalite formation continue" [ngClass]="{'ng-invalid ng-dirty' : validModaliteFormationContinue}" required >
+                                            </p-dropdown>
+                                            <small class='p-error' *ngIf='!validModaliteFormationContinue'>ModaliteFormationContinue est obligatoire.</small>
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatemodaliteFormationContinue('modaliteFormationContinue')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Objet formation generique</label>
+                                        <p-multiSelect [options]="formationContinueObjetFormationGeneriques"
+                                                       [(ngModel)]="selectedFormationContinue.formationContinueObjetFormationGeneriquesVo" defaultLabel="Sélectionnez un objet de formation générique" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Enjeux ird</label>
+                                        <p-multiSelect [options]="formationContinueEnjeuxIrds"
+                                                       [(ngModel)]="selectedFormationContinue.formationContinueEnjeuxIrdsVo" defaultLabel="Sélectionnez un enjeux IRD" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Discipline scientifique</label>
+                                        <p-multiSelect [options]="formationContinueDisciplineScientifiques"
+                                                       [(ngModel)]="selectedFormationContinue.formationContinueDisciplineScientifiquesVo" defaultLabel="Sélectionnez un discipline scientifique" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Pays</label>
+                                        <p-multiSelect [options]="paysFormationContinues" [(ngModel)]="selectedFormationContinue.paysFormationContinuesVo" defaultLabel="Sélectionnez un pays" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Zone geographique</label>
+                                        <p-multiSelect [options]="zoneGeographiqueFormationContinues"
+                                                       [(ngModel)]="selectedFormationContinue.zoneGeographiqueFormationContinuesVo" defaultLabel="Sélectionnez une zone géographique" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="11">Enseignement et formation</label>
+                                            <p-dropdown [options]="enseignementEtFormations" [(ngModel)]="selectedFormationContinue.enseignementEtFormationVo"
+                                                    id="11" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Enseignement et formation"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateenseignementEtFormation('enseignementEtFormation')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="12">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedFormationContinue.etatEtapeCampagneVo"
+                                                    id="12" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+                    <p-tabPanel header="Formation continue commanditaires">
+                                <div class="p-grid">
+                                      <div class="p-col">
+                                                    <div class="p-field p-col-11 p-md-5">
+                                                        <label>Commanditaire</label>
+                                                        <p-dropdown [options]="commanditaires" [(ngModel)]="selectedFormationContinueCommanditaires.commanditaireVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Commanditaire"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatecommanditaire('commanditaire')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                    <div class="p-field p-col-11 p-md-5">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedFormationContinueCommanditaires.paysVo"
+                                                                id="3"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                          <div class="p-field p-col-12 p-md-1">
+                                              <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                    label="OK" (click)="addFormationContinueCommanditaires()">
+                                              </button>
+                                          </div>
+                                        </div>
+                                </div>
+                                  <div class="p-col">
+                                    <div class="card">
+                                        <p-table [value]="selectedFormationContinue.formationContinueCommanditairesVo" [scrollable]="true"
+                                                scrollHeight="200px">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                                <th>Commanditaire</th>
+                                                                <th>Pays</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-p>
+                                                <tr>
+                                                            <td>{{p.commanditaireVo?.libelle |truncate}}</td>
+                                                            <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                    <td>
+                                                        <button (click)="deleteFormationContinueCommanditaires(p)" pButton type="button" icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+
+                                 </div>
+                            </p-tabPanel>
+
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-modalite-formation-continue-create-admin></app-modalite-formation-continue-create-admin>
+                    <app-enseignement-et-formation-create-admin></app-enseignement-et-formation-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                            <app-publique-professionel-create-admin></app-publique-professionel-create-admin>
+                            <app-objet-formation-generique-create-admin></app-objet-formation-generique-create-admin>
+                            <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                            <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+                            <app-zone-geographique-create-admin></app-zone-geographique-create-admin>
+                            <app-commanditaire-create-admin></app-commanditaire-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+
+    </p-dialog>

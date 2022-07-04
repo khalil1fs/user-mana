@@ -1,0 +1,362 @@
+<app-badge-card-view
+        (switchCardViewOutput)="isCardDisplayActivated = $event"></app-badge-card-view>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openCreateChercheur('chercheur')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <button pButton pRipple label="Importer"
+                                icon="pi pi-upload"
+                                class="p-mr-4"
+                                (click)="importFromGraphql()"
+                                [disabled]="btnChargementDisabled"
+                        ></button>
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help"
+                                       [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2" (keyup.enter)="searchRequest()"
+                                           type="text" maxlength="30" [(ngModel)]="searchChercheur.numeroMatricule">
+                                    <label for="2">{{'numero_matricule' | i18next}}</label>
+                                </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="8" (keyup.enter)="searchRequest()"
+                                           type="text" maxlength="30" [(ngModel)]="searchChercheur.natureImplication">
+                                    <label for="8">{{'Nature implication' | i18next}}</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="9" [options]="yesOrNoFormationEnManagement"
+                                                [(ngModel)]="searchChercheur.formationEnManagement"
+                                                [filter]="false" [showClear]="true"
+                                                [placeholder]="'Formation en management'"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="10" [options]="yesOrNoCredentialsNonExpired"
+                                                [(ngModel)]="searchChercheur.credentialsNonExpired"
+                                                [filter]="false" [showClear]="true"
+                                                placeholder="Identifiants non expirés"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="11" [options]="yesOrNoEnabled" [(ngModel)]="searchChercheur.enabled"
+                                                [filter]="false" [showClear]="true" placeholder="Activé"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="12" [options]="yesOrNoAccountNonExpired"
+                                                [(ngModel)]="searchChercheur.accountNonExpired"
+                                                [filter]="false" [showClear]="true" placeholder="Compte non expiré"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="13" [options]="yesOrNoAccountNonLocked"
+                                                [(ngModel)]="searchChercheur.accountNonLocked"
+                                                [filter]="false" [showClear]="true" placeholder="Compte non verrouillé"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="14" [options]="yesOrNoPasswordChanged"
+                                                [(ngModel)]="searchChercheur.passwordChanged"
+                                                [filter]="false" [showClear]="true" placeholder="Mot de passe changé"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchChercheur.createdAtMin"
+                                    id="15-1" (keyup.enter)="searchRequest()"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="15-1">Crée à la date min.</label>
+                        </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchChercheur.createdAtMax"
+                                    id="15-2" (keyup.enter)="searchRequest()"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="15-2">Crée à la date max.</label>
+                        </span>
+
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchChercheur.updatedAtMin"
+                                    id="16-1" (keyup.enter)="searchRequest()"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="16-1">Mis-à-jour à la date min.</label>
+                        </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchChercheur.updatedAtMax"
+                                    (keyup.enter)="searchRequest()"
+                                    id="16-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="16-2">Mis-à-jour à la date max</label>
+                        </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="17" (keyup.enter)="searchRequest()"
+                                           type="text" maxlength="30" [(ngModel)]="searchChercheur.username">
+                                    <label for="17">{{'Username' | i18next}}</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="18" (keyup.enter)="searchRequest()"
+                                           type="text" maxlength="30" [(ngModel)]="searchChercheur.password">
+                                    <label for="18">{{'Password' |i18next}}</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="19" (keyup.enter)="searchRequest()"
+                                           type="text" maxlength="30" [(ngModel)]="searchChercheur.prenom">
+                                    <label for="19">Pr&eacute;nom</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="20" (keyup.enter)="searchRequest()"
+                                           type="text" maxlength="30" [(ngModel)]="searchChercheur.nom">
+                                    <label for="20">Nom</label>
+                                </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Effacer" icon="pi pi-times"
+                            class="p-button-info p-mr-2" (click)="clearRequest()"></button>
+
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="flatChercheurs" [columns]="cols" [rows]="10" [paginator]="true"
+                     [rowsPerPageOptions]="[10,25,50,100,500]"
+                     [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }" sortMode="multiple"
+                     [globalFilterFields]="['numeroMatricule', 'email', 'natureImplication', 'resume',
+                     'formationEnManagement', 'credentialsNonExpired', 'enabled', 'createdAt', 'updatedAt',
+                     'accountNonExpired', 'accountNonLocked', 'username', 'password', 'prenom', 'nom', 'role', 'pays',
+                     'ville','passwordChanged']"
+                     [(selection)]="selectedChercheur" [rowHover]="true" dataKey="id"
+                     styleClass="p-datatable-customers"
+                     currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} des entrées"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Chercheurs</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30" placeholder="Chercher..."
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                        <app-select-box-sort-table-gestion-equipe-admin *ngIf="isCardDisplayActivated" [cols]="cols"
+                                                                        [table]="dt">
+                        </app-select-box-sort-table-gestion-equipe-admin>
+                    </div>
+                </ng-template>
+
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                        <th pSortableColumn="numeroMatricule">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Num&eacute;ro matricule</span>
+                                <p-sortIcon field="numeroMatricule"></p-sortIcon>
+                                <p-columnFilter type="text" field="numeroMatricule" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="username">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>{{'Username' | i18next}}</span>
+                                <p-sortIcon field="username"></p-sortIcon>
+                                <p-columnFilter type="text" field="username" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="prenom">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Pr&eacute;nom</span>
+                                <p-sortIcon field="prenom"></p-sortIcon>
+                                <p-columnFilter type="text" field="prenom" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+                        <th pSortableColumn="nom">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Nom</span>
+                                <p-sortIcon field="nom"></p-sortIcon>
+                                <p-columnFilter type="text" field="nom" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="email">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Email</span>
+                                <p-sortIcon field="email"></p-sortIcon>
+                                <p-columnFilter type="text" field="email" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="pays">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Pays</span>
+                                <p-sortIcon field="pays"></p-sortIcon>
+                                <p-columnFilter type="text" field="pays" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="ville">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Ville</span>
+                                <p-sortIcon field="ville"></p-sortIcon>
+                                <p-columnFilter type="text" field="ville" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-flatChercheur>
+
+                    <!--        Blocs cartes        -->
+                    <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="flatChercheur.createdAt"
+                                     [status]="flatChercheur.numeroMatricule"
+                                     [cardTitle]="flatChercheur.nom + ' ' + flatChercheur.prenom">
+                        <div card-body>
+                            <ul>
+                                <li><b>{{'username' | i18next}} :</b>
+                                    {{flatChercheur.username}}</li>
+
+                                <li><b>Email :</b>
+                                    {{flatChercheur.email}}</li>
+
+                                <li><b>Pays :</b>
+                                    {{flatChercheur.pays}}</li>
+
+                                <li><b>Ville :</b>
+                                    {{flatChercheur.ville}}</li>
+
+
+                                <li><b>{{'updatedAt' | i18next}}</b>
+                                    {{flatChercheur.updatedAt | date:'dd/MM/yyyy'}}</li>
+                            </ul>
+                        </div>
+                        <div card-buttons>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{flatChercheur: flatChercheur}"></ng-template>
+                        </div>
+                    </app-custom-card>
+
+                    <tr *ngIf="!isCardDisplayActivated">
+                        <td>
+                            <p-tableCheckbox [value]="flatChercheur"></p-tableCheckbox>
+                        </td>
+                        <td>{{flatChercheur.numeroMatricule |truncate}}</td>
+                        <td>{{flatChercheur.username |truncate}}</td>
+                        <td>{{flatChercheur.prenom |truncate}}</td>
+
+                        <td>{{flatChercheur.nom |truncate}}</td>
+
+
+                        <td>{{flatChercheur.email |truncate}}</td>
+
+
+                        <td>{{flatChercheur.pays |truncate}}</td>
+
+
+                        <td>{{flatChercheur.ville |truncate}}</td>
+
+
+                        <td>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{flatChercheur: flatChercheur}"></ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        <!--                        TODO TAREG : Younes, voir comment changer ça. Peut-être mettre "Total : x chercheurs"   -->
+                        Total
+                        : {{chercheurs ? chercheurs.length : 0 }} {{chercheurs ? chercheurs.length == 1 ? 'chercheur' : 'chercheurs' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+                <ng-template #boutonsActions let-flatChercheur="flatChercheur">
+                    <button pButton pRipple icon="pi pi-pencil" title="Editer"
+                            class="p-button-rounded p-button-success p-mr-2"
+                            (click)="editChercheur(flatChercheur)"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                            title="Voir chercheur"
+                            (click)="viewChercheur(flatChercheur)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                            title="Effacer chercheur"
+                            (click)="deleteChercheur(flatChercheur)"></button>
+                    <button pButton pRipple icon="pi pi-copy"
+                            title="Dupliquer"
+                            class="p-button-rounded p-button-raised p-button-warning"
+                            (click)="duplicateChercheur(flatChercheur)"></button>
+                </ng-template>
+            </p-table>
+        </div>
+
+
+        <app-chercheur-create-admin></app-chercheur-create-admin>
+        <app-chercheur-edit-admin></app-chercheur-edit-admin>
+        <app-chercheur-view-admin></app-chercheur-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+        <p-dialog header="Chargement des chercheurs" [(visible)]="chargement">
+            <div *ngIf="!chargementTermine && !chargementFailed">
+                <div style="margin:0 auto;width: 160px;">
+                    <p-progressSpinner></p-progressSpinner>
+                    <p>Chargement en cours ...</p>
+                </div>
+                <div>
+                    <p-message severity="warn"
+                               text="Merci d'attendre. Le chargement peut prendre plusieurs minutes."></p-message>
+                </div>
+            </div>
+            <div *ngIf="chargementTermine && importChercheurVO.success">
+                <p-messages [(value)]="msgsSuccessImport" [enableService]="false"></p-messages>
+            </div>
+            <div *ngIf="chargementFailed">
+                <p-messages [(value)]="msgsFailedImport" [enableService]="false"></p-messages>
+            </div>
+        </p-dialog>
+
+    </div>
+</div>

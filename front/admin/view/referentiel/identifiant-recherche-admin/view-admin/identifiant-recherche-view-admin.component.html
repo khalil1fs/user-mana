@@ -1,0 +1,84 @@
+
+<p-dialog [(visible)]="viewIdentifiantRechercheDialog" [style]="{width: '70vw'}"
+        header="{{'identifiantRechercheTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'identifiantRechercheTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'identifiantRechercheLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'identifiantRechercheLibelle' | i18next}}"  [(ngModel)]="selectedIdentifiantRecherche.libelle"
+                                           id="1" [(ngModel)]="selectedIdentifiantRecherche.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'identifiantRechercheCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'identifiantRechercheCode' | i18next}}"  [(ngModel)]="selectedIdentifiantRecherche.code"
+                                           id="2" [(ngModel)]="selectedIdentifiantRecherche.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">{{'identifiantRechercheDescription' | i18next}}</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true"
+                                              placeholder="{{'identifiantRechercheDescription' | i18next}}"  [(ngModel)]="selectedIdentifiantRecherche.description"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="4">{{'identifiantRechercheArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="4"  [disabled]="true" [(ngModel)]="selectedIdentifiantRecherche.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'identifiantRechercheDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'identifiantRechercheDateArchivage' | i18next}}"  [(ngModel)]="selectedIdentifiantRecherche.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="6">{{'identifiantRechercheDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="6" [disabled]="true"
+                                                placeholder="{{'identifiantRechercheDateCreation' | i18next}}"  [(ngModel)]="selectedIdentifiantRecherche.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

@@ -1,0 +1,254 @@
+<app-badge-card-view
+        (switchCardViewOutput)="isCardDisplayActivated = $event"></app-badge-card-view>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openCreateEtudiant('etudiant')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help"
+                                       [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text" maxlength="30" [(ngModel)]="searchEtudiant.nom">
+                                    <label for="1">Nom</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text" maxlength="30" [(ngModel)]="searchEtudiant.prenom">
+                                    <label for="2">Prenom</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="sexes" [(ngModel)]="searchEtudiant.sexeVo"
+                                            id="3"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Sexe</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchEtudiant.paysVo"
+                                            id="4"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="4">Pays</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="5" [options]="yesno" [(ngModel)]="searchEtudiant.archive"
+                                                [filter]="false" [showClear]="true"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="5">Archive</label>
+                                </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEtudiant.dateArchivageMin"
+                                    id="6-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-1">Date archivage Min</label>
+                        </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEtudiant.dateArchivageMax"
+                                    id="6-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-2">Date archivage Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="etudiants" [columns]="cols" [rows]="8" [paginator]="true"
+                     [globalFilterFields]="['nom', 'prenom', 'libelle', 'libelle', 'archive', 'dateArchivage']"
+                     [(selection)]="selectedEtudiant"
+                     [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }" sortMode="multiple"
+                     [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                     currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Etudiants</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30" placeholder="Chercher..."
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+
+                        <th pSortableColumn="nom">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Nom</span>
+                                <p-sortIcon field="nom"></p-sortIcon>
+                                <p-columnFilter type="text" field="nom" display="menu"></p-columnFilter>
+
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="prenom">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Prenom</span>
+                                <p-sortIcon field="prenom"></p-sortIcon>
+                                <p-columnFilter type="text" field="prenom" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="sexe">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Sexe</span>
+                                <p-sortIcon field="sexe"></p-sortIcon>
+                                <p-columnFilter type="text" field="sexe" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="pays">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Pays</span>
+                                <p-sortIcon field="pays"></p-sortIcon>
+                                <p-columnFilter type="text" field="pays" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="archive">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Archive</span>
+                                <p-sortIcon field="archive"></p-sortIcon>
+                                <p-columnFilter type="text" field="archive" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="dateArchivage">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Date archivage</span>
+                                <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                <p-columnFilter type="text" field="dateArchivage"
+                                                display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-etudiant>
+                    <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="etudiant.createdAt"
+                                     [status]="etudiant.paysVo?.libelle"
+                                     [cardTitle]="etudiant.nom + ' ' + etudiant.prenom">
+                        <div card-body>
+                            <b>Sexe : </b> {{etudiant.sexeVo?.libelle}} <br/>
+                            <b>Pays : </b> {{etudiant.paysVo?.libelle}} <br/>
+                            <b>Archivé : </b> <i *ngIf="etudiant?.archive" class="pi pi-check checked-toogle"></i>
+                            <i *ngIf="!etudiant.archive" class="pi pi-times unchecked-toogle"></i> <br/>
+                            <b>Date archivage : </b> {{etudiant.dateArchivage | date:'dd-M-yyyy'}}
+                        </div>
+                        <div card-buttons>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{etudiant: etudiant}"></ng-template>
+                        </div>
+                    </app-custom-card>
+
+                    <tr *ngIf="!isCardDisplayActivated">
+                        <td>
+                            <p-tableCheckbox [value]="etudiant"></p-tableCheckbox>
+                        </td>
+
+                        <td>{{etudiant.nom |truncate}}</td>
+
+
+                        <td>{{etudiant.prenom |truncate}}</td>
+
+
+                        <td>{{etudiant.sexeVo?.libelle |truncate}}</td>
+
+
+                        <td>{{etudiant.paysVo?.libelle |truncate}}</td>
+
+
+                        <td><i *ngIf="etudiant?.archive" class="pi pi-check checked-toogle"></i>
+                            <i *ngIf="!etudiant?.archive" class="pi pi-times unchecked-toogle"></i>
+                        </td>
+
+
+                        <td>{{etudiant?.dateArchivage | date:'dd-M-yyyy' |truncate}}</td>
+
+
+                        <td>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #boutonsActions let-etudiant="etudiant">
+
+                    <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success p-mr-2"
+                            (click)="editEtudiant(etudiant)"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="viewEtudiant(etudiant)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                            (click)="deleteEtudiant(etudiant)"></button>
+                    <button *ngIf="!etudiant.archive" pButton pRipple icon="pi pi-calendar-minus"
+                            class="p-button-rounded p-button-help p-mr-2"
+                            (click)="archiverEtudiant(etudiant)"></button>
+
+                    <button *ngIf="etudiant.archive" pButton pRipple icon="pi pi-calendar-plus"
+                            class="p-button-rounded p-button-secondary p-mr-2"
+                            (click)="desarchiverEtudiant(etudiant)"></button>
+
+                    <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                            (click)="duplicateEtudiant(etudiant)"></button>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{etudiants ? etudiants.length == 1 ? 'y a' : 'y a' : 'y a' }} {{etudiants ? etudiants.length : 0 }} {{etudiants ? etudiants.length == 1 ? 'etudiant' : 'etudiants' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-etudiant-create-admin></app-etudiant-create-admin>
+        <app-etudiant-edit-admin></app-etudiant-edit-admin>
+        <app-etudiant-view-admin></app-etudiant-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

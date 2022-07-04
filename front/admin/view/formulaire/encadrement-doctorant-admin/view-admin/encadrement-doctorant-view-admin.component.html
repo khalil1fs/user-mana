@@ -1,0 +1,239 @@
+
+<p-dialog [(visible)]="viewEncadrementDoctorantDialog" [style]="{width: '70vw'}"
+        header="Encadrement doctorant" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Encadrement doctorant">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="1">Responsabilite encadrement doctorant</label>
+                                    <p-dropdown [options]="responsabiliteEncadrementDoctorants" [(ngModel)]="selectedEncadrementDoctorant.responsabiliteEncadrementDoctorantVo"
+                                            id="1" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Responsabilite encadrement doctorant">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="2">Codirection internationale</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="2"  [disabled]="true" [(ngModel)]="selectedEncadrementDoctorant.codirectionInternationale"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="3">Sujet these</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Sujet these"  [(ngModel)]="selectedEncadrementDoctorant.sujetThese"
+                                           id="3" [(ngModel)]="selectedEncadrementDoctorant.sujetThese"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="7">Date debut these</label>
+                                    <p-calendar id="7" [disabled]="true"
+                                                placeholder="Date debut these"  [(ngModel)]="selectedEncadrementDoctorant.dateDebutThese"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="8">Date prevu soutenance these</label>
+                                    <p-calendar id="8" [disabled]="true"
+                                                placeholder="Date prevu soutenance these"  [(ngModel)]="selectedEncadrementDoctorant.datePrevuSoutenanceThese"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="9">Intitule ecole doctorale</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Intitule ecole doctorale"  [(ngModel)]="selectedEncadrementDoctorant.intituleEcoleDoctorale"
+                                           id="9" [(ngModel)]="selectedEncadrementDoctorant.intituleEcoleDoctorale"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="10">Financement doctorant</label>
+                                    <p-dropdown [options]="financementDoctorants" [(ngModel)]="selectedEncadrementDoctorant.financementDoctorantVo"
+                                            id="10" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Financement doctorant">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="11">Etablissement</label>
+                                    <p-dropdown [options]="etablissements" [(ngModel)]="selectedEncadrementDoctorant.etablissementVo"
+                                            id="11" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etablissement">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="12">Pays</label>
+                                    <p-dropdown [options]="payss" [(ngModel)]="selectedEncadrementDoctorant.paysVo"
+                                            id="12" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Pays">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="13">Doctorant</label>
+                                    <p-dropdown [options]="doctorants" [(ngModel)]="selectedEncadrementDoctorant.doctorantVo"
+                                            id="13" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="id"
+                                            placeholder="Doctorant">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="14">Encadrement</label>
+                                    <p-dropdown [options]="encadrements" [(ngModel)]="selectedEncadrementDoctorant.encadrementVo"
+                                            id="14" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="id"
+                                            placeholder="Encadrement">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="15">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedEncadrementDoctorant.etatEtapeCampagneVo"
+                                            id="15" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Enjeux ird encadrement doctorants">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEncadrementDoctorant.enjeuxIrdEncadrementDoctorantsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Enjeux ird</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Discipline scientifique encadrement doctorants">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEncadrementDoctorant.disciplineScientifiqueEncadrementDoctorantsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Discipline scientifique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Communaute savoir encadrement doctorants">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEncadrementDoctorant.communauteSavoirEncadrementDoctorantsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Communaute savoir</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-responsabilite-encadrement-doctorant-create-admin></app-responsabilite-encadrement-doctorant-create-admin>
+            <app-financement-doctorant-create-admin></app-financement-doctorant-create-admin>
+            <app-etablissement-create-admin></app-etablissement-create-admin>
+            <app-pays-create-admin></app-pays-create-admin>
+            <app-doctorant-create-admin></app-doctorant-create-admin>
+            <app-encadrement-create-admin></app-encadrement-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                    <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                    <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+                    <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+
+
+</p-dialog>
+
+
+

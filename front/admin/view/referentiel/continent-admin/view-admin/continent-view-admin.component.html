@@ -1,0 +1,87 @@
+
+<p-dialog [(visible)]="viewContinentDialog" [style]="{width: '70vw'}"
+        header="{{'continentTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'continentTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'continentLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'continentLibelle' | i18next}}"  [(ngModel)]="selectedContinent.libelle"
+                                           id="1" [(ngModel)]="selectedContinent.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'continentCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'continentCode' | i18next}}"  [(ngModel)]="selectedContinent.code"
+                                           id="2" [(ngModel)]="selectedContinent.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">{{'continentIdGraph' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'continentIdGraph' | i18next}}"  [(ngModel)]="selectedContinent.idGraph"
+                                           id="3" [(ngModel)]="selectedContinent.idGraph"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="4">{{'continentArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="4"  [disabled]="true" [(ngModel)]="selectedContinent.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'continentDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'continentDateArchivage' | i18next}}"  [(ngModel)]="selectedContinent.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="6">{{'continentDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="6" [disabled]="true"
+                                                placeholder="{{'continentDateCreation' | i18next}}"  [(ngModel)]="selectedContinent.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

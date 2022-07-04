@@ -1,0 +1,152 @@
+
+<p-dialog [(visible)]="viewVieInstitutionnelleDialog" [style]="{width: '70vw'}"
+        header="Vie institutionnelle" [modal]="true" (onHide)="hideViewDialog()"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Vie institutionnelle">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Temps estime</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="1" [disabled]="true"
+                                                   placeholder="Temps estime"  [(ngModel)]="selectedVieInstitutionnelle.tempsEstime"
+                                            [(ngModel)]="selectedVieInstitutionnelle.tempsEstime"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedVieInstitutionnelle.campagneVo"
+                                            id="2" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedVieInstitutionnelle.chercheurVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="numeroMatricule"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedVieInstitutionnelle.etatEtapeCampagneVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Vie institutionnelle details">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedVieInstitutionnelleDetails.vieInstitutionnelleDetailInstrumentIrdsVo" [scrollable]="true"
+                                                                                        scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                               <th>Instrument ird</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                <td>{{p.instrumentIrdVo?.libelle |truncate}}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                    </div>
+                                    <div class="card">
+                                        <p-table [value]="selectedVieInstitutionnelleDetails.vieInstitutionnelleDetailEtablissementsVo" [scrollable]="true"
+                                                                                            scrollHeight="200px">
+                                            <ng-template pTemplate="header">
+                                                <tr>
+                                                                <th>Etablissement</th>
+                                                                <th>Pays</th>
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template pTemplate="body" let-p>
+                                                <tr>
+                                                            <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                            <td>{{p.etablissementVo?.paysVo?.libelle |truncate}}</td>
+                                                </tr>
+                                            </ng-template>
+                                        </p-table>
+                                    </div>
+                                <div class="card">
+                                    <p-table [value]="selectedVieInstitutionnelle.vieInstitutionnelleDetailsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Type instance</th>
+                                                            <th>Coorele structure ird</th>
+                                                            <th>Structure ird</th>
+                                                            <th>Coorele instrument ird</th>
+                                                            <th>Libelle</th>
+                                                            <th></th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.typeInstanceVo?.libelle |truncate}}</td>
+                                                        <td><i *ngIf="p.cooreleStructureIrd" class="pi pi-check checked-toogle"></i>
+                                                            <i *ngIf="!p.cooreleStructureIrd" class="pi pi-times unchecked-toogle"></i>
+                                                        </td>
+
+                                                        <td>{{p.structureIrdVo?.libelle |truncate}}</td>
+                                                        <td><i *ngIf="p.cooreleInstrumentIrd" class="pi pi-check checked-toogle"></i>
+                                                            <i *ngIf="!p.cooreleInstrumentIrd" class="pi pi-times unchecked-toogle"></i>
+                                                        </td>
+
+                                                        <td>{{p.libelle |truncate}}</td>
+                                                            <td><button (click)="viewVieInstitutionnelleDetails(p)" pButton type="button"
+                                                                icon="pi pi-eye"  class="p-button-rounded p-button-success">
+                                                                 </button>
+                                                    </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-campagne-create-admin></app-campagne-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                    <app-type-instance-create-admin></app-type-instance-create-admin>
+                    <app-structure-ird-create-admin></app-structure-ird-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+
+
+</p-dialog>
+
+
+

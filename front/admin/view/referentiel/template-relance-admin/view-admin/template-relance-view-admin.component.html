@@ -1,0 +1,84 @@
+
+<p-dialog [(visible)]="viewTemplateRelanceDialog" [style]="{width: '70vw'}"
+        header="{{'templateRelanceTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'templateRelanceTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'templateRelanceCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'templateRelanceCode' | i18next}}"  [(ngModel)]="selectedTemplateRelance.code"
+                                           id="1" [(ngModel)]="selectedTemplateRelance.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'templateRelanceObjet' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'templateRelanceObjet' | i18next}}"  [(ngModel)]="selectedTemplateRelance.objet"
+                                           id="2" [(ngModel)]="selectedTemplateRelance.objet"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">{{'templateRelanceMessage' | i18next}}</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true"
+                                              placeholder="{{'templateRelanceMessage' | i18next}}"  [(ngModel)]="selectedTemplateRelance.message"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="4">{{'templateRelanceArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="4"  [disabled]="true" [(ngModel)]="selectedTemplateRelance.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'templateRelanceDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'templateRelanceDateArchivage' | i18next}}"  [(ngModel)]="selectedTemplateRelance.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="6">{{'templateRelanceDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="6" [disabled]="true"
+                                                placeholder="{{'templateRelanceDateCreation' | i18next}}"  [(ngModel)]="selectedTemplateRelance.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

@@ -1,0 +1,94 @@
+
+<p-dialog [(visible)]="viewInstrumentsEtDispositifsIrdDialog" [style]="{width: '70vw'}"
+        header="Instruments et dispositifs ird" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Instruments et dispositifs ird">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Libelle</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Libelle"  [(ngModel)]="selectedInstrumentsEtDispositifsIrd.libelle"
+                                           id="1" [(ngModel)]="selectedInstrumentsEtDispositifsIrd.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Code</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Code"  [(ngModel)]="selectedInstrumentsEtDispositifsIrd.code"
+                                           id="2" [(ngModel)]="selectedInstrumentsEtDispositifsIrd.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Description</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30"
+                                              placeholder="Description"  [(ngModel)]="selectedInstrumentsEtDispositifsIrd.description"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-5">
+                                    <label for="4">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedInstrumentsEtDispositifsIrd.campagneVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-5">
+                                    <label for="5">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedInstrumentsEtDispositifsIrd.chercheurVo"
+                                            id="5" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="numeroMatricule"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-campagne-create-admin></app-campagne-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+
+
+
+</p-dialog>
+
+
+

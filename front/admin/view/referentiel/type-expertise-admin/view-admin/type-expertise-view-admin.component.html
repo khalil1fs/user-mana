@@ -1,0 +1,77 @@
+
+<p-dialog [(visible)]="viewTypeExpertiseDialog" [style]="{width: '70vw'}"
+        header="{{'typeExpertiseTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'typeExpertiseTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'typeExpertiseLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'typeExpertiseLibelle' | i18next}}"  [(ngModel)]="selectedTypeExpertise.libelle"
+                                           id="1" [(ngModel)]="selectedTypeExpertise.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'typeExpertiseCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'typeExpertiseCode' | i18next}}"  [(ngModel)]="selectedTypeExpertise.code"
+                                           id="2" [(ngModel)]="selectedTypeExpertise.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="3">{{'typeExpertiseArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="3"  [disabled]="true" [(ngModel)]="selectedTypeExpertise.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">{{'typeExpertiseDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="4" [disabled]="true"
+                                                placeholder="{{'typeExpertiseDateArchivage' | i18next}}"  [(ngModel)]="selectedTypeExpertise.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'typeExpertiseDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'typeExpertiseDateCreation' | i18next}}"  [(ngModel)]="selectedTypeExpertise.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

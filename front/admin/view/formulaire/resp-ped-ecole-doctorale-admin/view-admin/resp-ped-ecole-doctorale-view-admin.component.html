@@ -1,0 +1,169 @@
+
+<p-dialog [(visible)]="viewResponsabilitePedagogiqueEcoleDoctoraleDialog" [style]="{width: '70vw'}"
+        header="Responsabilite pedagogique ecole doctorale" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Responsabilite pedagogique ecole doctorale">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="1">Annee</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="1" [disabled]="true"
+                                                   placeholder="Annee"  [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.annee"
+                                            [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.annee"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="2">Temps estime pour cette année</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="2" [disabled]="true"
+                                                   placeholder="Temps estime pour cette année"  [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.tempsEstimePourCetteAnnne"
+                                            [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.tempsEstimePourCetteAnnne"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="3">Statut ecole doctorale</label>
+                                    <p-dropdown [options]="statutEcoleDoctorales" [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.statutEcoleDoctoraleVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Statut ecole doctorale">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatestatutEcoleDoctorale('statutEcoleDoctorale')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="4">Appel service renforcement capacite sud</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="4"  [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.appelServiceRenforcementCapaciteSud"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">Ecole doctorale international</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleInternational"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="6">Ecole doctorale</label>
+                                    <p-dropdown [options]="ecoleDoctorales" [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.ecoleDoctoraleVo"
+                                            id="6" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="intitule"
+                                            placeholder="Ecole doctorale">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateecoleDoctorale('ecoleDoctorale')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="7">Etablissement</label>
+                                    <p-dropdown [options]="etablissements" [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.etablissementVo"
+                                            id="7" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etablissement">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="8">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.etatEtapeCampagneVo"
+                                            id="8" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="9">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.chercheurVo"
+                                            id="9" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="numeroMatricule"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="10">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedResponsabilitePedagogiqueEcoleDoctorale.campagneVo"
+                                            id="10" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-statut-ecole-doctorale-create-admin></app-statut-ecole-doctorale-create-admin>
+            <app-ecole-doctorale-create-admin></app-ecole-doctorale-create-admin>
+            <app-etablissement-create-admin></app-etablissement-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+            <app-campagne-create-admin></app-campagne-create-admin>
+
+
+
+</p-dialog>
+
+
+

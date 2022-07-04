@@ -1,0 +1,159 @@
+<p-dialog [(visible)]="sendEmailCampagneDialog" [modal]="true" [style]="{width: '70vw'}"
+    header="Envoyer un e-mail relance" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="left">
+        <button pButton pRipple label="Nouveau" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+            (click)="openCreateEmail()"></button>
+        <button pButton pRipple label="Recherche" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+            class="p-button-success p-mr-2 p-mb-2"
+            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+    </ng-template>
+
+    <ng-template pTemplate="content">
+
+        <p-tabView>
+            <p-tabPanel header="Campagne relance">
+                <div class="p-grid" style="margin-top: 10px;">
+                    <div class="p-col-6">
+                        <div class="box">
+                            <div class="p-grid p-justify-end">
+                                <div class="p-col-11">
+                                    <div class="box">
+                                        <span class="p-float-label p-mr-3">
+                                            <p-dropdown [options]="templateRelances"
+                                                [(ngModel)]="selectedCampagneRelance.templateRelanceVo" id="15"
+                                                [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                optionLabel="code" (onChange)="changeTemplateRelance($event)">
+                                            </p-dropdown>
+                                            <label for="15">Template relance</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-col-1">
+                                    <div class="box"> <label></label>
+                                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                            (click)="openCreatetemplateRelance('templateRelance')"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-6">
+                        <div class="box">
+                            <span class="p-float-label p-mr-3">
+                                <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                    [(ngModel)]="selectedCampagneRelance.objetRelance" id="16" autofocus
+                                    [disabled]="isTemplateRelance" maxlength="80">
+                                <label for="6">Objet du mail de relance <span
+                                    style="color: red;">*</span></label>
+                                <small class="p-error" *ngIf="submitted && !selectedCampagneRelance.objetRelance">
+                                    Objet du mail de relance est obligatoire.</small>
+
+                            </span>
+                        </div>
+                    </div>
+                    <div class="p-col-6">
+                        <div class="box">
+                            <span class="p-float-label p-mr-3">
+                                <textarea id="17" pInputTextarea rows="10" cols="30"
+                                    [(ngModel)]="selectedCampagneRelance.messageRelance"
+                                    [disabled]="isTemplateRelance" maxlength="2000"></textarea>
+                                <label for="17">Message relance <span
+                                    style="color: red;">*</span></label>
+                                <small class="p-error" *ngIf="submitted && !selectedCampagneRelance.messageRelance">
+                                    Message relance est obligatoire.</small>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="Chercheurs">
+                <div class="container">
+                    <div class="p-grid" style="margin-top: 10px;">
+                        <div class="p-col-6">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <input [(ngModel)]="searchChercheur.numeroMatricule" class="p-mr-2"
+                                        id="numeroMatricule" pInputText type="text" maxlength="30"  >
+                                    <label for="numeroMatricule">Numero matricule</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-6">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <input [(ngModel)]="searchChercheur.email" class="p-mr-2" id="email" pInputText
+                                        type="text" maxlength="30"  >
+                                    <label for="email">Email</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-6">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <input [(ngModel)]="searchChercheur.nom" class="p-mr-2" id="nom" pInputText
+                                        type="text" maxlength="30"  >
+                                    <label for="nom">Nom</label>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-6">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <input [(ngModel)]="searchChercheur.prenom" class="p-mr-2" id="prenom" pInputText
+                                        type="text" maxlength="30"  >
+                                    <label for="prenom">Prenom</label>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-toolbar-group-right">
+                        <button (click)="searchRequest()" class="p-button-rounded p-button-danger"
+                            icon="pi pi-sort-amount-down" pButton pRipple></button>
+                    </div>
+                    <div style="margin-top: 10px;">
+                        <p-pickList [source]="availableChercheurs" [target]="selectedChercheurs"
+                            sourceHeader="Disponible" targetHeader="Choisi" [dragdrop]="true" [responsive]="true"
+                            [sourceStyle]="{'height':'30rem'}" [targetStyle]="{'height':'30rem'}" filterBy="nom"
+                            sourceFilterPlaceholder="Rechercher par nom" targetFilterPlaceholder="Rechercher par nom"
+                            [showTargetControls]="false" [showSourceControls]="false">
+                            <ng-template let-chercheur pTemplate="item">
+                                <div style="display: flex;">
+                                    <div class="p-col">
+                                        <div>
+                                            <i class="pi pi-fw pi-user"></i>
+                                            <span>{{chercheur?.nom }} {{chercheur?.prenom }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-col">
+                                        <div style="margin-left: 10px;">
+                                            <i class="pi pi-fw pi-envelope"></i>
+                                            <span>{{chercheur?.email }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-pickList>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="p-grid" style="margin-top: 10px;">
+            <div style="padding: 10px;">
+                <button (click)="hideEditDialog()" type="button" icon="pi pi-times" label="Annuler" pButton pRipple
+                    [disabled]="isSend"></button>
+            </div>
+            <div style="padding: 10px;">
+                <button (click)="sendEmailRelance()" [disabled]="isSend" icon="pi pi-send" label="Envoyer" pButton
+                    type="button" [disabled]="this.sendEmailRelanceDisabled"></button>
+            </div>
+        </div>
+    </ng-template>
+
+    <app-template-relance-create-admin></app-template-relance-create-admin>
+</p-dialog>

@@ -1,0 +1,77 @@
+
+<p-dialog [(visible)]="viewTypePubliqueDialog" [style]="{width: '70vw'}"
+        header="{{'typePubliqueTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'typePubliqueTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'typePubliqueLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'typePubliqueLibelle' | i18next}}"  [(ngModel)]="selectedTypePublique.libelle"
+                                           id="1" [(ngModel)]="selectedTypePublique.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'typePubliqueCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'typePubliqueCode' | i18next}}"  [(ngModel)]="selectedTypePublique.code"
+                                           id="2" [(ngModel)]="selectedTypePublique.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="3">{{'typePubliqueArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="3"  [disabled]="true" [(ngModel)]="selectedTypePublique.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">{{'typePubliqueDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="4" [disabled]="true"
+                                                placeholder="{{'typePubliqueDateArchivage' | i18next}}"  [(ngModel)]="selectedTypePublique.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'typePubliqueDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'typePubliqueDateCreation' | i18next}}"  [(ngModel)]="selectedTypePublique.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

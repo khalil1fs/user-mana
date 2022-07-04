@@ -1,0 +1,60 @@
+
+<p-dialog [(visible)]="viewCategorieFaqDialog" [style]="{width: '70vw'}"
+        header="Categorie faq" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Categorie faq">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Libellé</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Libelle"  [(ngModel)]="selectedCategorieFaq.libelle"
+                                           id="1" [(ngModel)]="selectedCategorieFaq.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Ordre</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="2" [disabled]="true"
+                                                   placeholder="Ordre"  [(ngModel)]="selectedCategorieFaq.ordre"
+                                            [(ngModel)]="selectedCategorieFaq.ordre"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="3">Archivage</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="3"  [(ngModel)]="selectedCategorieFaq.archive" [disabled]="true"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

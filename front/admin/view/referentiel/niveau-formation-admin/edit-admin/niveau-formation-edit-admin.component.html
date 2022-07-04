@@ -1,0 +1,87 @@
+        <p-dialog [(visible)]="editNiveauFormationDialog" [style]="{width: '70vw'}"
+                header="{{'niveauFormationTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'niveauFormationTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">{{'niveauFormationLibelleMicro' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'niveauFormationLibelleMicro' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedNiveauFormation.libelleMicro"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validNiveauFormationLibelleMicro}"  />
+                                            <small class='p-error' *ngIf='!validNiveauFormationLibelleMicro'>LibelleMicro est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">{{'niveauFormationLibelleMacro' | i18next}}</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'niveauFormationLibelleMacro' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedNiveauFormation.libelleMacro"
+                                                     />
+                                            
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="3">{{'niveauFormationCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'niveauFormationCode' | i18next}}"
+                                                   id="3" [(ngModel)]="selectedNiveauFormation.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validNiveauFormationCode}"  />
+                                            <small class='p-error' *ngIf='!validNiveauFormationCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="4">{{'niveauFormationArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="4"  [(ngModel)]="selectedNiveauFormation.archive"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="5">{{'niveauFormationDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="5"
+                                                        placeholder="{{'niveauFormationDateArchivage' | i18next}}"  [(ngModel)]="selectedNiveauFormation.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

@@ -1,0 +1,413 @@
+<p-toast></p-toast>
+<p-tabView>
+    <p-tabPanel header="Campagne">
+        <div class="p-grid" style="margin-top: 10px;">
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea inputId="textarea" rows="2" cols="30" [(ngModel)]="selectedCampagne.code"
+                            pInputTextarea maxlength="250" [style]="{'width':'100%'}"></textarea>
+                        <label for="3">Code</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="selectedCampagne.libelle"
+                            pInputTextarea maxlength="250"
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedCampagne.libelle}"
+                            [style]="{'width':'100%'}"></textarea>
+                        <label for="1">Libellé <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.libelle">
+                            Libellé est obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-col-6">
+                <div class="box">
+                    <div class="p-float-label p-mr-3">
+                        <p-inputNumber [(ngModel)]="selectedCampagne.annee" [format]="false" [showButtons]="true"
+                            [min]="1937" [max]="2090" [style]="{'width':'100%'}"></p-inputNumber>
+
+                        <label for="4">Année d’activités <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.annee">
+                            Année d’activités est obligatoire.</small>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-6"></div>
+
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <p-calendar [(ngModel)]="selectedCampagne.dateDepart" dateFormat="{{dateFormat}}" id="5"
+                            appendTo="body" [minDate]="minDate" (onSelect)="selectDateDepart()" required
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedCampagne.dateDepart}"
+                            [showTime]="true" [showSeconds]="false" [style]="{'width':'100%'}">
+                        </p-calendar>
+                        <label for="5">Date de début <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.dateDepart">
+                            Date de début est obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <p-calendar [(ngModel)]="selectedCampagne.dateFin" dateFormat="{{dateFormat}}" id="6"
+                            [minDate]="selectedCampagne.dateDepart" (onSelect)="selectDateFin()" appendTo="body"
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedCampagne.dateFin}"
+                            [showTime]="true" [showSeconds]="false" [style]="{'width':'100%'}">
+                        </p-calendar>
+                        <label for="6">Date de fin <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.dateFin">
+                            Date de fin est obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </p-tabPanel>
+
+
+
+
+    <p-tabPanel header="Message paramétrable ouverture">
+        <div class="p-grid" style="margin-top: 10px;">
+            <div class="p-col-6">
+                <div class="box">
+                    <div class="p-grid p-justify-end">
+                        <div class="p-col-11">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <p-dropdown [options]="templateOuvertures" appendTo="body"
+                                        [(ngModel)]="selectedCampagne.templateOuvertureVo" id="9" [filter]="true"
+                                        filterMatchMode="contains" [showClear]="true" optionLabel="code"
+                                        (onChange)="changeTemplateOuverture($event)"
+                                        placeholder="Choix template ouverture" [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-1">
+                            <div class="box"> <label></label>
+                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreatetemplateOuverture('templateOuverture')"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <input class="p-mb-2 p-mr-2" type="text" maxlength="30" pInputText
+                            [(ngModel)]="selectedCampagne.objetOuverture" id="10" autofocus
+                            [disabled]="isTemplateOuverture" maxlength="80" required [style]="{'width':'100%'}">
+                        <label for="10">Objet du mail de ouverture <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.objetOuverture">Objet du
+                            mail de ouverture obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea id="11" pInputTextarea rows="10" cols="30"
+                            [(ngModel)]="selectedCampagne.messageOuverture" [disabled]="isTemplateOuverture"
+                            maxlength="2000" required [style]="{'width':'100%'}"></textarea>
+                        <label for="11">Message du mail de ouverture <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.messageOuverture">
+                            Message du mail de ouverture obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Message paramétrable relance">
+        <div class="p-grid" style="margin-top: 10px;">
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <p-calendar [(ngModel)]="selectedCampagneRelance.dateRelance"
+                            [minDate]="selectedCampagne.dateDepart" [maxDate]="selectedCampagne.dateFin"
+                            dateFormat="{{dateFormat}}" id="6" [showIcon]="true" inputId="icon" appendTo="body"
+                            [showTime]="true" [showSeconds]="false" [style]="{'width':'100%'}">
+                        </p-calendar>
+                        <label for="6">Date de relance planifiée</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <div class="p-grid p-justify-end">
+                        <div class="p-col-11">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <p-dropdown [options]="templateRelances" appendTo="body"
+                                        [(ngModel)]="selectedCampagneRelance.templateRelanceVo" id="15" [filter]="true"
+                                        filterMatchMode="contains" [showClear]="true"
+                                        placeholder="Choix template relance" optionLabel="code"
+                                        (onChange)="changeTemplateRelance($event)" [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-1">
+                            <div class="box"> <label></label>
+                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreatetemplateRelance('templateRelance')"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <input class="p-mb-2 p-mr-2" type="text" maxlength="30" pInputText
+                            [(ngModel)]="selectedCampagneRelance.objetRelance" id="16" autofocus
+                            [disabled]="isTemplateRelance" maxlength="80" [style]="{'width':'100%'}">
+                        <label for="6">Objet du mail de relance</label>
+
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea id="17" pInputTextarea rows="10" cols="30"
+                            [(ngModel)]="selectedCampagneRelance.messageRelance" maxlength="2000"
+                            [disabled]="isTemplateRelance" [style]="{'width':'100%'}"></textarea>
+                        <label for="17">Message relance</label>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </p-tabPanel>
+
+
+    <p-tabPanel header="Message paramétrable rappel">
+        <div class="p-grid" style="margin-top: 10px;">
+
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <p-calendar [(ngModel)]="selectedCampagneRappel.dateRappel" dateFormat="{{dateFormat}}" id="6"
+                            [minDate]="selectedCampagne.dateDepart" [maxDate]="selectedCampagne.dateFin" appendTo="body"
+                            [showIcon]="true" inputId="icon" [showTime]="true" [showSeconds]="false"
+                            [style]="{'width':'100%'}">
+                        </p-calendar>
+                        <label for="6">Date de rappel planifié</label>
+
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <div class="p-grid p-justify-end">
+                        <div class="p-col-11">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <p-dropdown [options]="templateRappels" appendTo="body"
+                                        [(ngModel)]="selectedCampagneRappel.templateRappelVo" id="15" [filter]="true"
+                                        filterMatchMode="contains" [showClear]="true"
+                                        placeholder="Choix template Rappel" optionLabel="code"
+                                        (onChange)="changeTemplateRappel($event)" [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-1">
+                            <div class="box"> <label></label>
+                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreatetemplateRappel('templateRappel')"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <input class="p-mb-2 p-mr-2" type="text" maxlength="30" pInputText
+                            [(ngModel)]="selectedCampagneRappel.objetRappel" id="16" autofocus
+                            [disabled]="isTemplateRappel" maxlength="80"
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedCampagneRappel.objetRappel}"
+                            [style]="{'width':'100%'}">
+                        <label for="6">Objet du mail de rappel</label>
+
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea id="17" pInputTextarea rows="10" cols="30"
+                            [(ngModel)]="selectedCampagneRappel.messageRappel" [disabled]="isTemplateRappel"
+                            maxlength="2000"
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedCampagneRappel.messageRappel}"
+                            [style]="{'width':'100%'}"></textarea>
+                        <label for="17">Message du mail de rappel</label>
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Message paramétrable clôture">
+        <div class="p-grid" style="margin-top: 10px;">
+            <div class="p-col-6">
+                <div class="box">
+                    <div class="p-grid p-justify-end">
+                        <div class="p-col-11">
+                            <div class="box">
+                                <span class="p-float-label p-mr-3">
+                                    <p-dropdown (onChange)="changeTemplateCloture($event)" appendTo="body"
+                                        [options]="templateClotures" [(ngModel)]="selectedCampagne.templateClotureVo"
+                                        id="12" [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                        optionLabel="code" placeholder="Choix template clôture"
+                                        [style]="{'width':'100%'}">
+                                    </p-dropdown>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-col-1">
+                            <div class="box">
+                                <label></label>
+                                <button pButton pRipple type="button" icon="pi pi-plus"
+                                    (click)="openCreatetemplateCloture('templateCloture')"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <input class="p-mb-2 p-mr-2" type="text" maxlength="30" pInputText
+                            [(ngModel)]="selectedCampagne.objetCloture" id="13" autofocus [disabled]="isTemplateCloture"
+                            maxlength="80" required [style]="{'width':'100%'}">
+                        <label for="13">Objet du mail de clôture <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.objetCloture">Objet du mail
+                            de clôture obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea id="14" pInputTextarea rows="10" cols="30"
+                            [(ngModel)]="selectedCampagne.messageCloture" [disabled]="isTemplateCloture"
+                            maxlength="2000" required [style]="{'width':'100%'}"></textarea>
+                        <label for="14">Message du mail de clôture <span style="color: red;">*</span></label>
+                        <small class="p-error" *ngIf="submitted && !selectedCampagne.messageCloture">Message
+                            clôture obligatoire.</small>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </p-tabPanel>
+
+
+
+
+    <p-tabPanel header="Chercheurs">
+        <div class="container">
+            <div class="p-grid" style="margin-top: 10px;">
+                <div class="p-col-6">
+                    <div class="box">
+                        <span class="p-float-label p-mr-3">
+                            <input [(ngModel)]="searchChercheur.numeroMatricule" class="p-mr-2" id="numeroMatricule"
+                                pInputText type="text" maxlength="30" [style]="{'width':'100%'}">
+                            <label for="numeroMatricule">Numero matricule</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="p-col-6">
+                    <div class="box">
+                        <span class="p-float-label p-mr-3">
+                            <input [(ngModel)]="searchChercheur.email" class="p-mr-2" id="email" pInputText type="text"
+                                maxlength="30" [style]="{'width':'100%'}">
+                            <label for="email">Email</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="p-col-6">
+                    <div class="box">
+                        <span class="p-float-label p-mr-3">
+                            <input [(ngModel)]="searchChercheur.nom" class="p-mr-2" id="nom" pInputText type="text"
+                                maxlength="30" [style]="{'width':'100%'}">
+                            <label for="nom">Nom</label>
+                        </span>
+                    </div>
+                </div>
+                <div class="p-col-6">
+                    <div class="box">
+                        <span class="p-float-label p-mr-3">
+                            <input [(ngModel)]="searchChercheur.prenom" class="p-mr-2" id="prenom" pInputText
+                                type="text" maxlength="30" [style]="{'width':'100%'}">
+                            <label for="prenom">Prenom</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="p-toolbar-group-right">
+                <button (click)="serachRequest()" class="p-button-rounded p-button-danger" icon="pi pi-sort-amount-down"
+                    pButton pRipple></button>
+            </div>
+            <div style="margin-top: 10px;">
+                <p-pickList [source]="availableChercheurs" [target]="selectedChercheurs" sourceHeader="Disponible"
+                    targetHeader="Choisi" [dragdrop]="true" [responsive]="true" [sourceStyle]="{'height':'30rem'}"
+                    [targetStyle]="{'height':'30rem'}" filterBy="nom" sourceFilterPlaceholder="Rechercher par nom"
+                    targetFilterPlaceholder="Rechercher par nom" [showTargetControls]="false"
+                    [showSourceControls]="false">
+                    <ng-template let-chercheur pTemplate="item">
+                        <div style="display: flex;">
+                            <div class="p-col">
+                                <div>
+                                    <i class="pi pi-fw pi-user"></i>
+                                    <span>{{chercheur.nom }} {{chercheur.prenom }}</span>
+                                </div>
+                            </div>
+                            <div class="p-col">
+                                <div style="margin-left: 10px;">
+                                    <i class="pi pi-fw pi-envelope"></i>
+                                    <span>{{chercheur.email }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-pickList>
+
+
+
+            </div>
+        </div>
+    </p-tabPanel>
+    <ng-template pTemplate="footer" [ngIf]="true">
+        <div class="p-grid" style="margin-top: 10px;">
+            <!-- <div style="padding: 10px;">
+                <button pButton pRipple label="Annuler" icon="pi pi-times" (click)="hideCreateDialog()"></button>
+            </div> -->
+            <div style="padding: 10px;">
+                <button pButton pRipple label="Sauvegarder" icon="pi pi-check" (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-tabView>
+
+
+<!-- </ng-template> -->
+
+
+
+<app-etat-campagne-create-admin></app-etat-campagne-create-admin>
+<app-template-ouverture-create-admin></app-template-ouverture-create-admin>
+<app-template-cloture-create-admin></app-template-cloture-create-admin>
+<app-chercheur-create-admin></app-chercheur-create-admin>
+<app-etat-campagne-chercheur-create-admin></app-etat-campagne-chercheur-create-admin>
+<app-template-relance-create-admin></app-template-relance-create-admin>
+<app-template-rappel-create-admin></app-template-rappel-create-admin>

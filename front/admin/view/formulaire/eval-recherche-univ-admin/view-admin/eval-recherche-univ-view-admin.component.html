@@ -1,0 +1,228 @@
+
+<p-dialog [(visible)]="viewEvaluationRechercheUniversitaireDialog" [style]="{width: '70vw'}"
+        header="Evaluation recherche universitaire" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Evaluation recherche universitaire">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="1">Annee</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="1" [disabled]="true"
+                                                   placeholder="Annee"  [(ngModel)]="selectedEvaluationRechercheUniversitaire.annee"
+                                            [(ngModel)]="selectedEvaluationRechercheUniversitaire.annee"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="2">Type expert</label>
+                                    <p-dropdown [options]="typeExperts" [(ngModel)]="selectedEvaluationRechercheUniversitaire.typeExpertVo"
+                                            id="2" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Type expert">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatetypeExpert('typeExpert')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="3">Role evaluation recherche universitaire</label>
+                                    <p-dropdown [options]="roleEvaluationRechercheUniversitaires" [(ngModel)]="selectedEvaluationRechercheUniversitaire.roleEvaluationRechercheUniversitaireVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Role evaluation recherche universitaire">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateroleEvaluationRechercheUniversitaire('roleEvaluationRechercheUniversitaire')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="4">Pays</label>
+                                    <p-dropdown [options]="payss" [(ngModel)]="selectedEvaluationRechercheUniversitaire.paysVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Pays">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="5">Etablissement</label>
+                                    <p-dropdown [options]="etablissements" [(ngModel)]="selectedEvaluationRechercheUniversitaire.etablissementVo"
+                                            id="5" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etablissement">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="6">Nombre jour consacre pour cette annee</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="6" [disabled]="true"
+                                                   placeholder="Nombre jour consacre pour cette annee"  [(ngModel)]="selectedEvaluationRechercheUniversitaire.nombreJourConsacrePourCetteAnnee"
+                                            [(ngModel)]="selectedEvaluationRechercheUniversitaire.nombreJourConsacrePourCetteAnnee"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="9">Commentaire</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Commentaire"  [(ngModel)]="selectedEvaluationRechercheUniversitaire.commentaire"
+                                           id="9" [(ngModel)]="selectedEvaluationRechercheUniversitaire.commentaire"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="10">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedEvaluationRechercheUniversitaire.chercheurVo"
+                                            id="10" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="numeroMatricule"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="11">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedEvaluationRechercheUniversitaire.campagneVo"
+                                            id="11" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="12">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedEvaluationRechercheUniversitaire.etatEtapeCampagneVo"
+                                            id="12" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Communaute savoir evaluation recherche universitaires">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEvaluationRechercheUniversitaire.communauteSavoirEvaluationRechercheUniversitairesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Communaute savoir</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Discipline scientifique evaluation recherche universitaires">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEvaluationRechercheUniversitaire.disciplineScientifiqueEvaluationRechercheUniversitairesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Discipline scientifique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-type-expert-create-admin></app-type-expert-create-admin>
+            <app-role-evaluation-recherche-universitaire-create-admin></app-role-evaluation-recherche-universitaire-create-admin>
+            <app-pays-create-admin></app-pays-create-admin>
+            <app-etablissement-create-admin></app-etablissement-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+            <app-campagne-create-admin></app-campagne-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                    <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+                    <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+
+
+</p-dialog>
+
+
+

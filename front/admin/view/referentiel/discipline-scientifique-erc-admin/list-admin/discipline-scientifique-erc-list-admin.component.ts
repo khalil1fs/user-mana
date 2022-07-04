@@ -1,0 +1,316 @@
+import {Component, OnInit} from '@angular/core';
+import {DisciplineScientifiqueErcService} from 'src/app/controller/service/referentiel/DisciplineScientifiqueErc.service';
+import {DisciplineScientifiqueErcVo} from 'src/app/controller/model/referentiel/DisciplineScientifiqueErc.model';
+import {Router} from '@angular/router';
+import {environment} from 'src/environments/environment';
+import {RoleService} from 'src/app/controller/service/formulaire/Role.service';
+import {DateUtils} from 'src/app/utils/DateUtils';
+import {DatePipe} from '@angular/common';
+import {ConfirmationService, MenuItem, MessageService} from 'primeng/api';
+import {AuthService} from 'src/app/controller/service/formulaire/Auth.service';
+import {ExportService} from 'src/app/controller/service/formulaire/Export.service';
+
+@Component({
+    selector: 'app-discipline-scientifique-erc-list-admin',
+    templateUrl: './discipline-scientifique-erc-list-admin.component.html',
+    styleUrls: ['./discipline-scientifique-erc-list-admin.component.css']
+})
+export class DisciplineScientifiqueErcListAdminComponent implements OnInit {
+    // declarations
+    findByCriteriaShow = false;
+    cols: any[] = [];
+    excelPdfButons: MenuItem[];
+    exportData: any[] = [];
+    criteriaData: any[] = [];
+    fileName = 'DisciplineScientifiqueErc';
+    yesOrNoArchive: any[] = [];
+
+
+    constructor(private datePipe: DatePipe, private disciplineScientifiqueErcService: DisciplineScientifiqueErcService, private messageService: MessageService, private confirmationService: ConfirmationService, private roleService: RoleService, private router: Router, private authService: AuthService, private exportService: ExportService
+    ) {
+    }
+
+    ngOnInit(): void {
+        this.loadDisciplineScientifiqueErcs();
+        this.initExport();
+        this.initCol();
+        this.yesOrNoArchive = [{label: 'Archive', value: null}, {label: 'Oui', value: 1}, {label: 'Non', value: 0}];
+    }
+
+    // methods
+    public async loadDisciplineScientifiqueErcs() {
+        await this.roleService.findAll();
+        const isPermistted = await this.roleService.isPermitted('DisciplineScientifiqueErc', 'list');
+        isPermistted ? this.disciplineScientifiqueErcService.findAll().subscribe(disciplineScientifiqueErcs => this.disciplineScientifiqueErcs = disciplineScientifiqueErcs, error => console.log(error))
+            : this.messageService.add({severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'});
+    }
+
+
+    public searchRequest() {
+        this.disciplineScientifiqueErcService.findByCriteria(this.searchDisciplineScientifiqueErc).subscribe(disciplineScientifiqueErcs => {
+
+            this.disciplineScientifiqueErcs = disciplineScientifiqueErcs;
+            // this.searchDisciplineScientifiqueErc = new DisciplineScientifiqueErcVo();
+        }, error => console.log(error));
+    }
+
+    private initCol() {
+        this.cols = [
+            {field: 'libelleFr', header: 'Libelle fr'},
+            {field: 'libelleEng', header: 'Libelle eng'},
+            {field: 'code', header: 'Code'},
+            {field: 'niveau', header: 'Niveau'},
+            {field: 'archive', header: 'Archive'},
+            {field: 'dateArchivage', header: 'Date archivage'},
+            {field: 'dateCreation', header: 'Date creation'},
+        ];
+    }
+
+    public async editDisciplineScientifiqueErc(disciplineScientifiqueErc: DisciplineScientifiqueErcVo) {
+        const isPermistted = await this.roleService.isPermitted('DisciplineScientifiqueErc', 'edit');
+        if (isPermistted) {
+            this.disciplineScientifiqueErcService.findByIdWithAssociatedList(disciplineScientifiqueErc).subscribe(res => {
+                this.selectedDisciplineScientifiqueErc = res;
+                this.selectedDisciplineScientifiqueErc.dateArchivage = DateUtils.convert(this.selectedDisciplineScientifiqueErc.dateArchivage);
+
+                this.editDisciplineScientifiqueErcDialog = true;
+            });
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'Erreur', detail: 'Probléme de permission'
+            });
+        }
+
+    }
+
+
+    public async viewDisciplineScientifiqueErc(disciplineScientifiqueErc: DisciplineScientifiqueErcVo) {
+        const isPermistted = await this.roleService.isPermitted('DisciplineScientifiqueErc', 'view');
+        if (isPermistted) {
+            this.disciplineScientifiqueErcService.findByIdWithAssociatedList(disciplineScientifiqueErc).subscribe(res => {
+                this.selectedDisciplineScientifiqueErc = res;
+                this.selectedDisciplineScientifiqueErc.dateArchivage = DateUtils.convert(this.selectedDisciplineScientifiqueErc.dateArchivage);
+                this.selectedDisciplineScientifiqueErc.dateCreation = new Date(this.selectedDisciplineScientifiqueErc.dateCreation);
+
+                this.viewDisciplineScientifiqueErcDialog = true;
+            });
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'
+            });
+        }
+
+    }
+
+    public async openCreateDisciplineScientifiqueErc(pojo: string) {
+        const isPermistted = await this.roleService.isPermitted(pojo, 'add');
+        if (isPermistted) {
+            this.selectedDisciplineScientifiqueErc = new DisciplineScientifiqueErcVo();
+            this.createDisciplineScientifiqueErcDialog = true;
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'problème d\'autorisation'
+            });
+        }
+
+    }
+
+
+    public async deleteDisciplineScientifiqueErc(disciplineScientifiqueErc: DisciplineScientifiqueErcVo) {
+        const isPermistted = await this.roleService.isPermitted('DisciplineScientifiqueErc', 'delete');
+        if (isPermistted) {
+            this.confirmationService.confirm({
+                message: 'Voulez-vous supprimer cet élément (Discipline scientifique erc) ?',
+                header: 'Confirmation',
+                icon: 'pi pi-exclamation-triangle',
+                accept: () => {
+                    this.disciplineScientifiqueErcService.delete(disciplineScientifiqueErc).subscribe(status => {
+                        if (status > 0) {
+                            const position = this.disciplineScientifiqueErcs.indexOf(disciplineScientifiqueErc);
+                            position > -1 ? this.disciplineScientifiqueErcs.splice(position, 1) : false;
+                            this.messageService.add({
+                                severity: 'success',
+                                summary: 'Succès',
+                                detail: 'Discipline scientifique erc Supprimé',
+                                life: 3000
+                            });
+                        }
+
+                    }, error => console.log(error));
+                }
+            });
+        } else {
+            this.messageService.add({
+                severity: 'error', summary: 'erreur', detail: 'Problème de permission'
+            });
+        }
+    }
+
+
+    public async duplicateDisciplineScientifiqueErc(disciplineScientifiqueErc: DisciplineScientifiqueErcVo) {
+
+        this.disciplineScientifiqueErcService.findByIdWithAssociatedList(disciplineScientifiqueErc).subscribe(
+            res => {
+                this.initDuplicateDisciplineScientifiqueErc(res);
+                this.selectedDisciplineScientifiqueErc = res;
+                this.selectedDisciplineScientifiqueErc.id = null;
+
+                this.selectedDisciplineScientifiqueErc.dateCreation = null;
+                this.selectedDisciplineScientifiqueErc.dateArchivage = DateUtils.convert(this.selectedDisciplineScientifiqueErc.dateArchivage);
+
+                this.createDisciplineScientifiqueErcDialog = true;
+
+            });
+
+    }
+
+    initDuplicateDisciplineScientifiqueErc(res: DisciplineScientifiqueErcVo) {
+        if (res.keyWordDisciplineScientifiqueErcsVo != null) {
+            res.keyWordDisciplineScientifiqueErcsVo.forEach(d => {
+                d.disciplineScientifiqueErcVo = null;
+                d.id = null;
+            });
+        }
+
+
+    }
+
+    async initExport()  {
+      await this.disciplineScientifiqueErcService.findAssociatedKeyword(this.disciplineScientifiqueErcs).subscribe(
+            data => {
+                this.disciplineScientifiqueErcs = data
+            },error => console.log(error)
+        )
+        this.excelPdfButons = [
+            {
+                label: 'CSV', icon: 'pi pi-file', command: () => {
+                    this.prepareColumnExport();
+                    this.exportService.exporterCSV(this.criteriaData, this.exportData, this.fileName);
+                }
+            },
+            {
+                label: 'XLS', icon: 'pi pi-file-excel', command: () => {
+                    this.prepareColumnExport();
+                    this.exportService.exporterExcel(this.criteriaData, this.exportData, this.fileName);
+                }
+            },
+            {
+                label: 'PDF', icon: 'pi pi-file-pdf', command: () => {
+                    this.prepareColumnExport();
+                    this.exportService.exporterPdf(this.criteriaData, this.exportData, this.fileName);
+                }
+            }
+        ];
+    }
+
+    constructKeyWord(disciplineScientifiqueErcVo: DisciplineScientifiqueErcVo): string {
+        let result='';
+        if (disciplineScientifiqueErcVo != null && disciplineScientifiqueErcVo.keyWordDisciplineScientifiqueErcsVo != null) {
+            let libelle = '';
+            disciplineScientifiqueErcVo.keyWordDisciplineScientifiqueErcsVo
+                .forEach(
+                    e => libelle += e?.keyWordVo?.libelleFr + ', '
+                );
+            result = libelle.substring(0,libelle.length-2);
+        }
+        return result;
+    }
+
+
+    prepareColumnExport(): void {
+
+        this.exportData = this.disciplineScientifiqueErcs.map(e => {
+            return {
+                'Libelle fr': e.libelleFr,
+                'Libelle eng': e.libelleEng,
+                'Code': e.code,
+                'Key-word': this.constructKeyWord(e),
+                'Niveau': e.niveau,
+                'Archive': e.archive ? 'Vrai' : 'Faux',
+                'Date archivage': this.datePipe.transform(e.dateArchivage, 'dd/MM/yyyy HH:mm'),
+                'Date creation': this.datePipe.transform(e.dateCreation, 'dd/MM/yyyy HH:mm'),
+            };
+        });
+
+        this.criteriaData = [{
+            'Libelle fr': this.searchDisciplineScientifiqueErc.libelleFr ? this.searchDisciplineScientifiqueErc.libelleFr : environment.emptyForExport,
+            'Libelle eng': this.searchDisciplineScientifiqueErc.libelleEng ? this.searchDisciplineScientifiqueErc.libelleEng : environment.emptyForExport,
+            'Code': this.searchDisciplineScientifiqueErc.code ? this.searchDisciplineScientifiqueErc.code : environment.emptyForExport,
+            'Niveau Min': this.searchDisciplineScientifiqueErc.niveauMin ? this.searchDisciplineScientifiqueErc.niveauMin : environment.emptyForExport,
+            'Niveau Max': this.searchDisciplineScientifiqueErc.niveauMax ? this.searchDisciplineScientifiqueErc.niveauMax : environment.emptyForExport,
+            'Archive': this.searchDisciplineScientifiqueErc.archive ? (this.searchDisciplineScientifiqueErc.archive ? environment.trueValue : environment.falseValue) : environment.emptyForExport,
+            'Date archivage Min': this.searchDisciplineScientifiqueErc.dateArchivageMin ? this.datePipe.transform(this.searchDisciplineScientifiqueErc.dateArchivageMin, this.dateFormat) : environment.emptyForExport,
+            'Date archivage Max': this.searchDisciplineScientifiqueErc.dateArchivageMax ? this.datePipe.transform(this.searchDisciplineScientifiqueErc.dateArchivageMax, this.dateFormat) : environment.emptyForExport,
+            'Date creation Min': this.searchDisciplineScientifiqueErc.dateCreationMin ? this.datePipe.transform(this.searchDisciplineScientifiqueErc.dateCreationMin, this.dateFormat) : environment.emptyForExport,
+            'Date creation Max': this.searchDisciplineScientifiqueErc.dateCreationMax ? this.datePipe.transform(this.searchDisciplineScientifiqueErc.dateCreationMax, this.dateFormat) : environment.emptyForExport,
+        }];
+
+    }
+
+    // getters and setters
+
+    get disciplineScientifiqueErcs(): Array<DisciplineScientifiqueErcVo> {
+        return this.disciplineScientifiqueErcService.disciplineScientifiqueErcs;
+    }
+
+    set disciplineScientifiqueErcs(value: Array<DisciplineScientifiqueErcVo>) {
+        this.disciplineScientifiqueErcService.disciplineScientifiqueErcs = value;
+    }
+
+    get disciplineScientifiqueErcSelections(): Array<DisciplineScientifiqueErcVo> {
+        return this.disciplineScientifiqueErcService.disciplineScientifiqueErcSelections;
+    }
+
+    set disciplineScientifiqueErcSelections(value: Array<DisciplineScientifiqueErcVo>) {
+        this.disciplineScientifiqueErcService.disciplineScientifiqueErcSelections = value;
+    }
+
+
+    get selectedDisciplineScientifiqueErc(): DisciplineScientifiqueErcVo {
+        return this.disciplineScientifiqueErcService.selectedDisciplineScientifiqueErc;
+    }
+
+    set selectedDisciplineScientifiqueErc(value: DisciplineScientifiqueErcVo) {
+        this.disciplineScientifiqueErcService.selectedDisciplineScientifiqueErc = value;
+    }
+
+    get createDisciplineScientifiqueErcDialog(): boolean {
+        return this.disciplineScientifiqueErcService.createDisciplineScientifiqueErcDialog;
+    }
+
+    set createDisciplineScientifiqueErcDialog(value: boolean) {
+        this.disciplineScientifiqueErcService.createDisciplineScientifiqueErcDialog = value;
+    }
+
+    get editDisciplineScientifiqueErcDialog(): boolean {
+        return this.disciplineScientifiqueErcService.editDisciplineScientifiqueErcDialog;
+    }
+
+    set editDisciplineScientifiqueErcDialog(value: boolean) {
+        this.disciplineScientifiqueErcService.editDisciplineScientifiqueErcDialog = value;
+    }
+
+    get viewDisciplineScientifiqueErcDialog(): boolean {
+        return this.disciplineScientifiqueErcService.viewDisciplineScientifiqueErcDialog;
+    }
+
+    set viewDisciplineScientifiqueErcDialog(value: boolean) {
+        this.disciplineScientifiqueErcService.viewDisciplineScientifiqueErcDialog = value;
+    }
+
+    get searchDisciplineScientifiqueErc(): DisciplineScientifiqueErcVo {
+        return this.disciplineScientifiqueErcService.searchDisciplineScientifiqueErc;
+    }
+
+    set searchDisciplineScientifiqueErc(value: DisciplineScientifiqueErcVo) {
+        this.disciplineScientifiqueErcService.searchDisciplineScientifiqueErc = value;
+    }
+
+
+    get dateFormat() {
+        return environment.dateFormatList;
+    }
+
+
+
+}

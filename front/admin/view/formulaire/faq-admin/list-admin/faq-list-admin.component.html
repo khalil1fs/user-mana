@@ -1,0 +1,228 @@
+<app-badge-card-view
+        (switchCardViewOutput)="updateDisplay($event)"></app-badge-card-view>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="Nouveau" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateFaq('faq')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text" maxlength="30"    [(ngModel)]="searchFaq.question">
+                                    <label for="1">Libelléeee</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="3"
+                                           type="text" maxlength="30"    [(ngModel)]="searchFaq.contact">
+                                    <label for="3">Mail de contact</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="categorieFaqs" [(ngModel)]="searchFaq.categorieFaqVo"
+                                        id="4"
+                                        [autoDisplayFirst]="false"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="4">Catégorie</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="6" [options]="yesno" [(ngModel)]="searchFaq.archive"
+                                            [filter]="false" [showClear]="true"
+                                            [autoDisplayFirst]="false"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="6">Archivage</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="7"
+                                           type="text" maxlength="30"    [(ngModel)]="searchFaq.lien">
+                                    <label for="7">URL</label>
+                                </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="faqs" [columns]="cols" [rows]="10" [paginator]="true"
+                    [globalFilterFields]="['question', 'contact', 'libelle', 'ordre','lien']" [(selection)]="selectedRows"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers" [rowsPerPageOptions]="[10,25,50,100,500]"
+                     [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }"  sortMode="multiple"
+                     currentPageReportTemplate="{{faqs.length < 8 ? faqs.length : '8'}} enregistrements affichés sur {{faqs.length}}"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Faqs</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Rechercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                <th pSortableColumn="categorieFaq">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Catégorie</span>
+                                        <p-sortIcon field="categorieFaq"></p-sortIcon>
+                                        <p-columnFilter type="text" field="categorieFaq" display="menu"></p-columnFilter>
+                                    </div>
+                                </th>
+                                <th pSortableColumn="question">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Libellé</span>
+                                        <p-sortIcon field="question"></p-sortIcon>
+                                        <p-columnFilter type="text" field="question" display="menu"></p-columnFilter>
+
+                                    </div>
+                                </th>
+                                
+
+                                <th pSortableColumn="ordre">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Ordre</span>
+                                        <p-sortIcon field="ordre"></p-sortIcon>
+                                        <p-columnFilter type="text" field="ordre" display="menu"></p-columnFilter>
+
+                                    </div>
+                                </th>
+
+                                
+                                <th pSortableColumn="contact">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Mail de contact</span>
+                                        <p-sortIcon field="contact"></p-sortIcon>
+                                        <p-columnFilter type="text" field="contact" display="menu"></p-columnFilter>
+                                    </div>
+                                </th>
+                                
+
+                                <th pSortableColumn="lien">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>URL</span>
+                                        <p-sortIcon field="lien"></p-sortIcon>
+                                        <p-columnFilter type="text" field="lien" display="menu"></p-columnFilter>
+                                    </div>
+                                </th>
+
+                            
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Archivage</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                        <p-columnFilter type="text" field="archive" display="menu"></p-columnFilter>
+                                    </div>
+                                </th>
+                                                                
+                                <th pSortableColumn="dernierMisAJour">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Date de dernière mise à jour</span>
+                                        <p-sortIcon field="dernierMisAJour"></p-sortIcon>
+                                        <p-columnFilter type="text" field="dernierMisAJour" display="menu"></p-columnFilter>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-faq>
+                    <!--        Blocs cartes        -->
+                    <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="faq.dernierMisAJour"
+                                     [status]="faq.contact"
+                                     [cardTitle]="faq.question">
+                        <div card-body>
+                            <ul>
+                                <li><b>{{'order' | i18next}} :</b>
+                                    {{faq.ordre}}</li>
+
+                                <li><b>{{'libelle_categorie'| i18next}}</b>
+                                    {{faq.categorieFaqVo?.libelle}}</li>
+
+                                <li><b>{{'link'|i18next}}</b>
+                                    {{faq.lien}}</li>
+
+                            </ul>
+                        </div>
+                        <div card-buttons>
+                            <ng-template [ngTemplateOutlet]="boutonsAction"
+                                         [ngTemplateOutletContext]="{faq: faq}"></ng-template>
+                        </div>
+                    </app-custom-card>
+
+                    <tr *ngIf="!isCardDisplayActivated">
+                        <td>
+                            <p-tableCheckbox [value]="faq"></p-tableCheckbox>
+                        </td>
+                                <td>{{faq.categorieFaqVo?.libelle |truncate}}</td>
+
+                                 <td>{{faq.question |truncate}}</td>
+                            
+                                 <td>{{faq.ordre |truncate}}</td>
+                            
+                                 <td>{{faq.contact |truncate}}</td>
+                            
+                                 <td>{{faq.lien |truncate}}</td>
+                                <td><i *ngIf="faq.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!faq.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                                <td>{{faq.dernierMisAJour | date:'dd-M-yyyy' |truncate}}</td>
+                        <td>
+                            <ng-template [ngTemplateOutlet]="boutonsAction"
+                                         [ngTemplateOutletContext]="{faq: faq}"></ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #boutonsAction let-faq="faq">
+                    <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success p-mr-2"
+                            (click)="editFaq(faq)"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="viewFaq(faq)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                            (click)="deleteFaq(faq)"></button>
+                    <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                            (click)="duplicateFaq(faq)"></button>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                    Il y a {{faqs ? faqs.length : 0 }} {{faqs && faqs.length == 1 ? 'question' : 'questions'}} au total.
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-faq-create-admin></app-faq-create-admin>
+        <app-faq-edit-admin></app-faq-edit-admin>
+        <app-faq-view-admin></app-faq-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

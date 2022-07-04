@@ -1,0 +1,139 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button (click)="openCreateTypeOutilCultureScientifiqueOutilPedagogique('typeOutilCultureScientifiqueOutilPedagogique')" class="p-button-success p-mr-2 p-mb-2" icon="pi pi-plus" label="{{'New' | i18next}}"
+                            pButton
+                            pRipple></button>
+
+
+                    <button (click)="this.findByCriteriaShow = !this.findByCriteriaShow" class="p-button-success p-mr-2 p-mb-2" icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            label="Recherche"
+                            pButton
+                            pRipple></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton [model]="excelPdfButons" icon="pi pi-download" label="Exporter"
+                                       styleClass="p-button-help"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [(ngModel)]="searchTypeOutilCultureScientifiqueOutilPedagogique.cultureScientifiqueOutilPedagogiqueVo"
+                                            [filter]="true"
+                                            [options]="cultureScientifiqueOutilPedagogiques"
+                                            [showClear]="true" id="1"
+                                            optionLabel="id">
+                                </p-dropdown>
+                                <label for="1">Culture scientifique outil pedagogique</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [(ngModel)]="searchTypeOutilCultureScientifiqueOutilPedagogique.typeOutilVo"
+                                            [filter]="true"
+                                            [options]="typeOutils"
+                                            [showClear]="true" id="2"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="2">Type outil</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button (click)="searchRequest()" class="p-button-info p-mr-2" icon="pi pi-sort-amount-down" label="Valider"
+                            pButton pRipple></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [(selection)]="selectedTypeOutilCultureScientifiqueOutilPedagogique" [columns]="cols" [globalFilterFields]="['id', 'libelle']"
+                     [paginator]="true"
+                     [rowHover]="true"
+                     [rows]="8"
+                     [showCurrentPageReport]="true" [value]="typeOutilCultureScientifiqueOutilPedagogiques" currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                     dataKey="id"
+                     styleClass="p-datatable-customers">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Type outil culture scientifique outil pedagogiques</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input (input)="dt.filterGlobal($event.target.value, 'contains')" maxlength="30" pInputText placeholder="Chercher..."
+                                   type="text"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+
+                        <th pSortableColumn="cultureScientifiqueOutilPedagogique">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Culture scientifique outil pedagogique</span>
+                                <p-sortIcon field="cultureScientifiqueOutilPedagogique"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="typeOutil">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Type outil</span>
+                                <p-sortIcon field="typeOutil"></p-sortIcon>
+                            </div>
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template let-typeOutilCultureScientifiqueOutilPedagogique pTemplate="body">
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="typeOutilCultureScientifiqueOutilPedagogique"></p-tableCheckbox>
+                        </td>
+
+                        <td>{{typeOutilCultureScientifiqueOutilPedagogique.cultureScientifiqueOutilPedagogiqueVo?.id |truncate | truncate:60}}</td>
+
+
+                        <td>{{typeOutilCultureScientifiqueOutilPedagogique.typeOutilVo?.libelle |truncate | truncate:60}}</td>
+
+
+                        <td>
+                            <button (click)="editTypeOutilCultureScientifiqueOutilPedagogique(typeOutilCultureScientifiqueOutilPedagogique)" class="p-button-rounded p-button-success p-mr-2" icon="pi pi-pencil"
+                                    pButton
+                                    pRipple></button>
+                            <button (click)="viewTypeOutilCultureScientifiqueOutilPedagogique(typeOutilCultureScientifiqueOutilPedagogique)" class="p-button-rounded p-button-info p-mr-2" icon="pi pi-list" pButton
+                                    pRipple></button>
+                            <button (click)="deleteTypeOutilCultureScientifiqueOutilPedagogique(typeOutilCultureScientifiqueOutilPedagogique)" class="p-button-rounded p-button-danger p-mr-2" icon="pi pi-trash" pButton
+                                    pRipple></button>
+                            <button (click)="duplicateTypeOutilCultureScientifiqueOutilPedagogique(typeOutilCultureScientifiqueOutilPedagogique)" class="p-button-rounded p-button-raised p-button-warning" icon="pi pi-copy"
+                                    pButton
+                                    pRipple></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{typeOutilCultureScientifiqueOutilPedagogiques ? typeOutilCultureScientifiqueOutilPedagogiques.length == 1 ? 'y a' : 'y a' : 'y a' }} {{typeOutilCultureScientifiqueOutilPedagogiques ? typeOutilCultureScientifiqueOutilPedagogiques.length : 0 }} {{typeOutilCultureScientifiqueOutilPedagogiques ? typeOutilCultureScientifiqueOutilPedagogiques.length == 1 ? 'typeOutilCultureScientifiqueOutilPedagogique' : 'typeOutilCultureScientifiqueOutilPedagogiques' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-type-outil-culture-scientifique-outil-pedagogique-create-admin></app-type-outil-culture-scientifique-outil-pedagogique-create-admin>
+        <app-type-outil-culture-scientifique-outil-pedagogique-edit-admin></app-type-outil-culture-scientifique-outil-pedagogique-edit-admin>
+        <app-type-outil-culture-scientifique-outil-pedagogique-view-admin></app-type-outil-culture-scientifique-outil-pedagogique-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

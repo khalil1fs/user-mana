@@ -1,0 +1,76 @@
+        <p-dialog [(visible)]="editStatusCursusDialog" [style]="{width: '70vw'}"
+                header="{{'statusCursusTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'statusCursusTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">{{'statusCursusLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'statusCursusLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedStatusCursus.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validStatusCursusLibelle}"  />
+                                            <small class='p-error' *ngIf='!validStatusCursusLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">{{'statusCursusCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'statusCursusCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedStatusCursus.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validStatusCursusCode}"  />
+                                            <small class='p-error' *ngIf='!validStatusCursusCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'statusCursusArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="3"  [(ngModel)]="selectedStatusCursus.archive"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">{{'statusCursusDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="4"
+                                                        placeholder="{{'statusCursusDateArchivage' | i18next}}"  [(ngModel)]="selectedStatusCursus.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

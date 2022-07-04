@@ -1,0 +1,96 @@
+<p-dialog [(visible)]="userViewDialog" [style]="{width: '70vw'}" [header]="userDialogTitle" [modal]="true"
+          styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <div class="p-fluid p-formgrid p-grid">
+
+
+            <div class="p-field p-col-12 p-md-3">
+                <label for="28">Prénom</label>
+                <input [disabled]="true" class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Prenom"
+                       [(ngModel)]="user.prenom" id="28"
+                       autofocus>
+            </div>
+
+
+
+            <div class="p-field p-col-12 p-md-3">
+                <label for="29">Nom</label>
+                <input [disabled]="true" class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Nom"
+                       [(ngModel)]="user.nom" id="29"  autofocus>
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+                <label for="2">Email</label>
+                <input [disabled]="true" class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Email"
+                       [(ngModel)]="user.email" id="2"
+                       autofocus>
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+                <label for="1">Nom d'utilisateur</label>
+                <input [disabled]="true" class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Nom d'utilisateur"
+                       [(ngModel)]="user.username" id="1"
+                       autofocus>
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+                <label for="27">Role</label>
+                <input [disabled]="true" class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Password"
+                       [(ngModel)]="user.role" id="27"
+                       autofocus>
+            </div>
+
+
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="5">Date Archivage</label>
+                <p-calendar  [showTime]="true" [showSeconds]="false"   id="5"
+                             placeholder="Date Archivage"  [(ngModel)]="user.dateArchivage"
+                             dateFormat="{{dateFormat}}"  >
+                </p-calendar>
+
+            </div>
+
+            <div class="p-field align-inputswitch p-col-12  p-md-6">
+                <div  class="label-inputswitch">
+                    <label for="4">Archive</label>
+                </div>
+                <div class="input-switch">
+                    <p-inputSwitch id="4" [disabled]="true" [(ngModel)]="user.archive"
+                    >
+                    </p-inputSwitch>
+
+                </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="5">Date Creation</label>
+                <p-calendar  [showTime]="true" [showSeconds]="false"   id="5"
+                             placeholder="Date Creation"  [(ngModel)]="user.createdAt"
+                             dateFormat="{{dateFormat}}"  >
+                </p-calendar>
+
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="5">Date de Modification</label>
+                <p-calendar  [showTime]="true" [showSeconds]="false"   id="5"
+                             placeholder="Date Derniere Modification"  [(ngModel)]="user.updatedAt"
+                             dateFormat="{{dateFormat}}"  >
+                </p-calendar>
+            </div>
+
+
+
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{'Cancel' | i18next}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    </ng-template>
+
+</p-dialog>
+
+

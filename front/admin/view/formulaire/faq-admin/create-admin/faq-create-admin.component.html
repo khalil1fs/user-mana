@@ -1,0 +1,126 @@
+<p-dialog [(visible)]="createFaqDialog" [style]="{width: '70vw'}"
+        header="Faq" [modal]="true"
+        styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="Faq">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">Libellé</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="255"   pInputText
+                                            placeholder="Libellé"  [(ngModel)]="selectedFaq.question"
+                                           id="1"
+                                           aria-describedby="libelle-help"
+                                           [ngClass]="{'ng-invalid ng-dirty' : submitted && (empty(selectedFaq.question) || !isValidLibelleLength())}"
+                                           autofocus>
+                                    <small  id="libelle-help" class="p-error" *ngIf="submitted && empty(selectedFaq.question)">Le libellé est obligatoire.</small>
+                                    <small  id="libelle-help" class="p-error" *ngIf="submitted && !isValidLibelleLength()">La longueur maximale de libellé est 255 caractères.</small>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">Réponse</label>
+                                    <textarea id="2" pInputTextarea rows="5" cols="30"
+                                            maxlength="2000"
+                                            [ngClass]="{'ng-invalid ng-dirty' : submitted && (empty(selectedFaq.reponse) || !isValidReponseLength())}"
+                                            placeholder="Réponse"  [(ngModel)]="selectedFaq.reponse"
+                                            aria-describedby="reponse-help"
+                                            ></textarea>
+                                    <small class="p-error" *ngIf="submitted && empty(selectedFaq.reponse)">La réponse est obligatoire.</small>
+                                    <small  id="reponse-help" class="p-error" *ngIf="submitted && !isValidReponseLength()">La longueur maximale de champ réponse est 2000 caractères.</small>
+                                </div>
+                                
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="7">URL</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="255"   pInputText
+                                            placeholder="URL"  [(ngModel)]="selectedFaq.lien"
+                                            aria-describedby="lien-help"
+                                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !isValidURLLength()}"
+                                           id="7"
+                                           autofocus>
+                                    <small  id="lien-help" class="p-error" *ngIf="submitted && !isValidURLLength()">La longueur maximale de URL est 255 caractères.</small>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">Mail de contact</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="255"   pInputText
+                                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !isValidMailLength()}"
+                                            aria-describedby="mail-help"
+                                            placeholder="Mail de contact"  [(ngModel)]="selectedFaq.contact"
+                                           id="3"
+                                           autofocus>
+                                    <small  id="mail-help" class="p-error" *ngIf="submitted && !isValidMailLength()">La longueur maximale de Mail est 255 caractères.</small>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="5">Ordre</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="5"
+                                                   placeholder="Ordre"  [(ngModel)]="selectedFaq.ordre"
+                                                   (onBlur)="onBlurOrdre()"
+                                                   [min]="1"
+                                                   [ngClass]="{'ng-invalid ng-dirty' : submitted && foundedOrdre}"
+                                                    ></p-inputNumber>
+                                    <small class="p-error" *ngIf="submitted && foundedOrdre">Ce numéro d'ordre déjà existe dans cette catégorie.</small>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="6">Archivage</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="6"  [(ngModel)]="selectedFaq.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+                            <div class="p-field p-col-12 p-md-3">
+                                <label for="4">Catégorie</label>
+                                <p-dropdown [options]="categorieFaqs" [(ngModel)]="selectedFaq.categorieFaqVo"
+                                        id="4" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        appendTo="body"
+                                        optionLabel="libelle"
+                                        placeholder="Catégorie">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatecategorieFaq('categorieFaq')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                            <div class="p-field p-col-12 p-md-4">
+                                <label for="8">Date de dernière mise à jour</label>
+                                <p-calendar id="8"
+                                        placeholder="Date de dernière mise à jour"  [(ngModel)]="selectedFaq.dernierMisAJour"
+                                        [disabled]="true"
+                                        dateFormat="{{dateFormat}}"></p-calendar>
+                            </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                         (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check"  (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-categorie-faq-create-admin></app-categorie-faq-create-admin>
+
+
+</p-dialog>
+
+
+

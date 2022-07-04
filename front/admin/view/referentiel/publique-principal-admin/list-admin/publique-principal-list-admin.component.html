@@ -1,0 +1,213 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'new' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreatePubliquePrincipal('publiquePrincipal')"></button>
+
+
+                    <button pButton pRipple label="{{'search' | i18next}}"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="{{'export' | i18next}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text"  [(ngModel)]="searchPubliquePrincipal.libelle">
+                                    <label for="1">{{'publiquePrincipalLibelle' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text"  [(ngModel)]="searchPubliquePrincipal.code">
+                                    <label for="2">{{'publiquePrincipalCode' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="3" [options]="yesOrNoArchive" [(ngModel)]="searchPubliquePrincipal.archive"
+                                            [filter]="false" [showClear]="true"  placeholder="{{'publiquePrincipalArchive' | i18next}}"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPubliquePrincipal.dateArchivageMin"
+                                    id="4-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-1">{{'publiquePrincipalDateArchivage' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPubliquePrincipal.dateArchivageMax"
+                                    id="4-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-2">{{'publiquePrincipalDateArchivage' | i18next}} Max</label>
+                        </span>
+
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPubliquePrincipal.dateCreationMin"
+                                    id="5-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="5-1">{{'publiquePrincipalDateCreation' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchPubliquePrincipal.dateCreationMax"
+                                    id="5-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="5-2">{{'publiquePrincipalDateCreation' | i18next}} Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | i18next}}" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="publiquePrincipals" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['libelle', 'code', 'archive', 'dateArchivage', 'dateCreation']" [(selection)]="selectedPubliquePrincipal"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="{{'fromTo' | i18next}}"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">{{'publiquePrincipalHeader' | i18next}}</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | i18next}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="libelle">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'publiquePrincipalLibelle' | i18next}}</span>
+                                        <p-sortIcon field="libelle"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="code">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'publiquePrincipalCode' | i18next}}</span>
+                                        <p-sortIcon field="code"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'publiquePrincipalArchive' | i18next}}</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'publiquePrincipalDateArchivage' | i18next}}</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateCreation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'publiquePrincipalDateCreation' | i18next}}</span>
+                                        <p-sortIcon field="dateCreation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-publiquePrincipal>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="publiquePrincipal"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{publiquePrincipal.libelle | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{publiquePrincipal.code | truncate:60}}</td>
+                            
+
+                            
+                                <td><i *ngIf="publiquePrincipal.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!publiquePrincipal.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{publiquePrincipal.dateArchivage | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{publiquePrincipal.dateCreation | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editPubliquePrincipal(publiquePrincipal)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewPubliquePrincipal(publiquePrincipal)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicatePubliquePrincipal(publiquePrincipal)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{publiquePrincipals ? publiquePrincipals.length == 1 ? 'y a' : 'y a' : 'y a' }} {{publiquePrincipals ? publiquePrincipals.length : 0 }} {{publiquePrincipals ? publiquePrincipals.length == 1 ? 'publique principal' : 'publique principals' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-publique-principal-create-admin></app-publique-principal-create-admin>
+        <app-publique-principal-edit-admin></app-publique-principal-edit-admin>
+        <app-publique-principal-view-admin></app-publique-principal-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

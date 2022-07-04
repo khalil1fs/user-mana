@@ -1,0 +1,91 @@
+
+<p-dialog [(visible)]="viewCampagneChercheurDialog" [style]="{width: '70vw'}"
+        header="Campagne chercheur" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Campagne chercheur">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-5">
+                                    <label for="1">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedCampagneChercheur.chercheurVo"
+                                            id="1" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="numeroMatricule"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-5">
+                                    <label for="2">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedCampagneChercheur.campagneVo"
+                                            id="2" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Avancement</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="3" [disabled]="true"
+                                                   placeholder="Avancement"  [(ngModel)]="selectedCampagneChercheur.avancement"
+                                            [(ngModel)]="selectedCampagneChercheur.avancement"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-5">
+                                    <label for="4">Etat campagne chercheur</label>
+                                    <p-dropdown [options]="etatCampagneChercheurs" [(ngModel)]="selectedCampagneChercheur.etatCampagneChercheurVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat campagne chercheur">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateetatCampagneChercheur('etatCampagneChercheur')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+            <app-campagne-create-admin></app-campagne-create-admin>
+            <app-etat-campagne-chercheur-create-admin></app-etat-campagne-chercheur-create-admin>
+
+
+
+</p-dialog>
+
+
+

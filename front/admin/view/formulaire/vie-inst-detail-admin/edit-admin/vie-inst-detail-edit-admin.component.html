@@ -1,0 +1,246 @@
+
+        <p-dialog [(visible)]="editVieInstitutionnelleDetailDialog" [style]="{width: '70vw'}"
+                header="Vie institutionnelle detail" [modal]="true"
+                styleClass="p-fluid">
+
+            <ng-template pTemplate="content">
+                <p-tabView>
+                    <p-tabPanel header="Vie institutionnelle detail">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="1">Type instance</label>
+                                            <p-dropdown [options]="typeInstances" [(ngModel)]="selectedVieInstitutionnelleDetail.typeInstanceVo"
+                                                    id="1" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Type instance">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatetypeInstance('typeInstance')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                            <div  class="label-inputswitch">
+                                                <label for="2">Coorele structure ird</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="2"  [(ngModel)]="selectedVieInstitutionnelleDetail.cooreleStructureIrd"></p-inputSwitch>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="3">Structure ird</label>
+                                            <p-dropdown [options]="structureIrds" [(ngModel)]="selectedVieInstitutionnelleDetail.structureIrdVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Structure ird">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatestructureIrd('structureIrd')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                            <div  class="label-inputswitch">
+                                                <label for="4">Coorele instrument ird</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="4"  [(ngModel)]="selectedVieInstitutionnelleDetail.cooreleInstrumentIrd"></p-inputSwitch>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="6">Libelle</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Libelle"  [(ngModel)]="selectedVieInstitutionnelleDetail.libelle"
+                                                   id="6" [(ngModel)]="selectedVieInstitutionnelleDetail.libelle"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="8">Pays</label>
+                                            <p-dropdown [options]="payss" [(ngModel)]="selectedVieInstitutionnelleDetail.paysVo"
+                                                    id="8" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Pays">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="9">Vie institutionnelle</label>
+                                            <p-dropdown [options]="vieInstitutionnelles" [(ngModel)]="selectedVieInstitutionnelleDetail.vieInstitutionnelleVo"
+                                                    id="9" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Vie institutionnelle">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatevieInstitutionnelle('vieInstitutionnelle')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Vie institutionnelle detail instrument irds">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Instrument ird</label>
+                                                        <p-dropdown [options]="instrumentIrds" [(ngModel)]="selectedVieInstitutionnelleDetailInstrumentIrds.instrumentIrdVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Instrument ird"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateinstrumentIrd('instrumentIrd')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addVieInstitutionnelleDetailInstrumentIrds()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedVieInstitutionnelleDetail.vieInstitutionnelleDetailInstrumentIrdsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Instrument ird</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.instrumentIrdVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteVieInstitutionnelleDetailInstrumentIrds(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Vie institutionnelle detail etablissements">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Etablissement</label>
+                                                        <p-dropdown [options]="etablissements" [(ngModel)]="selectedVieInstitutionnelleDetailEtablissements.etablissementVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Etablissement"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addVieInstitutionnelleDetailEtablissements()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedVieInstitutionnelleDetail.vieInstitutionnelleDetailEtablissementsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Etablissement</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteVieInstitutionnelleDetailEtablissements(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check"  style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-type-instance-create-admin></app-type-instance-create-admin>
+                    <app-structure-ird-create-admin></app-structure-ird-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+                    <app-vie-institutionnelle-create-admin></app-vie-institutionnelle-create-admin>
+
+                            <app-instrument-ird-create-admin></app-instrument-ird-create-admin>
+                            <app-etablissement-create-admin></app-etablissement-create-admin>
+
+
+    </p-dialog>
+
+
+

@@ -1,0 +1,62 @@
+<p-dialog [(visible)]="createDomaineScientifiqueDialog" [style]="{width: '70vw'}"
+        header="Domaine scientifique" [modal]="true"
+        styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="Domaine scientifique">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Libelle</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Libelle"  [(ngModel)]="selectedDomaineScientifique.libelle"
+                                           id="1" [(ngModel)]="selectedDomaineScientifique.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Code</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Code"  [(ngModel)]="selectedDomaineScientifique.code"
+                                           id="2" [(ngModel)]="selectedDomaineScientifique.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Description</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30"
+                                            placeholder="Description"  [(ngModel)]="selectedDomaineScientifique.description"
+                                            ></textarea>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+</p-dialog>
+
+
+

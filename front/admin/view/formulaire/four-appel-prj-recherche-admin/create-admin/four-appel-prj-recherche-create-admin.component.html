@@ -1,0 +1,79 @@
+<p-dialog [(visible)]="createFournisseurAppelProjetRechercheDialog" [style]="{width: '70vw'}"
+        header="Fournisseur appel projet recherche" [modal]="true"
+        styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="Fournisseur appel projet recherche">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Libelle</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Libelle"  [(ngModel)]="selectedFournisseurAppelProjetRecherche.libelle"
+                                           id="1" [(ngModel)]="selectedFournisseurAppelProjetRecherche.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Code</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Code"  [(ngModel)]="selectedFournisseurAppelProjetRecherche.code"
+                                           id="2" [(ngModel)]="selectedFournisseurAppelProjetRecherche.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="3">Description</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30"
+                                            placeholder="Description"  [(ngModel)]="selectedFournisseurAppelProjetRecherche.description"
+                                            ></textarea>
+                                </div>
+
+                            <div class="p-field p-col-12 p-md-5">
+                                <label for="4">Pays</label>
+                                <p-dropdown [options]="payss" [(ngModel)]="selectedFournisseurAppelProjetRecherche.paysVo"
+                                        id="4" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Pays">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-pays-create-admin></app-pays-create-admin>
+
+
+</p-dialog>
+
+
+

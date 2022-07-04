@@ -1,0 +1,203 @@
+
+        <p-dialog [(visible)]="editDistinctionDialog" [style]="{width: '70vw'}"
+                header="Distinction" [modal]="true"
+                styleClass="p-fluid">
+
+                <ng-template pTemplate="content" >
+                    <p-tabView>
+                        <p-tabPanel header="Distinction">
+                            <div class="p-grid">
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">Quel est l’intitulé ou le nom de cette nouvelle disctinction obtenue ? <span style="color:red;">*</span></label>
+                                    <textarea id="15" pInputTextarea rows="5" cols="30" placeholder="Quel est l’intitulé ou le nom de cette nouvelle disctinction obtenue ?"
+                                    [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedDistinction.intitule}"
+                                     [(ngModel)]="selectedDistinction.intitule" 
+                                     (blur)="onBlurChamp()"
+                                     ></textarea>
+                                    <small class="p-error" *ngIf="submitted && empty(selectedDistinction.intitule)">L’intitulé  est obligatoire.</small>
+                                </div>
+            
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">Date d’obtention <span style="color:red;">*</span></label>
+                                    <p-calendar id="1"
+                                                placeholder="Date obtention"  [(ngModel)]="selectedDistinction.dateObtention"
+                                                (onBlur)="onBlurChamp()" appendTo="body"
+                                                view="month" dateFormat="mm/yy" [readonlyInput]="true" placeholder="MM/AAAA" [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedDistinction.dateObtention}" [maxDate]="maxDateObtention" [showIcon]="true" required></p-calendar>
+                                    <small class="p-error" *ngIf="submitted && !selectedDistinction.dateObtention">La date d’obtention est obligatoire.</small>
+                                </div>
+            
+                                <div class="p-field align-inputswitch p-mt-2 p-col-12  p-md-4">
+                                    <label>Cette distinction est-elle attribuée à titre individuel ou collectif ? <span style="color:red;">*</span></label>
+                                    <div *ngFor="let type of typeParticipations" class="p-field-checkbox">
+                                        <p-radioButton (onBlur)="onBlurChamp()" [value]="type.code" (click)="onClickTypeParticipation()" [(ngModel)]="selectedTypeParticipationCode">
+                                        </p-radioButton>
+                                        <label>{{type.libelle}}</label>
+                                    </div>
+                                    <small class="p-error" *ngIf="submitted && !selectedDistinction.typeParticipationVo">le type de titre est obligatoire.</small>
+                                </div>
+            
+                                <div class="p-field p-col-5 p-md-3">
+                                    <label for="8">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedDistinction.campagneVo"
+                                            id="8" [filter]="true" filterMatchMode="contains"
+                                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedDistinction.campagneVo}"
+                                            [showClear]="false"
+                                                appendTo="body"
+                                                itemSize="30" [virtualScroll]="true"
+                                            dataKey="id"
+                                            (onBlur)="onBlurChamp()"
+                                            (onChange)="onChangeCampagne()"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                    <small class="p-error" *ngIf="submitted && !selectedDistinction.campagneVo">La campagne est obligatoire.</small>
+                                </div>
+                                <!-- <div class="p-field p-col-1 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                            class="p-button-success one-colonne-btn-success-align"></button>
+                                </div> -->
+            
+                                <div class="p-field p-col-5 p-md-3">
+                                    <label for="7">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedDistinction.chercheurVo"
+                                            id="7" [filter]="true" filterMatchMode="contains"
+                                            dataKey="id"
+                                            [showClear]="false"
+                                                appendTo="body"
+                                                itemSize="10" [virtualScroll]="true"
+                                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedDistinction.chercheurVo}"
+                                            optionLabel="numeroMatricule"
+                                            (onBlur)="onBlurChamp()"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                    <small class="p-error" *ngIf="submitted && !selectedDistinction.chercheurVo">Le chercheur est obligatoire.</small>
+                                </div>
+                                <!-- <div class="p-field p-col-1 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                            class="p-button-success one-colonne-btn-success-align"></button>
+                                </div> -->
+                                
+                                <div class="p-grid ">
+                                    <div class="p-col-12 card" style="background-color:#f8f9fa;">
+                                                <div class="p-grid">
+                                                    <div class="p-col-5 p-field">
+                                                        <label>Par quel établissement, organisme ou institution cette distinction a été remise ? <span style="color:red;">*</span></label>
+                                                        <p-dropdown [options]="etablissements" [(ngModel)]="selectedDistinctionEtablissementPayss.etablissementVo"
+                                                                id="1"  [filter]="true"
+                                                                    appendTo="body"
+                                                                    itemSize="30" [virtualScroll]="true"
+                                                                filterMatchMode="contains" [showClear]="false"
+                                                                optionLabel="libelle"
+                                                                placeholder="établissement"  
+                                                                (onChange)="onChangeOrganisme()"
+                                                                (onBlur)="onBlurChamp()"
+                                                                [ngClass]="{'ng-invalid ng-dirty' : submittedOrganismePays && !isValidOrganisme()}"
+                                                        >
+                                                        </p-dropdown>
+                                                        <small class="p-error" *ngIf="submittedOrganismePays && !isValidOrganisme()">L'établissement est obligatoire.</small>
+                                                    </div>
+                                                    <!-- <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div> -->
+                                                </div>
+                                                <div class="p-grid" *ngIf="showPays">
+                                                    <div class="p-col-5 p-field">
+                                                        <label>Pays de l’établissement, organisme ou institution <span style="color:red;">*</span></label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedDistinctionEtablissementPayss.paysVo"
+                                                                id="0"  [filter]="true"
+                                                                    appendTo="body"
+                                                                    itemSize="30" [virtualScroll]="true"
+                                                                filterMatchMode="contains" [showClear]="false"
+                                                                optionLabel="libelle"
+                                                                placeholder="pays" 
+                                                                [disabled]="disablePays"
+                                                                (onBlur)="onBlurChamp()"
+                                                                [ngClass]="{'ng-invalid ng-dirty' : submittedOrganismePays && !isValidPays()}" 
+                                                        >
+                                                        </p-dropdown>
+                                                        <small class="p-error" *ngIf="submittedOrganismePays && !isValidPays()">Le pays est obligatoire.</small>
+                                                    </div>
+                                                    <!-- <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                [disabled]="disablePays"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div> -->
+                                                </div>
+                                                <small class="p-error" *ngIf="submitted && (!selectedDistinction.distinctionEtablissementPayssVo || (selectedDistinction.distinctionEtablissementPayssVo && selectedDistinction.distinctionEtablissementPayssVo.length==0))">l'ajout d'un ou plusieurs groupes organsimes-pays est obligatoire.</small>
+                                                <p-toolbar>
+                                                    <div class="p-toolbar-group-left">
+                                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                        label="Ajouter un organsime-pays" (click)="addDistinctionEtablissementPayss()"></button>
+                                                    </div>
+                                                </p-toolbar>
+                                    </div>
+                                    
+                                    
+                                    <div class="p-col-12">
+                                        <div class="card">
+                                            <p-table  responsiveLayout="scroll" [value]="selectedDistinction.distinctionEtablissementPayssVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                        <th>établissement</th>
+                                                         <th>pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                        <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDistinctionEtablissementPayss(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                
+                </div>
+                        </p-tabPanel>
+            
+                    </p-tabView>
+            
+                </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text p-mt-5" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple class="p-mt-5" label="Valider" [disabled]="disableValider" icon="pi pi-check" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+<!--            TODO YOUNES OK POUR SUPPRIMER CA ?-->
+<!--                    <app-organisme-create-admin></app-organisme-create-admin>-->
+<!--                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>-->
+<!--                    <app-chercheur-create-admin></app-chercheur-create-admin>-->
+<!--                    <app-campagne-create-admin></app-campagne-create-admin>-->
+<!--                    <app-etablissement-create-admin></app-etablissement-create-admin>-->
+
+
+    </p-dialog>
+
+
+

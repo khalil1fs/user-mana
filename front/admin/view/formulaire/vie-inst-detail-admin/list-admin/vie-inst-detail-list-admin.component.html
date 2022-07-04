@@ -1,0 +1,247 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateVieInstitutionnelleDetail('vieInstitutionnelleDetail')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="typeInstances" [(ngModel)]="searchVieInstitutionnelleDetail.typeInstanceVo"
+                                        id="1"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="1">Type instance</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="2" [options]="yesno" [(ngModel)]="searchVieInstitutionnelleDetail.cooreleStructureIrd"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="2">Coorele structure ird</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="structureIrds" [(ngModel)]="searchVieInstitutionnelleDetail.structureIrdVo"
+                                        id="3"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Structure ird</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="4" [options]="yesno" [(ngModel)]="searchVieInstitutionnelleDetail.cooreleInstrumentIrd"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="4">Coorele instrument ird</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="6"
+                                           type="text" maxlength="30"    [(ngModel)]="searchVieInstitutionnelleDetail.libelle">
+                                    <label for="6">Libelle</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchVieInstitutionnelleDetail.paysVo"
+                                        id="8"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="8">Pays</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="vieInstitutionnelles" [(ngModel)]="searchVieInstitutionnelleDetail.vieInstitutionnelleVo"
+                                        id="9"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="id">
+                                </p-dropdown>
+                                <label for="9">Vie institutionnelle</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="vieInstitutionnelleDetails" [columns]="cols" [rows]="8" [paginator]="true" [rowsPerPageOptions]="[10,25,50,100,500]"
+                    [globalFilterFields]="['libelle', 'cooreleStructureIrd', 'libelle', 'cooreleInstrumentIrd', 'libelle', 'libelle', 'id']" [(selection)]="selectedVieInstitutionnelleDetail"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Vie institutionnelle details</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="typeInstance">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Type instance</span>
+                                        <p-sortIcon field="typeInstance"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="cooreleStructureIrd">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Coorele structure ird</span>
+                                        <p-sortIcon field="cooreleStructureIrd"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="structureIrd">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Structure ird</span>
+                                        <p-sortIcon field="structureIrd"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="cooreleInstrumentIrd">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Coorele instrument ird</span>
+                                        <p-sortIcon field="cooreleInstrumentIrd"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="libelle">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Libelle</span>
+                                        <p-sortIcon field="libelle"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="pays">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Pays</span>
+                                        <p-sortIcon field="pays"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="vieInstitutionnelle">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Vie institutionnelle</span>
+                                        <p-sortIcon field="vieInstitutionnelle"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-vieInstitutionnelleDetail>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="vieInstitutionnelleDetail"></p-tableCheckbox>
+                        </td>
+                            
+                                <td>{{vieInstitutionnelleDetail.typeInstanceVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td><i *ngIf="vieInstitutionnelleDetail.cooreleStructureIrd" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!vieInstitutionnelleDetail.cooreleStructureIrd" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{vieInstitutionnelleDetail.structureIrdVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td><i *ngIf="vieInstitutionnelleDetail.cooreleInstrumentIrd" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!vieInstitutionnelleDetail.cooreleInstrumentIrd" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                 <td>{{vieInstitutionnelleDetail.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{vieInstitutionnelleDetail.paysVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{vieInstitutionnelleDetail.vieInstitutionnelleVo?.id |truncate}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editVieInstitutionnelleDetail(vieInstitutionnelleDetail)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewVieInstitutionnelleDetail(vieInstitutionnelleDetail)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteVieInstitutionnelleDetail(vieInstitutionnelleDetail)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateVieInstitutionnelleDetail(vieInstitutionnelleDetail)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{vieInstitutionnelleDetails ? vieInstitutionnelleDetails.length == 1 ? 'y a' : 'y a' : 'y a' }} {{vieInstitutionnelleDetails ? vieInstitutionnelleDetails.length : 0 }} {{vieInstitutionnelleDetails ? vieInstitutionnelleDetails.length == 1 ? 'vieInstitutionnelleDetail' : 'vieInstitutionnelleDetails' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-vie-institutionnelle-detail-create-admin></app-vie-institutionnelle-detail-create-admin>
+        <app-vie-institutionnelle-detail-edit-admin></app-vie-institutionnelle-detail-edit-admin>
+        <app-vie-institutionnelle-detail-view-admin></app-vie-institutionnelle-detail-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

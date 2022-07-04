@@ -1,0 +1,483 @@
+
+<p-dialog [(visible)]="viewChercheurDialog" [style]="{width: '70vw'}"
+        header="Chercheur" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Chercheur">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="1">Numero matricule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Numero matricule"  [(ngModel)]="selectedChercheur.numeroMatricule"
+                                           id="1" [(ngModel)]="selectedChercheur.numeroMatricule"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="2">Email</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Email"  [(ngModel)]="selectedChercheur.email"
+                                           id="2" [(ngModel)]="selectedChercheur.email"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="3">Type entite administrative</label>
+                                    <p-dropdown [options]="typeEntiteAdministratives" [(ngModel)]="selectedChercheur.typeEntiteAdministrativeVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Type entite administrative">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatetypeEntiteAdministrative('typeEntiteAdministrative')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="4">Entite administrative</label>
+                                    <p-dropdown [options]="entiteAdministratives" [(ngModel)]="selectedChercheur.entiteAdministrativeVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Entite administrative">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateentiteAdministrative('entiteAdministrative')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="5">Pays</label>
+                                    <p-dropdown [options]="payss" [(ngModel)]="selectedChercheur.paysVo"
+                                            id="5" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Pays">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="6">Ville</label>
+                                    <p-dropdown [options]="villes" [(ngModel)]="selectedChercheur.villeVo"
+                                            id="6" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Ville">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateville('ville')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="7">Departement scientifique</label>
+                                    <p-dropdown [options]="departementScientifiques" [(ngModel)]="selectedChercheur.departementScientifiqueVo"
+                                            id="7" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Departement scientifique">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatedepartementScientifique('departementScientifique')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="8">Commission scientifique</label>
+                                    <p-dropdown [options]="commissionScientifiques" [(ngModel)]="selectedChercheur.commissionScientifiqueVo"
+                                            id="8" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Commission scientifique">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecommissionScientifique('commissionScientifique')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="9">Grade</label>
+                                    <p-dropdown [options]="grades" [(ngModel)]="selectedChercheur.gradeVo"
+                                            id="9" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Grade">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreategrade('grade')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="10">Corps</label>
+                                    <p-dropdown [options]="corpss" [(ngModel)]="selectedChercheur.corpsVo"
+                                            id="10" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Corps">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecorps('corps')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-2">
+                                    <label for="11">Sexe</label>
+                                    <p-dropdown [options]="sexes" [(ngModel)]="selectedChercheur.sexeVo"
+                                            id="11" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Sexe">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatesexe('sexe')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="16">Nature implication</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Nature implication"  [(ngModel)]="selectedChercheur.natureImplication"
+                                           id="16" [(ngModel)]="selectedChercheur.natureImplication"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="18">Resume</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Resume"  [(ngModel)]="selectedChercheur.resume"
+                                           id="18" [(ngModel)]="selectedChercheur.resume"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="19">Formation en management</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="19" [disabled]="true" [(ngModel)]="selectedChercheur.formationEnManagement"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="20">Credentials non expired</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="20" [disabled]="true" [(ngModel)]="selectedChercheur.credentialsNonExpired"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="21">Enabled</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="21" [disabled]="true" [(ngModel)]="selectedChercheur.enabled"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="22">Created at</label>
+                                    <p-calendar id="22" [disabled]="true"
+                                                placeholder="Created at"  [(ngModel)]="selectedChercheur.createdAt"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="23">Updated at</label>
+                                    <p-calendar id="23" [disabled]="true"
+                                                placeholder="Updated at"  [(ngModel)]="selectedChercheur.updatedAt"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="24">Account non expired</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="24" [disabled]="true" [(ngModel)]="selectedChercheur.accountNonExpired"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="25">Account non locked</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="25" [disabled]="true" [(ngModel)]="selectedChercheur.accountNonLocked"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="26">Username</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Username"  [(ngModel)]="selectedChercheur.username"
+                                           id="26" [(ngModel)]="selectedChercheur.username"
+                                           autofocus>
+                                </div>
+
+
+
+<!--                                <div class="p-field p-col-12 p-md-3">-->
+<!--                                    <label for="27">Password</label>-->
+<!--                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"-->
+<!--                                           placeholder="Password"  [(ngModel)]="selectedChercheur.password"-->
+<!--                                           id="27" [(ngModel)]="selectedChercheur.password"-->
+<!--                                           autofocus>-->
+<!--                                </div>-->
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="28">Prenom</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Prenom"  [(ngModel)]="selectedChercheur.prenom"
+                                           id="28" [(ngModel)]="selectedChercheur.prenom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="29">Nom</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Nom"  [(ngModel)]="selectedChercheur.nom"
+                                           id="29" [(ngModel)]="selectedChercheur.nom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="30">Role</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Role"  [(ngModel)]="selectedChercheur.role"
+                                           id="30" [(ngModel)]="selectedChercheur.role"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="31">Password changed</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="31" [disabled]="true"  [(ngModel)]="selectedChercheur.passwordChanged"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Domaine scientifique chercheurs">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedChercheur.domaineScientifiqueChercheursVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Domaine scientifique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.domaineScientifiqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Zone activite interaction recherches">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedChercheur.zoneActiviteInteractionRecherchesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Communaute savoir chercheurs">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedChercheur.communauteSavoirChercheursVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Communaute savoir</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Instruments et dispositifs ird chercheurs">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedChercheur.instrumentsEtDispositifsIrdChercheursVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Type instruments et dispositifs ird</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.typeInstrumentsEtDispositifsIrdVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Identifiant auteur experts">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedChercheur.identifiantAuteurExpertsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Identifiant recherche</th>
+                                                            <th>Valeur</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.identifiantRechercheVo?.libelle |truncate}}</td>
+                                                            <td>{{p.valeur |truncate}}</td>
+
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-type-entite-administrative-create-admin></app-type-entite-administrative-create-admin>
+            <app-entite-administrative-create-admin></app-entite-administrative-create-admin>
+            <app-pays-create-admin></app-pays-create-admin>
+            <app-ville-create-admin></app-ville-create-admin>
+            <app-departement-scientifique-create-admin></app-departement-scientifique-create-admin>
+            <app-commission-scientifique-create-admin></app-commission-scientifique-create-admin>
+            <app-grade-create-admin></app-grade-create-admin>
+            <app-corps-create-admin></app-corps-create-admin>
+            <app-sexe-create-admin></app-sexe-create-admin>
+
+                    <app-domaine-scientifique-create-admin></app-domaine-scientifique-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+                    <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+                    <app-type-instruments-et-dispositifs-ird-create-admin></app-type-instruments-et-dispositifs-ird-create-admin>
+                    <app-identifiant-recherche-create-admin></app-identifiant-recherche-create-admin>
+
+
+</p-dialog>
+
+
+

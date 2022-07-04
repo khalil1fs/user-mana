@@ -1,0 +1,102 @@
+
+<p-dialog [(visible)]="viewFaqDialog" [style]="{width: '70vw'}"
+        header="Faq" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Faq">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">Libellé</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder=""  [(ngModel)]="selectedFaq.question"
+                                           id="1" [(ngModel)]="selectedFaq.question"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">Réponse</label>
+                                    <textarea id="2" pInputTextarea rows="5" cols="30"
+                                              placeholder="" [disabled]="true" [(ngModel)]="selectedFaq.reponse"
+                                    ></textarea>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="7">URL</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder=""  [(ngModel)]="selectedFaq.lien"
+                                           id="7" [(ngModel)]="selectedFaq.lien"
+                                           autofocus>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">Mail de contact</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder=""  [(ngModel)]="selectedFaq.contact"
+                                           id="3" [(ngModel)]="selectedFaq.contact"
+                                           autofocus>
+                                </div>
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="5">Ordre</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="5" [disabled]="true"
+                                                   placeholder=""  [(ngModel)]="selectedFaq.ordre"
+                                            [(ngModel)]="selectedFaq.ordre"></p-inputNumber>
+                                </div>
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="6">Archivage</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="6" [disabled]="true" [(ngModel)]="selectedFaq.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="4">Catégorie</label>
+                                    <p-dropdown [options]="categorieFaqs" [(ngModel)]="selectedFaq.categorieFaqVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecategorieFaq('categorieFaq')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="8">Date de dernière mise à jour</label>
+                                    <p-calendar id="8" [disabled]="true"
+                                                placeholder=""  [(ngModel)]="selectedFaq.dernierMisAJour"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-categorie-faq-create-admin></app-categorie-faq-create-admin>
+
+
+
+</p-dialog>
+
+
+

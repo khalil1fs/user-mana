@@ -1,0 +1,116 @@
+
+<p-dialog [(visible)]="viewPartenaireDialog" [style]="{width: '70vw'}"
+        header="{{'partenaireTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'partenaireTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">{{'partenaireSigleOfficel' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'partenaireSigleOfficel' | i18next}}"  [(ngModel)]="selectedPartenaire.sigleOfficel"
+                                           id="1" [(ngModel)]="selectedPartenaire.sigleOfficel"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">{{'partenaireNomOfficel' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'partenaireNomOfficel' | i18next}}"  [(ngModel)]="selectedPartenaire.nomOfficel"
+                                           id="2" [(ngModel)]="selectedPartenaire.nomOfficel"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">{{'partenaireAdresse' | i18next}}</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true"
+                                              placeholder="{{'partenaireAdresse' | i18next}}"  [(ngModel)]="selectedPartenaire.adresse"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="4">{{'partenairePaysPartenaire' | i18next}}</label>
+                                    <p-dropdown [options]="paysPartenaires" [(ngModel)]="selectedPartenaire.paysPartenaireVo"
+                                            id="4" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="{{'partenairePaysPartenaire' | i18next}}">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="5">{{'partenaireTypePartenaire' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'partenaireTypePartenaire' | i18next}}"  [(ngModel)]="selectedPartenaire.typePartenaire"
+                                           id="5" [(ngModel)]="selectedPartenaire.typePartenaire"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="6">{{'partenaireIdGraphQl' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'partenaireIdGraphQl' | i18next}}"  [(ngModel)]="selectedPartenaire.idGraphQl"
+                                           id="6" [(ngModel)]="selectedPartenaire.idGraphQl"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="7">{{'partenaireArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="7"  [disabled]="true" [(ngModel)]="selectedPartenaire.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="8">{{'partenaireDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="8" [disabled]="true"
+                                                placeholder="{{'partenaireDateArchivage' | i18next}}"  [(ngModel)]="selectedPartenaire.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="9">{{'partenaireDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="9" [disabled]="true"
+                                                placeholder="{{'partenaireDateCreation' | i18next}}"  [(ngModel)]="selectedPartenaire.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-pays-partenaire-create-admin></app-pays-partenaire-create-admin>
+
+
+
+</p-dialog>
+
+
+

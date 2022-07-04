@@ -1,0 +1,127 @@
+<p-dialog [(visible)]="createBourseDialog" [style]="{width: '70vw'}"
+        header="Bourse" [modal]="true"
+        styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="Bourse">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">Date obtention</label>
+                                    <p-calendar id="1"
+                                            placeholder="Date obtention"  [(ngModel)]="selectedBourse.dateObtention"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">Intitule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Intitule"  [(ngModel)]="selectedBourse.intitule"
+                                           id="2" [(ngModel)]="selectedBourse.intitule"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                        <div  class="label-inputswitch">
+                                            <label for="3">Participation individuelle</label>
+                                        </div>
+                                        <div class="input-switch">
+                                            <p-inputSwitch id="3"  [(ngModel)]="selectedBourse.participationIndividuelle"></p-inputSwitch>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label for="4">Montant</label>
+                                        <p-inputNumber class="p-mb-2 p-mr-2" id="4"
+                                                       placeholder="Montant"  [(ngModel)]="selectedBourse.montant"
+                                                [(ngModel)]="selectedBourse.montant"></p-inputNumber>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-4">
+                                        <label for="5">Duree en mois</label>
+                                        <p-inputNumber class="p-mb-2 p-mr-2" id="5"
+                                                       placeholder="Duree en mois"  [(ngModel)]="selectedBourse.dureeEnMois"
+                                                [(ngModel)]="selectedBourse.dureeEnMois"></p-inputNumber>
+                                    </div>
+
+                            <div class="p-field p-col-12 p-md-3">
+                                <label for="6">Projet activite recherche</label>
+                                <p-dropdown [options]="projetActiviteRecherches" [(ngModel)]="selectedBourse.projetActiviteRechercheVo"
+                                        id="6" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="annee"
+                                        placeholder="Projet activite recherche">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreateprojetActiviteRecherche('projetActiviteRecherche')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                            <div class="p-field p-col-12 p-md-3">
+                                <label for="7">Campagne</label>
+                                <p-dropdown [options]="campagnes" [(ngModel)]="selectedBourse.campagneVo"
+                                        id="7" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Campagne">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                            <div class="p-field p-col-12 p-md-3">
+                                <label for="8">Chercheur</label>
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="selectedBourse.chercheurVo"
+                                        id="8" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="numeroMatricule"
+                                        placeholder="Chercheur">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-projet-activite-recherche-create-admin></app-projet-activite-recherche-create-admin>
+            <app-campagne-create-admin></app-campagne-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+
+
+</p-dialog>
+
+
+

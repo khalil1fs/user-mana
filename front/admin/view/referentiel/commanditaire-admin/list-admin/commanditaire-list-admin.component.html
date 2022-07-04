@@ -1,0 +1,235 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'new' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateCommanditaire('commanditaire')"></button>
+
+
+                    <button pButton pRipple label="{{'search' | i18next}}"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="{{'export' | i18next}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text"  [(ngModel)]="searchCommanditaire.libelle">
+                                    <label for="1">{{'commanditaireLibelle' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text"  [(ngModel)]="searchCommanditaire.code">
+                                    <label for="2">{{'commanditaireCode' | i18next}}</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchCommanditaire.paysVo"
+                                        id="4"
+                                        [filter]="true" [showClear]="true"  placeholder="{{'commanditairePays' | i18next}}"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="5" [options]="yesOrNoArchive" [(ngModel)]="searchCommanditaire.archive"
+                                            [filter]="false" [showClear]="true"  placeholder="{{'commanditaireArchive' | i18next}}"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchCommanditaire.dateArchivageMin"
+                                    id="6-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-1">{{'commanditaireDateArchivage' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchCommanditaire.dateArchivageMax"
+                                    id="6-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-2">{{'commanditaireDateArchivage' | i18next}} Max</label>
+                        </span>
+
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchCommanditaire.dateCreationMin"
+                                    id="7-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="7-1">{{'commanditaireDateCreation' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchCommanditaire.dateCreationMax"
+                                    id="7-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="7-2">{{'commanditaireDateCreation' | i18next}} Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | i18next}}" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="commanditaires" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['libelle', 'code', 'paysVolibelle', 'archive', 'dateArchivage', 'dateCreation']" [(selection)]="selectedCommanditaire"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="{{'fromTo' | i18next}}"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">{{'commanditaireHeader' | i18next}}</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | i18next}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="libelle">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'commanditaireLibelle' | i18next}}</span>
+                                        <p-sortIcon field="libelle"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="code">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'commanditaireCode' | i18next}}</span>
+                                        <p-sortIcon field="code"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="pays">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'commanditairePays' | i18next}}</span>
+                                        <p-sortIcon field="pays"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'commanditaireArchive' | i18next}}</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'commanditaireDateArchivage' | i18next}}</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateCreation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'commanditaireDateCreation' | i18next}}</span>
+                                        <p-sortIcon field="dateCreation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-commanditaire>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="commanditaire"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{commanditaire.libelle | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{commanditaire.code | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{commanditaire.paysVo?.libelle | truncate:60}}</td>
+                            
+
+                            
+                                <td><i *ngIf="commanditaire.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!commanditaire.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{commanditaire.dateArchivage | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{commanditaire.dateCreation | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editCommanditaire(commanditaire)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewCommanditaire(commanditaire)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateCommanditaire(commanditaire)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{commanditaires ? commanditaires.length == 1 ? 'y a' : 'y a' : 'y a' }} {{commanditaires ? commanditaires.length : 0 }} {{commanditaires ? commanditaires.length == 1 ? 'commanditaire' : 'commanditaires' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-commanditaire-create-admin></app-commanditaire-create-admin>
+        <app-commanditaire-edit-admin></app-commanditaire-edit-admin>
+        <app-commanditaire-view-admin></app-commanditaire-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

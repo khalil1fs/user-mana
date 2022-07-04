@@ -1,0 +1,88 @@
+        <p-dialog [(visible)]="editKeyWordDisciplineScientifiqueErcDialog" [style]="{width: '70vw'}"
+                header="{{'keyWordDisciplineScientifiqueErcTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'keyWordDisciplineScientifiqueErcTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="1">{{'keyWordDisciplineScientifiqueErcKeyWord' | i18next}}</label>
+                                            <p-dropdown [options]="keyWords" [(ngModel)]="selectedKeyWordDisciplineScientifiqueErc.keyWordVo"
+                                                    id="1" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelleFr"
+                                                    placeholder="{{'keyWordDisciplineScientifiqueErcKeyWord' | i18next}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatekeyWord('keyWord')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="2">{{'keyWordDisciplineScientifiqueErcDisciplineScientifiqueErc' | i18next}}</label>
+                                            <p-dropdown [options]="disciplineScientifiqueErcs" [(ngModel)]="selectedKeyWordDisciplineScientifiqueErc.disciplineScientifiqueErcVo"
+                                                    id="2" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelleFr"
+                                                    placeholder="{{'keyWordDisciplineScientifiqueErcDisciplineScientifiqueErc' | i18next}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatedisciplineScientifiqueErc('disciplineScientifiqueErc')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'keyWordDisciplineScientifiqueErcArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="3"  [(ngModel)]="selectedKeyWordDisciplineScientifiqueErc.archive"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">{{'keyWordDisciplineScientifiqueErcDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="4"
+                                                        placeholder="{{'keyWordDisciplineScientifiqueErcDateArchivage' | i18next}}"  [(ngModel)]="selectedKeyWordDisciplineScientifiqueErc.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-key-word-create-admin></app-key-word-create-admin>
+                    <app-discipline-scientifique-erc-create-admin></app-discipline-scientifique-erc-create-admin>
+
+
+    </p-dialog>

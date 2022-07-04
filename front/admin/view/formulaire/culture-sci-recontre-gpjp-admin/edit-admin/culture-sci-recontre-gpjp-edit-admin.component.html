@@ -1,0 +1,421 @@
+
+        <p-dialog [(visible)]="editCultureScientifiqueRecontreGrandPublicJeunePublicDialog" [style]="{width: '70vw'}"
+                header="Culture scientifique recontre grand public jeune public" [modal]="true"
+                styleClass="p-fluid">
+
+            <ng-template pTemplate="content">
+                <p-tabView>
+                    <p-tabPanel header="Culture scientifique recontre grand public jeune public">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="1">Temps estime pour cette année</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="1"
+                                                           placeholder="Temps estime pour cette année"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.tempsEstimePourCetteAnnne"
+                                                    [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.tempsEstimePourCetteAnnne"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-2">
+                                            <label for="3">Format rencontre</label>
+                                            <p-dropdown [options]="formatRencontres" [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.formatRencontreVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Format rencontre">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateformatRencontre('formatRencontre')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="5">Intitule sujet</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Intitule sujet"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.intituleSujet"
+                                                   id="5" [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.intituleSujet"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="6">Periode annee</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="6"
+                                                           placeholder="Periode annee"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.periodeAnnee"
+                                                    [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.periodeAnnee"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="7">Periode mois</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="7"
+                                                           placeholder="Periode mois"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.periodeMois"
+                                                    [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.periodeMois"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                            <div  class="label-inputswitch">
+                                                <label for="9">Evenement grand public</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="9"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.evenementGrandPublic"></p-inputSwitch>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="10">Volume public</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="10"
+                                                           placeholder="Volume public"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.volumePublic"
+                                                    [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.volumePublic"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="12">Lien web</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Lien web"  [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.lienWeb"
+                                                   id="12" [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.lienWeb"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-2">
+                                            <label for="13">Campagne</label>
+                                            <p-dropdown [options]="campagnes" [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.campagneVo"
+                                                    id="13" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Campagne">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-2">
+                                            <label for="14">Chercheur</label>
+                                            <p-dropdown [options]="chercheurs" [(ngModel)]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.chercheurVo"
+                                                    id="14" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="numeroMatricule"
+                                                    placeholder="Chercheur">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Public cible culture scientifique recontres grand public jeune publics">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-field">
+                                                    <label for="0">Id</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="id"
+                                                                   placeholder="Id"
+                                                            [(ngModel)]="selectedPublicCibleCultureScientifiqueRecontreGrandPublics.id"></p-inputNumber>
+                                                </div>
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Public cible</label>
+                                                        <p-dropdown [options]="publicCibles" [(ngModel)]="selectedPublicCibleCultureScientifiqueRecontreGrandPublics.publicCibleVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Public cible"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepublicCible('publicCible')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedPublicCibleCultureScientifiqueRecontreGrandPublics.paysVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addPublicCibleCultureScientifiqueRecontresGrandPublicJeunePublics()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.publicCibleCultureScientifiqueRecontresGrandPublicJeunePublicsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Public cible</th>
+                                                                    <th>Pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.publicCibleVo?.libelle |truncate}}</td>
+                                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deletePublicCibleCultureScientifiqueRecontreGrandPublics(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Contexte culture scientifique recontre grand public jeune publics">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-field">
+                                                    <label for="0">Id</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="id"
+                                                                   placeholder="Id"
+                                                            [(ngModel)]="selectedContexteCultureScientifiqueRecontreGrandPublicJeunePublics.id"></p-inputNumber>
+                                                </div>
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Contexte</label>
+                                                        <p-dropdown [options]="contextes" [(ngModel)]="selectedContexteCultureScientifiqueRecontreGrandPublicJeunePublics.contexteVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Contexte"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatecontexte('contexte')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addContexteCultureScientifiqueRecontreGrandPublicJeunePublics()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.contexteCultureScientifiqueRecontreGrandPublicJeunePublicsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Contexte</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.contexteVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteContexteCultureScientifiqueRecontreGrandPublicJeunePublics(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Etablissement culture scientifique recontre grand public jeune publics">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-field">
+                                                    <label for="0">Id</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="id"
+                                                                   placeholder="Id"
+                                                            [(ngModel)]="selectedEtablissementCultureScientifiqueRecontreGrandPublicJeunePublics.id"></p-inputNumber>
+                                                </div>
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Etablissement</label>
+                                                        <p-dropdown [options]="etablissements" [(ngModel)]="selectedEtablissementCultureScientifiqueRecontreGrandPublicJeunePublics.etablissementVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Etablissement"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEtablissementCultureScientifiqueRecontreGrandPublicJeunePublics()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.etablissementCultureScientifiqueRecontreGrandPublicJeunePublicsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Etablissement</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEtablissementCultureScientifiqueRecontreGrandPublicJeunePublics(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Pays culture scientifique recontre grand public jeune publics">
+                                <div class="p-grid">
+                                    <div class="p-col">
+                                                <div class="p-field">
+                                                    <label for="0">Id</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="id"
+                                                                   placeholder="Id"
+                                                            [(ngModel)]="selectedPaysCultureScientifiqueRecontreGrandPublicJeunePublics.id"></p-inputNumber>
+                                                </div>
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedPaysCultureScientifiqueRecontreGrandPublicJeunePublics.paysVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"
+                                                        >
+                                                        </p-dropdown>
+
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addPaysCultureScientifiqueRecontreGrandPublicJeunePublics()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedCultureScientifiqueRecontreGrandPublicJeunePublic.paysCultureScientifiqueRecontreGrandPublicJeunePublicsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deletePaysCultureScientifiqueRecontreGrandPublicJeunePublics(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check"  style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-format-rencontre-create-admin></app-format-rencontre-create-admin>
+                    <app-campagne-create-admin></app-campagne-create-admin>
+                    <app-chercheur-create-admin></app-chercheur-create-admin>
+
+                            <app-public-cible-create-admin></app-public-cible-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+                            <app-contexte-create-admin></app-contexte-create-admin>
+                            <app-etablissement-create-admin></app-etablissement-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+
+
+    </p-dialog>
+
+
+

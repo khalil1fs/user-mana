@@ -1,0 +1,225 @@
+<app-badge-card-view
+        (switchCardViewOutput)="isCardDisplayActivated = $event"></app-badge-card-view>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="Nouveau" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openCreateDistinction('distinction')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help"
+                                       [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchDistinction.dateObtention"
+                                    id="1-1"
+                                    [showIcon]="true"
+                                    view="month" dateFormat="mm/yy"
+                            ></p-calendar>
+                             <label for="1-1">Date d’obtention</label>
+                        </span>
+
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text" maxlength="30" [(ngModel)]="searchDistinction.intitule">
+                                    <label for="2">L’intitulé ou le nom </label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="typeParticipations"
+                                            [(ngModel)]="searchDistinction.typeParticipationVo"
+                                            id="3"
+                                            [autoDisplayFirst]="false"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Type de titre</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="searchDistinction.chercheurVo"
+                                            id="6"
+                                            [autoDisplayFirst]="false"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="numeroMatricule">
+                                </p-dropdown>
+                                <label for="6">Chercheur</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="campagnes" [(ngModel)]="searchDistinction.campagneVo"
+                                            id="7"
+                                            [autoDisplayFirst]="false"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="7">Campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="distinctions" [columns]="cols" [rows]="8" [paginator]="true"
+                     [globalFilterFields]="['intitule']" [(selection)]="selectedDistinction"
+                     [rowsPerPageOptions]="[10,25,50,100,500]"  sortMode="multiple"
+                     [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                     [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }"
+                     currentPageReportTemplate="affichage de {first} à {last} des {totalRecords} distinctions"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des distinctions</h5>
+                        <app-select-box-sort-table-gestion-equipe-admin *ngIf="isCardDisplayActivated" [cols]="cols"
+                                                                        [table]="dt">
+                        </app-select-box-sort-table-gestion-equipe-admin>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30" placeholder="Rechercher..."
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                        <th pSortableColumn="intitule">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>L’intitulé ou le nom</span>
+                                <p-sortIcon field="intitule"></p-sortIcon>
+                                <p-columnFilter type="text" field="intitule" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+                        <th pSortableColumn="dateObtention">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Date d’obtention</span>
+                                <p-sortIcon field="dateObtention"></p-sortIcon>
+                                <p-columnFilter type="text" field="dateObtention" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+                        <th pSortableColumn="typeParticipation">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Type de titre</span>
+                                <p-sortIcon field="typeParticipation"></p-sortIcon>
+                                <p-columnFilter type="text" field="typeParticipation" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+                        <th pSortableColumn="chercheur">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Chercheur</span>
+                                <p-sortIcon field="chercheur"></p-sortIcon>
+                                <p-columnFilter type="text" field="chercheur" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="campagne">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Campagne</span>
+                                <p-sortIcon field="campagne"></p-sortIcon>
+                                <p-columnFilter type="text" field="campagne" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-distinction>
+                    <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="distinction.dateObtention"
+                                     [status]="distinction.typeParticipationVo?.libelle"
+                                     [cardTitle]="distinction.intitule">
+                        <div card-body>
+                            <ul>
+                                <li><b>{{'nom_chercheur' | i18next}} :</b>
+                                    {{distinction.chercheurVo?.nom}} {{distinction.chercheurVo?.prenom |truncate}}</li>
+
+                                <li><b>{{'libelle_campagne' | i18next }}</b>
+                                    {{distinction.campagneVo?.libelle |truncate}}</li>
+
+                            </ul>
+                        </div>
+                        <div card-buttons>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{distinction: distinction}"></ng-template>
+                        </div>
+                    </app-custom-card>
+
+                    <tr *ngIf="!isCardDisplayActivated">
+                        <td>
+                            <p-tableCheckbox [value]="distinction"></p-tableCheckbox>
+                        </td>
+                        <td>{{distinction.intitule |truncate}}</td>
+
+                        <td>{{distinction.dateObtention | date: 'MM/yyyy' |truncate}}</td>
+
+
+                        <td>{{distinction.typeParticipationVo?.libelle |truncate}}</td>
+
+
+                        <td>{{distinction.chercheurVo?.nom}} {{distinction.chercheurVo?.prenom |truncate}}</td>
+
+
+                        <td>{{distinction.campagneVo?.libelle |truncate}}</td>
+
+
+                        <td>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{distinction: distinction}"></ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #boutonsActions let-distinction="distinction">
+                    <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success p-mr-2"
+                            (click)="editDistinction(distinction)"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="viewDistinction(distinction)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                            (click)="deleteDistinction(distinction)"></button>
+
+                    <button pButton pRipple icon="pi pi-copy"
+                            class="p-button-rounded p-button-raised p-button-warning"
+                            (click)="duplicateDistinction(distinction)"></button>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{distinctions ? distinctions.length == 1 ? 'y a' : 'y a' : 'y a' }} {{distinctions ? distinctions.length : 0 }} {{distinctions ? distinctions.length == 1 ? 'distinction' : 'distinctions' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-distinction-create-admin></app-distinction-create-admin>
+        <app-distinction-edit-admin></app-distinction-edit-admin>
+        <app-distinction-view-admin></app-distinction-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

@@ -1,0 +1,291 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateEvenementColloqueScienntifique('evenementColloqueScienntifique')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text" maxlength="30"    [(ngModel)]="searchEvenementColloqueScienntifique.intitule">
+                                    <label for="1">Intitule</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="modalites" [(ngModel)]="searchEvenementColloqueScienntifique.modaliteVo"
+                                        id="2"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="2">Modalite</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="3"
+                                           type="text" maxlength="30"    [(ngModel)]="searchEvenementColloqueScienntifique.typeDeParticipation">
+                                    <label for="3">Type de participation</label>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEvenementColloqueScienntifique.dateEvenementMin"
+                                    id="4-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-1">Date evenement Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEvenementColloqueScienntifique.dateEvenementMax"
+                                    id="4-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-2">Date evenement Max</label>
+                        </span>
+
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="5" [options]="yesno" [(ngModel)]="searchEvenementColloqueScienntifique.diplomatieStategique"
+                                            [filter]="false" [showClear]="true"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="5">Diplomatie stategique</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="modaliteInterventions" [(ngModel)]="searchEvenementColloqueScienntifique.modaliteInterventionVo"
+                                        id="9"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="9">Modalite intervention</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="savoirEtInnovations" [(ngModel)]="searchEvenementColloqueScienntifique.savoirEtInnovationVo"
+                                        id="12"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="id">
+                                </p-dropdown>
+                                <label for="12">Savoir et innovation</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="searchEvenementColloqueScienntifique.etatEtapeCampagneVo"
+                                        id="13"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="13">Etat etape campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="evenementColloqueScienntifiques" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['intitule', 'libelle', 'typeDeParticipation', 'dateEvenement', 'diplomatieStategique', 'libelle', 'volumeParticipant', 'id', 'libelle']" [(selection)]="selectedEvenementColloqueScienntifique"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Evenement colloque scienntifiques</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="intitule">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Intitule</span>
+                                        <p-sortIcon field="intitule"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="modalite">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Modalite</span>
+                                        <p-sortIcon field="modalite"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="typeDeParticipation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Type de participation</span>
+                                        <p-sortIcon field="typeDeParticipation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateEvenement">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Date evenement</span>
+                                        <p-sortIcon field="dateEvenement"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="diplomatieStategique">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Diplomatie stategique</span>
+                                        <p-sortIcon field="diplomatieStategique"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+
+
+                                
+                                <th pSortableColumn="modaliteIntervention">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Modalite intervention</span>
+                                        <p-sortIcon field="modaliteIntervention"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="volumeParticipant">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Volume participant</span>
+                                        <p-sortIcon field="volumeParticipant"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="savoirEtInnovation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Savoir et innovation</span>
+                                        <p-sortIcon field="savoirEtInnovation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                <!-- 
+                                <th pSortableColumn="etatEtapeCampagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etat etape campagne</span>
+                                        <p-sortIcon field="etatEtapeCampagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-evenementColloqueScienntifique>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="evenementColloqueScienntifique"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{evenementColloqueScienntifique.intitule |truncate}}</td>
+                            
+
+                            
+                                <td>{{evenementColloqueScienntifique.modaliteVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                 <td>{{evenementColloqueScienntifique.typeDeParticipation |truncate}}</td>
+                            
+
+                            
+                                <td>{{evenementColloqueScienntifique.dateEvenement | date:'dd-M-yyyy' |truncate}}</td>
+                            
+
+                            
+                                <td><i *ngIf="evenementColloqueScienntifique.diplomatieStategique" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!evenementColloqueScienntifique.diplomatieStategique" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{evenementColloqueScienntifique.modaliteInterventionVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                 <td>{{evenementColloqueScienntifique.volumeParticipant |truncate}}</td>
+                            
+
+                            
+                                <td>{{evenementColloqueScienntifique.savoirEtInnovationVo?.id |truncate}}</td>
+                            
+
+                             <!-- 
+                                <td>{{evenementColloqueScienntifique.etatEtapeCampagneVo?.libelle |truncate}}</td>
+                             --> 
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editEvenementColloqueScienntifique(evenementColloqueScienntifique)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewEvenementColloqueScienntifique(evenementColloqueScienntifique)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteEvenementColloqueScienntifique(evenementColloqueScienntifique)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateEvenementColloqueScienntifique(evenementColloqueScienntifique)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{evenementColloqueScienntifiques ? evenementColloqueScienntifiques.length == 1 ? 'y a' : 'y a' : 'y a' }} {{evenementColloqueScienntifiques ? evenementColloqueScienntifiques.length : 0 }} {{evenementColloqueScienntifiques ? evenementColloqueScienntifiques.length == 1 ? 'evenementColloqueScienntifique' : 'evenementColloqueScienntifiques' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-evenement-colloque-scienntifique-create-admin></app-evenement-colloque-scienntifique-create-admin>
+        <app-evenement-colloque-scienntifique-edit-admin></app-evenement-colloque-scienntifique-edit-admin>
+        <app-evenement-colloque-scienntifique-view-admin></app-evenement-colloque-scienntifique-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

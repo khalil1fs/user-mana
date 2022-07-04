@@ -1,0 +1,96 @@
+<p-dialog [(visible)]="emailRappelDetailsDialog" [style]="{width: '70vw'}" header="Historique des rappels email"
+    [modal]="true" styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Historiques">
+                <div class="p-grid">
+                    <div class="p-col-12">
+                        <p-toast></p-toast>
+                        <div class="card">
+                            <p-table #dt [value]="campagneRappelChercheurs" [columns]="cols" [rows]="8"
+                                [paginator]="true"
+                                [globalFilterFields]="['message', 'envoye', 'dateEnvoi', 'chercheur']" [rowHover]="true"
+                                dataKey="id" styleClass="p-datatable-customers"
+                                currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} des entrées"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                                        <h5 class="p-m-0">Historique email de chercheurs</h5>
+                                        <span class="p-input-icon-left">
+                                            <i class="pi pi-search"></i>
+                                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..."
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                                        </span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 3rem">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th pSortableColumn="chercheur">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Chercheur</span>
+                                                <p-sortIcon field="chercheur"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="objet">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Objet</span>
+                                                <p-sortIcon field="objet"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="message">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Message</span>
+                                                <p-sortIcon field="message"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="envoye">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Envoye</span>
+                                                <p-sortIcon field="envoye"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="dateEnvoi">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>date Envoi</span>
+                                                <p-sortIcon field="dateEnvoi"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-campagneRappelChercheur>
+                                    <tr>
+                                        <td>
+                                            <p-tableCheckbox [value]="campagneRappelChercheur"></p-tableCheckbox>
+                                        </td>
+                                        <td>{{campagneRappelChercheur.chercheurVo?.numeroMatricule |truncate}}</td>
+                                        <td>{{campagneRappelChercheur.objet |truncate}}</td>
+                                        <td>{{campagneRappelChercheur.message |truncate}}</td>
+                                        <td>
+                                            <i class="pi pi-send" *ngIf='campagneRappelChercheur.envoye == "false"'
+                                                style="color: red;"></i>
+                                            <i class="pi pi-send" *ngIf='campagneRappelChercheur.envoye == "true"'
+                                                style="color: green;"></i>
+                                        </td>
+                                       
+                                        <td>{{campagneRappelChercheur.dateEnvoi | date :'dd/MM/yyyy HH:mm' |truncate}}</td>
+
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+        </p-tabView>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <div class="p-grid">
+            <div style="padding: 10px;">
+                <button pButton pRipple label="Annuler" icon="pi pi-times" (click)="hideDetailRappelDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-dialog>

@@ -1,0 +1,203 @@
+<p-dialog [(visible)]="createDisciplineScientifiqueDialog" [style]="{width: '70vw'}"
+          header="{{'disciplineScientifiqueTabPan' | i18next}}" [modal]="true"
+          styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'disciplineScientifiqueTabPan' | i18next}}">
+                <div class="p-grid">
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="1">{{'disciplineScientifiqueLibelle' | i18next}}</label>
+                        <input class="p-mb-2 p-mr-2" type="text" pInputText
+                               placeholder="{{'disciplineScientifiqueLibelle' | i18next}}"
+                               id="1" [(ngModel)]="selectedDisciplineScientifique.libelle"
+                        />
+
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="2">{{'disciplineScientifiqueLibelleFr' | i18next}}<span style="color: red;">*</span></label>
+                        <input class="p-mb-2 p-mr-2" type="text" pInputText
+                               placeholder="{{'disciplineScientifiqueLibelleFr' | i18next}}"
+                               id="2" [(ngModel)]="selectedDisciplineScientifique.libelleFr"
+                               [ngClass]="{'ng-invalid ng-dirty' : !validDisciplineScientifiqueLibelleFr}"/>
+                        <small class='p-error' *ngIf='!validDisciplineScientifiqueLibelleFr'>LibelleFr est
+                            obligatoire.</small>
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="3">{{'disciplineScientifiqueLibelleEng' | i18next}}<span
+                                style="color: red;">*</span></label>
+                        <input class="p-mb-2 p-mr-2" type="text" pInputText
+                               placeholder="{{'disciplineScientifiqueLibelleEng' | i18next}}"
+                               id="3" [(ngModel)]="selectedDisciplineScientifique.libelleEng"
+                               [ngClass]="{'ng-invalid ng-dirty' : !validDisciplineScientifiqueLibelleEng}"/>
+                        <small class='p-error' *ngIf='!validDisciplineScientifiqueLibelleEng'>LibelleEng est
+                            obligatoire.</small>
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="4">{{'disciplineScientifiqueCode' | i18next}}<span
+                                style="color: red;">*</span></label>
+                        <input class="p-mb-2 p-mr-2" type="text" pInputText
+                               placeholder="{{'disciplineScientifiqueCode' | i18next}}"
+                               id="4" [(ngModel)]="selectedDisciplineScientifique.code"
+                               [ngClass]="{'ng-invalid ng-dirty' : !validDisciplineScientifiqueCode}"/>
+                        <small class='p-error' *ngIf='!validDisciplineScientifiqueCode'>Code est obligatoire.</small>
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="5">{{'disciplineScientifiqueNiveau' | i18next}}</label>
+                        <p-inputNumber class="p-mb-2 p-mr-2" id="5"
+                                       placeholder="{{'disciplineScientifiqueNiveau' | i18next}}"
+                                       [(ngModel)]="selectedDisciplineScientifique.niveau">
+                        </p-inputNumber>
+
+                    </div>
+
+                    <div class="p-field align-inputswitch p-col-12  p-md-4">
+                        <div class="label-inputswitch">
+                            <label for="7">{{'disciplineScientifiqueArchive' | i18next}}</label>
+                        </div>
+                        <div class="input-switch">
+                            <p-inputSwitch id="7" [(ngModel)]="selectedDisciplineScientifique.archive"
+                            >
+                            </p-inputSwitch>
+
+                        </div>
+                    </div>
+
+
+                    <div class="p-field p-col-12 p-md-4">
+                        <label for="8">{{'disciplineScientifiqueDateArchivage' | i18next}}</label>
+                        <p-calendar [showTime]="true" [showSeconds]="false" id="8"
+                                    placeholder="{{'disciplineScientifiqueDateArchivage' | i18next}}"
+                                    [(ngModel)]="selectedDisciplineScientifique.dateArchivage"
+                                    dateFormat="{{dateFormat}}">
+                        </p-calendar>
+
+                    </div>
+
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="{{'disciplineScientifiqueDisciplineScientifiqueErcAssociationsTabPan' | i18next}}" >
+                <p-splitter [style]="{'height': '275px'}">
+                    <ng-template pTemplate>
+
+
+                        <div class="card">
+                            <div class="p-grid">
+                                <div class="p-field p-col-10">
+                                    <label>Discipline scientifique erc</label>
+                                    <p-dropdown [options]="disciplineScientifiqueErcs"
+                                                [(ngModel)]="selectedDisciplineScientifiqueErcAssociations.disciplineScientifiqueErcVo"
+                                                id="1" [filter]="true"
+                                                filterMatchMode="contains" [showClear]="true"
+                                                optionLabel="libelleEng"
+                                                placeholder="Discipline scientifique erc"
+                                    >
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-col-2">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"
+                                            (click)="openCreateDisciplineScientifiqueErc('disciplineScientifiqueErc')"
+                                            class="p-button-success one-colonne-btn-success-align"></button>
+                                </div>
+                                <div class="p-field p-col-10">
+
+                                    <label>Semantic relationship</label>
+                                    <p-dropdown [options]="semanticRelationships"
+                                                [(ngModel)]="selectedDisciplineScientifiqueErcAssociations.semanticRelationshipVo"
+                                                id="3" [filter]="true"
+                                                filterMatchMode="contains" [showClear]="true"
+                                                optionLabel="libelle"
+                                                placeholder="Semantic relationship">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-col-2">
+                                    <label></label>
+
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"
+                                            (click)="openCreateSemanticRelationship('semanticRelationship')"
+                                            class="p-button-success one-colonne-btn-success-align"></button>
+                                </div>
+                                <br>
+                                <div class="p-col-12">
+                                    <button pButton pRipple type="button" icon="pi pi-plus"
+                                            label="OK" (click)="addDisciplineScientifiqueErcAssociations()">
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </ng-template>
+                    <ng-template pTemplate>
+
+
+                        <div class="card">
+                            <p-table [value]="selectedDisciplineScientifique.disciplineScientifiqueErcAssociationsVo"
+                                     [scrollable]="true"
+                                     scrollHeight="200px">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Discipline scientifique erc</th>
+                                        <th>Semantic relationship</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-p>
+                                    <tr>
+                                        <td>{{p.disciplineScientifiqueErcVo?.libelleEng | truncate:60}}</td>
+                                        <td>{{p.semanticRelationshipVo?.libelle | truncate:60}}</td>
+                                        <td>
+                                            <button (click)="deleteDisciplineScientifiqueErcAssociations(p)" pButton
+                                                    type="button" icon="pi pi-times"
+                                                    class="p-button-rounded p-button-danger">
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+
+
+                    </ng-template>
+                </p-splitter>
+
+            </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px"
+                        (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+    <app-discipline-scientifique-erc-create-admin></app-discipline-scientifique-erc-create-admin>
+    <app-semantic-relationship-create-admin></app-semantic-relationship-create-admin>
+
+</p-dialog>

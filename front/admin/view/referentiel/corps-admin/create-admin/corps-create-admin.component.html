@@ -1,0 +1,95 @@
+        <p-dialog [(visible)]="createCorpsDialog" [style]="{width: '70vw'}"
+                header="{{'corpsTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'corpsTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="1">{{'corpsLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'corpsLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedCorps.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validCorpsLibelle}"  />
+                                            <small class='p-error' *ngIf='!validCorpsLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="2">{{'corpsCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'corpsCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedCorps.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validCorpsCode}"  />
+                                            <small class='p-error' *ngIf='!validCorpsCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="3">{{'corpsDescription' | i18next}}</label>
+                                            <textarea id="3" pInputTextarea rows="5" cols="30"
+                                                      placeholder="{{'corpsDescription' | i18next}}"  [(ngModel)]="selectedCorps.description"
+                                             ></textarea>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="4">{{'corpsIdGraph' | i18next}}</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'corpsIdGraph' | i18next}}"
+                                                   id="4" [(ngModel)]="selectedCorps.idGraph"
+                                                     />
+                                            
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                            <div  class="label-inputswitch">
+                                                <label for="5">{{'corpsArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="5"  [(ngModel)]="selectedCorps.archive"
+                                                     >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="6">{{'corpsDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="6"
+                                                        placeholder="{{'corpsDateArchivage' | i18next}}"  [(ngModel)]="selectedCorps.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

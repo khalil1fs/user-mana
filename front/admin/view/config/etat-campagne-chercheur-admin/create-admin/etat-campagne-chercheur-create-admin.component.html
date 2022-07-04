@@ -1,0 +1,55 @@
+<p-dialog [(visible)]="createEtatCampagneChercheurDialog" [style]="{width: '70vw'}"
+        header="Etat campagne chercheur" [modal]="true"
+        styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="Etat campagne chercheur">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Libelle</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Libelle"  [(ngModel)]="selectedEtatCampagneChercheur.libelle"
+                                           id="1" [(ngModel)]="selectedEtatCampagneChercheur.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">Code</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Code"  [(ngModel)]="selectedEtatCampagneChercheur.code"
+                                           id="2" [(ngModel)]="selectedEtatCampagneChercheur.code"
+                                           autofocus>
+                                </div>
+
+
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+</p-dialog>
+
+
+

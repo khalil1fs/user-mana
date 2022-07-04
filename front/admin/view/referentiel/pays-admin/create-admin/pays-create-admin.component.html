@@ -1,0 +1,104 @@
+        <p-dialog [(visible)]="createPaysDialog" [style]="{width: '70vw'}"
+                header="{{'paysTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'paysTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="1">{{'paysLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'paysLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedPays.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validPaysLibelle}"  />
+                                            <small class='p-error' *ngIf='!validPaysLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="2">{{'paysCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'paysCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedPays.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validPaysCode}"  />
+                                            <small class='p-error' *ngIf='!validPaysCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-11 p-md-3">
+                                            <label for="3">{{'paysContinent' | i18next}}</label>
+                                            <p-dropdown [options]="continents" [(ngModel)]="selectedPays.continentVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="{{'paysContinent' | i18next}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatecontinent('continent')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="4">{{'paysIdGraph' | i18next}}</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'paysIdGraph' | i18next}}"
+                                                   id="4" [(ngModel)]="selectedPays.idGraph"
+                                                     />
+                                            
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                            <div  class="label-inputswitch">
+                                                <label for="5">{{'paysArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="5"  [(ngModel)]="selectedPays.archive"
+                                                     >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="6">{{'paysDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="6"
+                                                        placeholder="{{'paysDateArchivage' | i18next}}"  [(ngModel)]="selectedPays.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-continent-create-admin></app-continent-create-admin>
+
+
+    </p-dialog>

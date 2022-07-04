@@ -1,0 +1,166 @@
+        <p-dialog [(visible)]="createGestionEquipeDialog" [style]="{width: '70vw'}"
+                header="Gestion equipe" [modal]="true"
+                styleClass="p-fluid">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="Gestion equipe">
+                        <div class="p-grid">
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">Temps estime pour cette année</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="1"
+                                                           placeholder="Temps estime pour cette année"  [(ngModel)]="selectedGestionEquipe.tempsEstimePourCetteAnnne"
+                                                    [(ngModel)]="selectedGestionEquipe.tempsEstimePourCetteAnnne" autofocus  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">Chercheur</label>
+                                            <p-dropdown [options]="chercheurs" [(ngModel)]="selectedGestionEquipe.chercheurVo"
+                                                    id="2" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="numeroMatricule"
+                                                    placeholder="Chercheur"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="3">Campagne</label>
+                                            <p-dropdown [options]="campagnes" [(ngModel)]="selectedGestionEquipe.campagneVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Campagne"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedGestionEquipe.etatEtapeCampagneVo"
+                                                    id="4" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Gestion equipe details">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+
+                                                <div class="p-field">
+                                                    <label for="1">Nombre personne encadre</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="nombrePersonneEncadre"
+                                                                   placeholder="Nombre personne encadre"  
+                                                            [(ngModel)]="selectedGestionEquipeDetails.nombrePersonneEncadre"></p-inputNumber>
+                                                    
+                                                </div>
+
+
+                                                <div class="p-field">
+                                                    <label for="2">Nombre personne hors ird</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="nombrePersonneHorsIrd"
+                                                                   placeholder="Nombre personne hors ird"  
+                                                            [(ngModel)]="selectedGestionEquipeDetails.nombrePersonneHorsIrd"></p-inputNumber>
+                                                    
+                                                </div>
+
+
+                                                <div class="p-field">
+                                                    <label for="3">Nombre personne sous conventions</label>
+                                                    <p-inputNumber class="p-mb-2 p-mr-2" id="nombrePersonneSousConventions"
+                                                                   placeholder="Nombre personne sous conventions"  
+                                                            [(ngModel)]="selectedGestionEquipeDetails.nombrePersonneSousConventions"></p-inputNumber>
+                                                    
+                                                </div>
+
+
+                                                <div class="p-field  align-inputswitch">
+                                                    <div  class="label-inputswitch">
+                                                        <label for="4">Formation management</label>
+                                                    </div>
+                                                    <div class="input-switch">
+                                                        <p-inputSwitch id="4"  [(ngModel)]="selectedGestionEquipeDetails.formationManagement"></p-inputSwitch>
+                                                    </div>
+                                                </div>
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addGestionEquipeDetails()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedGestionEquipe.gestionEquipeDetailsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Nombre personne encadre</th>
+                                                                    <th>Nombre personne hors ird</th>
+                                                                    <th>Nombre personne sous conventions</th>
+                                                                    <th>Formation management</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                    <td>{{p.nombrePersonneEncadre |truncate}}</td>
+
+                                                                    <td>{{p.nombrePersonneHorsIrd |truncate}}</td>
+
+                                                                    <td>{{p.nombrePersonneSousConventions |truncate}}</td>
+
+                                                                    <td><i *ngIf="p.formationManagement" class="pi pi-check checked-toogle"></i>
+                                                                        <i *ngIf="!p.formationManagement" class="pi pi-times unchecked-toogle"></i>
+                                                                    </td>
+
+                                                        <td>
+                                                            <button (click)="deleteGestionEquipeDetails(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-chercheur-create-admin></app-chercheur-create-admin>
+                    <app-campagne-create-admin></app-campagne-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+
+    </p-dialog>

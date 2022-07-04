@@ -1,0 +1,120 @@
+
+<p-dialog [(visible)]="viewDistinctionDialog" [style]="{width: '70vw'}"
+        header="Distinction" [modal]="true"
+        styleClass="p-fluid">
+
+        <ng-template pTemplate="content" >
+            <p-tabView>
+                <p-tabPanel header="Distinction">
+                    <div class="p-grid">
+                        <div class="p-field p-col-12 p-md-4">
+                            <label for="2">Quel est l’intitulé ou le nom de cette nouvelle disctinction obtenue ?</label>
+                            <textarea id="15" pInputTextarea rows="5" cols="30" placeholder="Quel est l’intitulé ou le nom de cette nouvelle disctinction obtenue ?"
+                            [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedDistinction.intitule}"
+                             [(ngModel)]="selectedDistinction.intitule" 
+                             (blur)="onBlurChamp()"
+                             [disabled]="true"
+                             ></textarea>
+                        </div>
+    
+                        <div class="p-field p-col-12 p-md-4">
+                            <label for="1">Date d’obtention</label>
+                            <p-calendar id="1"
+                                        placeholder="Date obtention"  [(ngModel)]="selectedDistinction.dateObtention"
+                                        (onBlur)="onBlurChamp()"
+                                        [disabled]="true"
+                                        appendTo="body"
+                                        view="month" dateFormat="mm/yy" [readonlyInput]="true" placeholder="MM/AAAA" [ngClass]="{'ng-invalid ng-dirty' : submitted && !selectedDistinction.dateObtention}" [maxDate]="maxDateObtention" [showIcon]="true" required></p-calendar>
+                        </div>
+    
+                        <div class="p-field align-inputswitch p-mt-2 p-col-12  p-md-4">
+                            <label>Cette distinction est-elle attribuée à titre individuel ou collectif ?</label>
+                            <div *ngFor="let type of typeParticipations" class="p-field-checkbox">
+                                <p-radioButton [disabled]="true" (onBlur)="onBlurChamp()" [value]="type.code" (click)="onClickTypeParticipation()" [(ngModel)]="selectedTypeParticipationCode">
+                                </p-radioButton>
+                                <label>{{type.libelle}}</label>
+                            </div>
+                        </div>
+                        <div class="p-field p-col-5 p-md-3">
+                            <label for="8">Campagne</label>
+                            <p-dropdown [options]="campagnes" [(ngModel)]="selectedDistinction.campagneVo"
+                                    id="8" [filter]="true" filterMatchMode="contains"
+                                    [showClear]="false"
+                                    dataKey="id"
+                                        appendTo="body"
+                                        itemSize="30" [virtualScroll]="true"
+                                    (onBlur)="onBlurChamp()"
+                                    optionLabel="libelle"
+                                    [disabled]="true"
+                                    placeholder="Campagne">
+                            </p-dropdown>
+                        </div>
+                        
+    
+                        <div class="p-field p-col-5 p-md-3">
+                            <label for="7">Chercheur</label>
+                            <p-dropdown [options]="chercheurs" [(ngModel)]="selectedDistinction.chercheurVo"
+                                    id="7" [filter]="true" filterMatchMode="contains"
+                                    [showClear]="false"
+                                    dataKey="id"
+                                    appendTo="body"
+                                    itemSize="30" [virtualScroll]="true"
+                                    optionLabel="numeroMatricule"
+                                    (onBlur)="onBlurChamp()"
+                                    [disabled]="true"
+                                    placeholder="Chercheur">
+                            </p-dropdown>
+                        </div>
+                       
+                        
+                        <div class="p-grid ">  
+                            <div class="p-col-12">
+                                <div class="card">
+                                    <p-table  responsiveLayout="scroll" [value]="selectedDistinction.distinctionEtablissementPayssVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                <th>établissement</th>
+                                                 <th>pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+    
+                        
+        </div>
+                </p-tabPanel>
+    
+            </p-tabView>
+    
+        </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+    <!--            TODO YOUNES OK POUR SUPPRIMER CA ?-->
+<!--            <app-organisme-create-admin></app-organisme-create-admin>-->
+<!--            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>-->
+<!--            <app-chercheur-create-admin></app-chercheur-create-admin>-->
+<!--            <app-campagne-create-admin></app-campagne-create-admin>-->
+
+
+
+</p-dialog>
+
+
+

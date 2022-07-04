@@ -1,0 +1,168 @@
+
+<p-dialog [(visible)]="viewEtablissementDialog" [style]="{width: '70vw'}"
+        header="{{'etablissementTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'etablissementTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="1">{{'etablissementLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementLibelle' | i18next}}"  [(ngModel)]="selectedEtablissement.libelle"
+                                           id="1" [(ngModel)]="selectedEtablissement.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="2">{{'etablissementCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementCode' | i18next}}"  [(ngModel)]="selectedEtablissement.code"
+                                           id="2" [(ngModel)]="selectedEtablissement.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="3">{{'etablissementDescription' | i18next}}</label>
+                                    <textarea id="3" pInputTextarea rows="5" cols="30" [disabled]="true"
+                                              placeholder="{{'etablissementDescription' | i18next}}"  [(ngModel)]="selectedEtablissement.description"
+                                    ></textarea>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="4">{{'etablissementSigleOfficiel' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementSigleOfficiel' | i18next}}"  [(ngModel)]="selectedEtablissement.sigleOfficiel"
+                                           id="4" [(ngModel)]="selectedEtablissement.sigleOfficiel"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="5">{{'etablissementNomEnFrancais' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementNomEnFrancais' | i18next}}"  [(ngModel)]="selectedEtablissement.nomEnFrancais"
+                                           id="5" [(ngModel)]="selectedEtablissement.nomEnFrancais"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="6">{{'etablissementSigleEnFrancais' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementSigleEnFrancais' | i18next}}"  [(ngModel)]="selectedEtablissement.sigleEnFrancais"
+                                           id="6" [(ngModel)]="selectedEtablissement.sigleEnFrancais"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="7">{{'etablissementAnciensNom' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementAnciensNom' | i18next}}"  [(ngModel)]="selectedEtablissement.anciensNom"
+                                           id="7" [(ngModel)]="selectedEtablissement.anciensNom"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="8">{{'etablissementVille' | i18next}}</label>
+                                    <p-dropdown [options]="villes" [(ngModel)]="selectedEtablissement.villeVo"
+                                            id="8" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="{{'etablissementVille' | i18next}}">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="9">{{'etablissementPays' | i18next}}</label>
+                                    <p-dropdown [options]="payss" [(ngModel)]="selectedEtablissement.paysVo"
+                                            id="9" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="{{'etablissementPays' | i18next}}">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="10">{{'etablissementChampIntervention' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'etablissementChampIntervention' | i18next}}"  [(ngModel)]="selectedEtablissement.champIntervention"
+                                           id="10" [(ngModel)]="selectedEtablissement.champIntervention"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="11">{{'etablissementValide' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="11"  [disabled]="true" [(ngModel)]="selectedEtablissement.valide"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                    <div  class="label-inputswitch">
+                                        <label for="12">{{'etablissementArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="12"  [disabled]="true" [(ngModel)]="selectedEtablissement.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="13">{{'etablissementDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="13" [disabled]="true"
+                                                placeholder="{{'etablissementDateArchivage' | i18next}}"  [(ngModel)]="selectedEtablissement.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="14">{{'etablissementDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="14" [disabled]="true"
+                                                placeholder="{{'etablissementDateCreation' | i18next}}"  [(ngModel)]="selectedEtablissement.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-ville-create-admin></app-ville-create-admin>
+            <app-pays-create-admin></app-pays-create-admin>
+
+
+
+</p-dialog>
+
+
+

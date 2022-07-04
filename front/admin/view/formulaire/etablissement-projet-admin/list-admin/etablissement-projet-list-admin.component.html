@@ -1,0 +1,296 @@
+<app-badge-card-view
+        (switchCardViewOutput)="isCardDisplayActivated = $event"></app-badge-card-view>
+
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openCreateEtablissementProjet('etablissementProjet')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help"
+                                       [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text" maxlength="30" [(ngModel)]="searchEtablissementProjet.libelle">
+                                    <label for="1">Libelle</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text" maxlength="30" [(ngModel)]="searchEtablissementProjet.code">
+                                    <label for="2">Code</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="4"
+                                           type="text" maxlength="30"
+                                           [(ngModel)]="searchEtablissementProjet.sigleOfficiel">
+                                    <label for="4">Sigle officiel</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="5"
+                                           type="text" maxlength="30"
+                                           [(ngModel)]="searchEtablissementProjet.nomEnFrancais">
+                                    <label for="5">Nom en francais</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="6"
+                                           type="text" maxlength="30"
+                                           [(ngModel)]="searchEtablissementProjet.sigleEnFrancais">
+                                    <label for="6">Sigle en francais</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="7"
+                                           type="text" maxlength="30"
+                                           [(ngModel)]="searchEtablissementProjet.anciensNom">
+                                    <label for="7">Anciens nom</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="villes" [(ngModel)]="searchEtablissementProjet.villeVo"
+                                            id="8"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="8">Ville</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchEtablissementProjet.paysVo"
+                                            id="9"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="9">Pays</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="10"
+                                           type="text" maxlength="30"
+                                           [(ngModel)]="searchEtablissementProjet.champIntervention">
+                                    <label for="10">Champ intervention</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="11" [options]="yesno" [(ngModel)]="searchEtablissementProjet.valide"
+                                                [filter]="false" [showClear]="true"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="11">Valide</label>
+                                </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="etablissementProjets" [columns]="cols" [rows]="8" [paginator]="true"
+                     [rowsPerPageOptions]="[10,25,50,100,500]"
+                     [globalFilterFields]="['libelle', 'code', 'sigleOfficiel', 'nomEnFrancais', 'sigleEnFrancais', 'anciensNom', 'libelle', 'libelle', 'champIntervention', 'valide']"
+                     [(selection)]="selectedEtablissementProjet"
+                     [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }" sortMode="multiple"
+                     [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                     currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Etablissement projets</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30" placeholder="Chercher..."
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+
+                        <th pSortableColumn="libelle">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Libelle</span>
+                                <p-sortIcon field="libelle"></p-sortIcon>
+                                <p-columnFilter type="text" field="libelle" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="code">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Code</span>
+                                <p-sortIcon field="code"></p-sortIcon>
+                                <p-columnFilter type="text" field="code" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="sigleOfficiel">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Sigle officiel</span>
+                                <p-sortIcon field="sigleOfficiel"></p-sortIcon>
+                                <p-columnFilter type="text" field="sigleOfficiel" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="nomEnFrancais">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Nom en francais</span>
+                                <p-sortIcon field="nomEnFrancais"></p-sortIcon>
+                                <p-columnFilter type="text" field="nomEnFrancais" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="sigleEnFrancais">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Sigle en francais</span>
+                                <p-sortIcon field="sigleEnFrancais"></p-sortIcon>
+                                <p-columnFilter type="text" field="sigleEnFrancais" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="anciensNom">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Anciens nom</span>
+                                <p-sortIcon field="anciensNom"></p-sortIcon>
+                                <p-columnFilter type="text" field="anciensNom" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="ville">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Ville</span>
+                                <p-sortIcon field="ville"></p-sortIcon>
+                                <p-columnFilter type="text" field="ville" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="pays">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Pays</span>
+                                <p-sortIcon field="pays"></p-sortIcon>
+                                <p-columnFilter type="text" field="pays" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-etablissementProjet>
+                    <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="etablissementProjet.createdAt"
+                                     [status]="etablissementProjet.code"
+                                     [cardTitle]="etablissementProjet.libelle">
+                        <div card-body>
+                            <ul>
+                                <li>{{etablissementProjet.sigleOfficiel |truncate}}</li>
+
+
+                                <li>{{etablissementProjet.nomEnFrancais |truncate}}</li>
+
+
+                                <li>{{etablissementProjet.sigleEnFrancais |truncate}}</li>
+
+
+                                <li>{{etablissementProjet.anciensNom |truncate}}</li>
+
+
+                                <li>{{etablissementProjet.villeVo?.libelle |truncate}}</li>
+
+
+                                <li>{{etablissementProjet.paysVo?.libelle |truncate}}</li>
+                            </ul>
+                        </div>
+                        <div card-buttons>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{etablissementProjet: etablissementProjet}"></ng-template>
+                        </div>
+                    </app-custom-card>
+
+                    <tr *ngIf="!isCardDisplayActivated">
+                        <td>
+                            <p-tableCheckbox [value]="etablissementProjet"></p-tableCheckbox>
+                        </td>
+
+                        <td>{{etablissementProjet.libelle |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.code |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.sigleOfficiel |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.nomEnFrancais |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.sigleEnFrancais |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.anciensNom |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.villeVo?.libelle |truncate}}</td>
+
+
+                        <td>{{etablissementProjet.paysVo?.libelle |truncate}}</td>
+
+
+                        <td>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{etablissementProjet: etablissementProjet}"></ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #boutonsActions
+                             let-etablissementProjet="etablissementProjet">
+                    <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success p-mr-2"
+                            (click)="editEtablissementProjet(etablissementProjet)"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="viewEtablissementProjet(etablissementProjet)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                            (click)="deleteEtablissementProjet(etablissementProjet)"></button>
+                    <button pButton pRipple icon="pi pi-copy"
+                            class="p-button-rounded p-button-raised p-button-warning"
+                            (click)="duplicateEtablissementProjet(etablissementProjet)"></button>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{etablissementProjets ? etablissementProjets.length == 1 ? 'y a' : 'y a' : 'y a' }} {{etablissementProjets ? etablissementProjets.length : 0 }} {{etablissementProjets ? etablissementProjets.length == 1 ? 'etablissementProjet' : 'etablissementProjets' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-etablissement-projet-create-admin></app-etablissement-projet-create-admin>
+        <app-etablissement-projet-edit-admin></app-etablissement-projet-edit-admin>
+        <app-etablissement-projet-view-admin></app-etablissement-projet-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

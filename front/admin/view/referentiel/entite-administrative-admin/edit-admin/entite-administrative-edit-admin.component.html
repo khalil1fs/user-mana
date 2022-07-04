@@ -1,0 +1,145 @@
+        <p-dialog [(visible)]="editEntiteAdministrativeDialog" [style]="{width: '70vw'}"
+                header="{{'entiteAdministrativeTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'entiteAdministrativeTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="1">{{'entiteAdministrativeLibelleCourt' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'entiteAdministrativeLibelleCourt' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedEntiteAdministrative.libelleCourt"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validEntiteAdministrativeLibelleCourt}"  />
+                                            <small class='p-error' *ngIf='!validEntiteAdministrativeLibelleCourt'>LibelleCourt est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="2">{{'entiteAdministrativeLibelleLong' | i18next}}</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'entiteAdministrativeLibelleLong' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedEntiteAdministrative.libelleLong"
+                                                     />
+                                            
+                                        </div>
+
+
+
+<!--                                        <div class="p-field p-col-12 p-md-3">-->
+<!--                                            <label for="3">{{'entiteAdministrativeLibelle' | i18next}}</label>-->
+<!--                                            <input class="p-mb-2 p-mr-2" type="text" pInputText-->
+<!--                                                   placeholder="{{'entiteAdministrativeLibelle' | i18next}}"-->
+<!--                                                   id="3" [(ngModel)]="selectedEntiteAdministrative.libelle"-->
+<!--                                                     />-->
+<!--                                            -->
+<!--                                        </div>-->
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="4">{{'entiteAdministrativeCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'entiteAdministrativeCode' | i18next}}"
+                                                   id="4" [(ngModel)]="selectedEntiteAdministrative.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validEntiteAdministrativeCode}"  />
+                                            <small class='p-error' *ngIf='!validEntiteAdministrativeCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="5">{{'entiteAdministrativeIdentifiantNational' | i18next}}</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'entiteAdministrativeIdentifiantNational' | i18next}}"
+                                                   id="5" [(ngModel)]="selectedEntiteAdministrative.identifiantNational"
+                                                     />
+                                            
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="6">{{'entiteAdministrativeSiteWeb' | i18next}}</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'entiteAdministrativeSiteWeb' | i18next}}"
+                                                   id="6" [(ngModel)]="selectedEntiteAdministrative.siteWeb"
+                                                     />
+                                            
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="7">{{'entiteAdministrativeDescription' | i18next}}</label>
+                                            <textarea id="7" pInputTextarea rows="5" cols="30"
+                                                      placeholder="{{'entiteAdministrativeDescription' | i18next}}"  [(ngModel)]="selectedEntiteAdministrative.description"
+                                                     ></textarea>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-11 p-md-2">
+                                            <label for="8">{{'entiteAdministrativeTypeEntiteAdministrative' | i18next}}</label>
+                                            <p-dropdown [options]="typeEntiteAdministratives" [(ngModel)]="selectedEntiteAdministrative.typeEntiteAdministrativeVo"
+                                                    id="8" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="{{'entiteAdministrativeTypeEntiteAdministrative' | i18next}}"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateTypeEntiteAdministrative('typeEntiteAdministrative')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                        <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                            <div  class="label-inputswitch">
+                                                <label for="9">{{'entiteAdministrativeArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="9"  [(ngModel)]="selectedEntiteAdministrative.archive"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="10">{{'entiteAdministrativeDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="10"
+                                                        placeholder="{{'entiteAdministrativeDateArchivage' | i18next}}"  [(ngModel)]="selectedEntiteAdministrative.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-type-entite-administrative-create-admin></app-type-entite-administrative-create-admin>
+
+
+    </p-dialog>

@@ -1,0 +1,76 @@
+        <p-dialog [(visible)]="editTypeExpertiseDialog" [style]="{width: '70vw'}"
+                header="{{'typeExpertiseTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'typeExpertiseTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">{{'typeExpertiseLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'typeExpertiseLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedTypeExpertise.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validTypeExpertiseLibelle}"  />
+                                            <small class='p-error' *ngIf='!validTypeExpertiseLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">{{'typeExpertiseCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'typeExpertiseCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedTypeExpertise.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validTypeExpertiseCode}"  />
+                                            <small class='p-error' *ngIf='!validTypeExpertiseCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'typeExpertiseArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="3"  [(ngModel)]="selectedTypeExpertise.archive"
+                                                         >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">{{'typeExpertiseDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="4"
+                                                        placeholder="{{'typeExpertiseDateArchivage' | i18next}}"  [(ngModel)]="selectedTypeExpertise.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

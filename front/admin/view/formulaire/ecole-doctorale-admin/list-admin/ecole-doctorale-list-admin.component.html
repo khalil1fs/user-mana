@@ -1,0 +1,180 @@
+<app-badge-card-view
+        (switchCardViewOutput)="isCardDisplayActivated = $event"></app-badge-card-view>
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openCreateEcoleDoctorale('ecoleDoctorale')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help"
+                                       [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text" maxlength="30" [(ngModel)]="searchEcoleDoctorale.intitule">
+                                    <label for="1">Intitule</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown id="2" [options]="yesno"
+                                                [(ngModel)]="searchEcoleDoctorale.international"
+                                                [filter]="false" [showClear]="true"
+                                                optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                   <label for="2">International</label>
+                                </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchEcoleDoctorale.paysVo"
+                                            id="3"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Pays</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="ecoleDoctorales" [columns]="cols" [rows]="8" [paginator]="true"
+                     [globalFilterFields]="['intitule', 'international', 'libelle']"
+                     [(selection)]="selectedEcoleDoctorale"
+                     [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                     [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }" sortMode="multiple"
+                     currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                     [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Ecole doctorales</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30" placeholder="Chercher..."
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+
+                        <th pSortableColumn="intitule">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Intitule</span>
+                                <p-sortIcon field="intitule"></p-sortIcon>
+                                <p-columnFilter type="text" field="intitule" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="international">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>International</span>
+                                <p-sortIcon field="international"></p-sortIcon>
+                                <p-columnFilter type="text" field="international" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th pSortableColumn="pays">
+                            <div class="p-d-flex p-jc-between p-ai-center">
+                                <span>Pays</span>
+                                <p-sortIcon field="pays"></p-sortIcon>
+                                <p-columnFilter type="text" field="pays" display="menu"></p-columnFilter>
+                            </div>
+                        </th>
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-ecoleDoctorale>
+                    <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="ecoleDoctorale.createdAt"
+                                     [status]="ecoleDoctorale.intitule"
+                                     [cardTitle]="ecoleDoctorale.objet">
+                        <div card-body>
+                          <b>International : </b>  <i *ngIf="ecoleDoctorale.international"
+                                             class="pi pi-check checked-toogle"></i>
+                            <i *ngIf="!ecoleDoctorale.international" class="pi pi-times unchecked-toogle"></i>
+
+                            <li>Pays : {{ecoleDoctorale.paysVo?.libelle}}</li>
+                        </div>
+                        <div card-buttons>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{ecoleDoctorale: ecoleDoctorale}"></ng-template>
+                        </div>
+                    </app-custom-card>
+
+                    <tr *ngIf="!isCardDisplayActivated">
+                        <td>
+                            <p-tableCheckbox [value]="ecoleDoctorale"></p-tableCheckbox>
+                        </td>
+
+                        <td>{{ecoleDoctorale.intitule |truncate}}</td>
+
+
+                        <td><i *ngIf="ecoleDoctorale.international" class="pi pi-check checked-toogle"></i>
+                            <i *ngIf="!ecoleDoctorale.international" class="pi pi-times unchecked-toogle"></i>
+                        </td>
+
+
+                        <td>{{ecoleDoctorale.paysVo?.libelle |truncate}}</td>
+
+
+                        <td>
+                            <ng-template [ngTemplateOutlet]="boutonsActions"
+                                         [ngTemplateOutletContext]="{ecoleDoctorale: ecoleDoctorale}"></ng-template>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template #boutonsActions let-ecoleDoctorale="ecoleDoctorale">
+                    <button pButton pRipple icon="pi pi-pencil"
+                            class="p-button-rounded p-button-success p-mr-2"
+                            (click)="editEcoleDoctorale(ecoleDoctorale)"></button>
+                    <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                            (click)="viewEcoleDoctorale(ecoleDoctorale)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                            (click)="deleteEcoleDoctorale(ecoleDoctorale)"></button>
+                    <button pButton pRipple icon="pi pi-copy"
+                            class="p-button-rounded p-button-raised p-button-warning"
+                            (click)="duplicateEcoleDoctorale(ecoleDoctorale)"></button>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{ecoleDoctorales ? ecoleDoctorales.length == 1 ? 'y a' : 'y a' : 'y a' }} {{ecoleDoctorales ? ecoleDoctorales.length : 0 }} {{ecoleDoctorales ? ecoleDoctorales.length == 1 ? 'ecoleDoctorale' : 'ecoleDoctorales' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-ecole-doctorale-create-admin></app-ecole-doctorale-create-admin>
+        <app-ecole-doctorale-edit-admin></app-ecole-doctorale-edit-admin>
+        <app-ecole-doctorale-view-admin></app-ecole-doctorale-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

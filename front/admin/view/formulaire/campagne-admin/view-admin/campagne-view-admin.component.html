@@ -1,0 +1,387 @@
+<p-tabView>
+    <p-tabPanel header="Campagne">
+        <div class="p-grid" style="margin-top: 10px;">
+
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea inputId="textarea" rows="2" cols="30" [(ngModel)]="selectedCampagne.code"
+                            pInputTextarea maxlength="255" [disabled]="true" [style]="{'width':'100%'}"></textarea>
+                        <label for="3">Code</label>
+                    </span>
+
+                </div>
+            </div>
+
+
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <textarea inputId="textarea" rows="3" cols="30" [(ngModel)]="selectedCampagne.libelle"
+                            pInputTextarea maxlength="255" [disabled]="true" [style]="{'width':'100%'}"></textarea>
+                        <label for="1">Libellé</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-col-6">
+                <div class="box">
+                    <div class="p-float-label p-mr-3">
+                        <p-inputNumber [(ngModel)]="selectedCampagne.annee" [format]="false" [showButtons]="true"
+                            [min]="1937" [max]="2090" [disabled]="true" [style]="{'width':'100%'}"></p-inputNumber>
+
+                        <label for="4">Année d’activités <span style="color: red;">*</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-col-6"></div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <p-calendar id="5" [disabled]="true" [(ngModel)]="selectedCampagne.dateDepart"
+                            dateFormat="{{dateFormat}}" [showTime]="true" [showSeconds]="false"
+                            [style]="{'width':'100%'}"></p-calendar>
+
+                        <label for="5">Date de début</label>
+                    </span>
+                </div>
+            </div>
+            <div class="p-col-6">
+                <div class="box">
+                    <span class="p-float-label p-mr-3">
+                        <p-calendar id="6" [disabled]="true" [(ngModel)]="selectedCampagne.dateFin"
+                            dateFormat="{{dateFormat}}" [showTime]="true" [showSeconds]="false"
+                            [style]="{'width':'100%'}"></p-calendar>
+                        <label for="6">Date de fin</label>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </p-tabPanel>
+    <p-tabPanel header="Message paramétrable ouverture">
+        <p-tabView>
+            <p-tabPanel header="Template">
+
+                <div class="p-grid" style="margin-top: 10px;">
+                    <div class="p-col-6">
+                        <div class="box">
+                            <div class="p-grid p-justify-end">
+                                <div class="p-col-11">
+                                    <div class="box">
+                                        <span class="p-float-label p-mr-3">
+                                            <p-dropdown [options]="templateOuvertures"
+                                                [(ngModel)]="selectedCampagne.templateOuvertureVo" id="9"
+                                                [filter]="true" filterMatchMode="contains" [showClear]="true"
+                                                [disabled]="true" optionLabel="code" [style]="{'width':'100%'}">
+                                            </p-dropdown>
+                                            <label for="9">Template ouverture</label>
+                                        </span>
+
+                                    </div>
+                                </div>
+                                <div class="p-col-1">
+                                    <div class="box">
+                                        <label></label>
+                                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                            (click)="openCreatetemplateOuverture('templateOuverture')"
+                                            [disabled]="true"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-6">
+                        <div class="box">
+                            <span class="p-float-label p-mr-3">
+                                <input class="p-mb-2 p-mr-2" type="text" maxlength="30" pInputText [disabled]="true"
+                                    [(ngModel)]="selectedCampagne.objetOuverture" id="10" autofocus
+                                    [style]="{'width':'100%'}">
+                                <label for="10">Objet du mail de ouverture</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="p-col-6">
+                        <div class="box">
+                            <span class="p-float-label p-mr-3">
+
+                                <textarea id="11" pInputTextarea rows="10" cols="30"
+                                    [(ngModel)]="selectedCampagne.messageOuverture"
+                                    [style]="{'width':'100%'}"></textarea>
+                                <label for="11">Message du mail de ouverture</label>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+            </p-tabPanel>
+
+            <p-tabPanel header="Liste des chercheurs destinataires" style="margin-top: 10px;">
+                <div class="p-grid">
+                    <div class="p-col-12">
+                        <p-toast></p-toast>
+                        <div class="card">
+                            <p-table #dt [value]="campagneChercheurOuvertures" [columns]="cols" [rows]="8"
+                                [paginator]="true" [rowsPerPageOptions]="[10,25,50,100,500]"
+                                [globalFilterFields]="['message', 'envoye', 'dateEnvoi', 'chercheur']" [rowHover]="true"
+                                dataKey="id" styleClass="p-datatable-customers"
+                                currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} des entrées"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                                        <h5 class="p-m-0">Historique des e-mails</h5>
+                                        <span class="p-input-icon-left">
+                                            <i class="pi pi-search"></i>
+                                            <input pInputText type="text" maxlength="30" placeholder="Chercher..."
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                                        </span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 3rem">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th pSortableColumn="chercheur">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Chercheur</span>
+                                                <p-sortIcon field="chercheur"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="objet">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Objet</span>
+                                                <p-sortIcon field="objet"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="message">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Message</span>
+                                                <p-sortIcon field="message"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="envoye">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Envoye</span>
+                                                <p-sortIcon field="envoye"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="dateEnvoi">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>date Envoi</span>
+                                                <p-sortIcon field="dateEnvoi"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-campagneChercheurOuverture>
+                                    <tr>
+                                        <td>
+                                            <p-tableCheckbox [value]="campagneChercheurOuverture">
+                                            </p-tableCheckbox>
+                                        </td>
+                                        <td>{{campagneChercheurOuverture.chercheurVo?.numeroMatricule
+                                            |truncate}}</td>
+                                        <td>{{campagneChercheurOuverture.objet |truncate}}</td>
+                                        <td>{{campagneChercheurOuverture.message |truncate}}</td>
+                                        <td>
+                                            <i class="pi pi-send" *ngIf='campagneChercheurOuverture.envoye == "false"'
+                                                style="color: red;"></i>
+                                            <i class="pi pi-send" *ngIf='campagneChercheurOuverture.envoye == "true"'
+                                                style="color: green;"></i>
+                                        </td>
+                                        <td>{{campagneChercheurOuverture.dateEnvoi | date :'dd/MM/yyyy HH:mm'}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+        </p-tabView>
+    </p-tabPanel>
+    <p-tabPanel header="Message paramétrable clôture">
+        <p-tabView>
+            <p-tabPanel header="Template">
+                <div class="p-grid" style="margin-top: 10px;">
+                    <div class="p-col-6">
+                        <div class="box">
+                            <div class="p-grid p-justify-end">
+                                <div class="p-col-11">
+                                    <div class="box">
+                                        <span class="p-float-label p-mr-3">
+                                            <p-dropdown [options]="templateClotures"
+                                                [(ngModel)]="selectedCampagne.templateClotureVo" id="12" [filter]="true"
+                                                filterMatchMode="contains" [showClear]="true" [disabled]="true"
+                                                optionLabel="code" [style]="{'width':'100%'}">
+                                            </p-dropdown>
+                                            <label for="12">Template cloture</label>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="p-col-1">
+                                    <div class="box">
+                                        <label></label>
+                                        <button pButton pRipple type="button" icon="pi pi-plus"
+                                            (click)="openCreatetemplateCloture('templateCloture')"
+                                            [disabled]="true"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-col-6">
+                        <div class="box">
+                            <span class="p-float-label p-mr-3">
+
+                                <input class="p-mb-2 p-mr-2" type="text" maxlength="30" pInputText [disabled]="true"
+                                    [(ngModel)]="selectedCampagne.objetCloture" id="13" autofocus
+                                    [style]="{'width':'100%'}">
+                                <label for="13">Objet du mail d’ouverture</label>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <div class="p-col-6">
+                        <div class="box">
+                            <span class="p-float-label p-mr-3">
+                                <textarea id="14" pInputTextarea rows="10" cols="30"
+                                    [(ngModel)]="selectedCampagne.messageCloture" [style]="{'width':'100%'}"></textarea>
+                                <label for="14">Message du mail d’ouverture</label>
+                            </span>
+
+                        </div>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+
+            <p-tabPanel header="Liste des chercheurs destinataires" style="margin-top: 10px;">
+                <div class="p-grid">
+                    <div class="p-col-12">
+                        <p-toast></p-toast>
+                        <div class="card">
+                            <p-table #dt [value]="campagneChercheurFermetures" [columns]="cols" [rows]="8"
+                                [paginator]="true" [rowsPerPageOptions]="[10,25,50,100,500]"
+                                [globalFilterFields]="['message', 'envoye', 'dateEnvoi', 'chercheur']" [rowHover]="true"
+                                dataKey="id" styleClass="p-datatable-customers"
+                                currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} des entrées"
+                                [showCurrentPageReport]="true">
+                                <ng-template pTemplate="caption">
+                                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                                        <h5 class="p-m-0">Historique des e-mails</h5>
+                                        <span class="p-input-icon-left">
+                                            <i class="pi pi-search"></i>
+                                            <input pInputText type="text" maxlength="30" placeholder="Chercher..."
+                                                (input)="dt.filterGlobal($event.target.value, 'contains')" />
+                                        </span>
+                                    </div>
+                                </ng-template>
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th style="width: 3rem">
+                                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                                        </th>
+                                        <th pSortableColumn="chercheur">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Chercheur</span>
+                                                <p-sortIcon field="chercheur"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="objet">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Objet</span>
+                                                <p-sortIcon field="objet"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="message">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Message</span>
+                                                <p-sortIcon field="message"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="envoye">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>Envoye</span>
+                                                <p-sortIcon field="envoye"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                        <th pSortableColumn="dateEnvoi">
+                                            <div class="p-d-flex p-jc-between p-ai-center">
+                                                <span>date Envoi</span>
+                                                <p-sortIcon field="dateEnvoi"></p-sortIcon>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-campagneChercheurFermeture>
+                                    <tr>
+                                        <td>
+                                            <p-tableCheckbox [value]="campagneChercheurFermeture">
+                                            </p-tableCheckbox>
+                                        </td>
+                                        <td>{{campagneChercheurFermeture.chercheurVo?.numeroMatricule
+                                            |truncate}}</td>
+                                        <td>{{campagneChercheurFermeture.objet |truncate}}</td>
+                                        <td>{{campagneChercheurFermeture.message |truncate}}</td>
+                                        <td>
+                                            <i class="pi pi-send" *ngIf='campagneChercheurFermeture.envoye == "false"'
+                                                style="color: red;"></i>
+                                            <i class="pi pi-send" *ngIf='campagneChercheurFermeture.envoye == "true"'
+                                                style="color: green;"></i>
+
+                                        </td>
+                                        <td>{{campagneChercheurFermeture.dateEnvoi | date :'dd/MM/yyyy HH:mm'}}
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </div>
+
+            </p-tabPanel>
+        </p-tabView>
+    </p-tabPanel>
+    <p-tabPanel header="Chercheurs">
+        <div class="container">
+            <div style="margin-top: 10px;">
+                <p-pickList [source]="availableChercheurs" [target]="selectedChercheurs" sourceHeader="Disponible"
+                    targetHeader="Choisi" [dragdrop]="true" [responsive]="true" [sourceStyle]="{'height':'30rem'}"
+                    [targetStyle]="{'height':'30rem'}" filterBy="nom" sourceFilterPlaceholder="Rechercher par nom"
+                    targetFilterPlaceholder="Rechercher par nom" [showSourceControls]="false"
+                    [showTargetControls]="false" [disabled]="true" [showTargetControls]="false"
+                    [showSourceControls]="false">
+                    <ng-template let-chercheurVo pTemplate="item">
+                        <div style="display: flex;">
+                            <div class="p-col">
+                                <div>
+                                    <i class="pi pi-fw pi-user"></i>
+                                    <span>{{chercheurVo?.nom}}</span>
+                                </div>
+                            </div>
+
+                            <div class="p-col">
+                                <div style="margin-left: 10px;">
+                                    <i class="pi pi-fw pi-envelope"></i>
+                                    <span>{{chercheurVo?.email}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </ng-template>
+                </p-pickList>
+            </div>
+        </div>
+    </p-tabPanel>
+</p-tabView>
+
+<app-etat-campagne-create-admin></app-etat-campagne-create-admin>
+<app-template-ouverture-create-admin></app-template-ouverture-create-admin>
+<app-template-cloture-create-admin></app-template-cloture-create-admin>
+<app-chercheur-create-admin></app-chercheur-create-admin>
+<app-etat-campagne-chercheur-create-admin></app-etat-campagne-chercheur-create-admin>

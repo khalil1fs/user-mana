@@ -1,0 +1,229 @@
+
+<p-dialog [(visible)]="viewEvenementColloqueScienntifiqueDialog" [style]="{width: '70vw'}"
+        header="Evenement colloque scienntifique" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Evenement colloque scienntifique">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">Intitule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Intitule"  [(ngModel)]="selectedEvenementColloqueScienntifique.intitule"
+                                           id="1" [(ngModel)]="selectedEvenementColloqueScienntifique.intitule"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">Modalite</label>
+                                    <p-dropdown [options]="modalites" [(ngModel)]="selectedEvenementColloqueScienntifique.modaliteVo"
+                                            id="2" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Modalite">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">Type de participation</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Type de participation"  [(ngModel)]="selectedEvenementColloqueScienntifique.typeDeParticipation"
+                                           id="3" [(ngModel)]="selectedEvenementColloqueScienntifique.typeDeParticipation"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="4">Date evenement</label>
+                                    <p-calendar id="4" [disabled]="true"
+                                                placeholder="Date evenement"  [(ngModel)]="selectedEvenementColloqueScienntifique.dateEvenement"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="5">Diplomatie stategique</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="5"  [disabled]="true" [(ngModel)]="selectedEvenementColloqueScienntifique.diplomatieStategique"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="9">Modalite intervention</label>
+                                    <p-dropdown [options]="modaliteInterventions" [(ngModel)]="selectedEvenementColloqueScienntifique.modaliteInterventionVo"
+                                            id="9" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Modalite intervention">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="11">Volume participant</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="11" [disabled]="true"
+                                                   placeholder="Volume participant"  [(ngModel)]="selectedEvenementColloqueScienntifique.volumeParticipant"
+                                            [(ngModel)]="selectedEvenementColloqueScienntifique.volumeParticipant"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="12">Savoir et innovation</label>
+                                    <p-dropdown [options]="savoirEtInnovations" [(ngModel)]="selectedEvenementColloqueScienntifique.savoirEtInnovationVo"
+                                            id="12" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="id"
+                                            placeholder="Savoir et innovation">
+                                    </p-dropdown>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="13">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedEvenementColloqueScienntifique.etatEtapeCampagneVo"
+                                            id="13" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Evenement colloque scienntifique enjeux irds">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEvenementColloqueScienntifique.evenementColloqueScienntifiqueEnjeuxIrdsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Enjeux ird</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Communaute savoir evenement colloque scientifiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEvenementColloqueScienntifique.communauteSavoirEvenementColloqueScientifiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Communaute savoir</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Discipline scientifique evenement colloque scientifiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEvenementColloqueScienntifique.disciplineScientifiqueEvenementColloqueScientifiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Discipline scientifique</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Evenement colloque scienntifique payss">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedEvenementColloqueScienntifique.evenementColloqueScienntifiquePayssVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-modalite-create-admin></app-modalite-create-admin>
+            <app-modalite-intervention-create-admin></app-modalite-intervention-create-admin>
+            <app-savoir-et-innovation-create-admin></app-savoir-et-innovation-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                    <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                    <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+                    <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+
+
+</p-dialog>
+
+
+

@@ -1,0 +1,373 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'new' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateEtablissement('etablissement')"></button>
+
+
+                    <button pButton pRipple label="{{'search' | i18next}}"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="{{'export' | i18next}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text"  [(ngModel)]="searchEtablissement.libelle">
+                                    <label for="1">{{'etablissementLibelle' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text"  [(ngModel)]="searchEtablissement.code">
+                                    <label for="2">{{'etablissementCode' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="4"
+                                           type="text"  [(ngModel)]="searchEtablissement.sigleOfficiel">
+                                    <label for="4">{{'etablissementSigleOfficiel' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="5"
+                                           type="text"  [(ngModel)]="searchEtablissement.nomEnFrancais">
+                                    <label for="5">{{'etablissementNomEnFrancais' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="6"
+                                           type="text"  [(ngModel)]="searchEtablissement.sigleEnFrancais">
+                                    <label for="6">{{'etablissementSigleEnFrancais' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="7"
+                                           type="text"  [(ngModel)]="searchEtablissement.anciensNom">
+                                    <label for="7">{{'etablissementAnciensNom' | i18next}}</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="villes" [(ngModel)]="searchEtablissement.villeVo"
+                                        id="8"
+                                        [filter]="true" [showClear]="true"  placeholder="{{'etablissementVille' | i18next}}"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchEtablissement.paysVo"
+                                        id="9"
+                                        [filter]="true" [showClear]="true"  placeholder="{{'etablissementPays' | i18next}}"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="10"
+                                           type="text"  [(ngModel)]="searchEtablissement.champIntervention">
+                                    <label for="10">{{'etablissementChampIntervention' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="11" [options]="yesOrNoValide" [(ngModel)]="searchEtablissement.valide"
+                                            [filter]="false" [showClear]="true"  placeholder="{{'etablissementValide' | i18next}}"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="12" [options]="yesOrNoArchive" [(ngModel)]="searchEtablissement.archive"
+                                            [filter]="false" [showClear]="true"  placeholder="{{'etablissementArchive' | i18next}}"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEtablissement.dateArchivageMin"
+                                    id="13-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="13-1">{{'etablissementDateArchivage' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEtablissement.dateArchivageMax"
+                                    id="13-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="13-2">{{'etablissementDateArchivage' | i18next}} Max</label>
+                        </span>
+
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEtablissement.dateCreationMin"
+                                    id="14-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="14-1">{{'etablissementDateCreation' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchEtablissement.dateCreationMax"
+                                    id="14-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="14-2">{{'etablissementDateCreation' | i18next}} Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | i18next}}" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="etablissements" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['libelle', 'code', 'sigleOfficiel', 'nomEnFrancais', 'sigleEnFrancais', 'anciensNom', 'villeVolibelle', 'paysVolibelle', 'champIntervention', 'valide', 'archive', 'dateArchivage', 'dateCreation']" [(selection)]="selectedEtablissement"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="{{'fromTo' | i18next}}"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">{{'etablissementHeader' | i18next}}</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | i18next}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="libelle">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementLibelle' | i18next}}</span>
+                                        <p-sortIcon field="libelle"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="code">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementCode' | i18next}}</span>
+                                        <p-sortIcon field="code"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="sigleOfficiel">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementSigleOfficiel' | i18next}}</span>
+                                        <p-sortIcon field="sigleOfficiel"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="nomEnFrancais">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementNomEnFrancais' | i18next}}</span>
+                                        <p-sortIcon field="nomEnFrancais"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="sigleEnFrancais">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementSigleEnFrancais' | i18next}}</span>
+                                        <p-sortIcon field="sigleEnFrancais"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="anciensNom">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementAnciensNom' | i18next}}</span>
+                                        <p-sortIcon field="anciensNom"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="ville">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementVille' | i18next}}</span>
+                                        <p-sortIcon field="ville"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="pays">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementPays' | i18next}}</span>
+                                        <p-sortIcon field="pays"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="champIntervention">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementChampIntervention' | i18next}}</span>
+                                        <p-sortIcon field="champIntervention"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                <!-- 
+                                <th pSortableColumn="valide">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementValide' | i18next}}</span>
+                                        <p-sortIcon field="valide"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                                <!-- 
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementArchive' | i18next}}</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                                <!-- 
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementDateArchivage' | i18next}}</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                                <!-- 
+                                <th pSortableColumn="dateCreation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'etablissementDateCreation' | i18next}}</span>
+                                        <p-sortIcon field="dateCreation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-etablissement>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="etablissement"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{etablissement.libelle | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{etablissement.code | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{etablissement.sigleOfficiel | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{etablissement.nomEnFrancais | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{etablissement.sigleEnFrancais | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{etablissement.anciensNom | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{etablissement.villeVo?.libelle | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{etablissement.paysVo?.libelle | truncate:60}}</td>
+                            
+
+                             <!-- 
+                                 <td>{{etablissement.champIntervention | truncate:60}}</td>
+                             --> 
+
+                             <!-- 
+                                <td><i *ngIf="etablissement.valide" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!etablissement.valide" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                             --> 
+
+                             <!-- 
+                                <td><i *ngIf="etablissement.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!etablissement.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                             --> 
+
+                             <!-- 
+                                <td>{{etablissement.dateArchivage | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                             --> 
+
+                             <!-- 
+                                <td>{{etablissement.dateCreation | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                             --> 
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editEtablissement(etablissement)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewEtablissement(etablissement)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateEtablissement(etablissement)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{etablissements ? etablissements.length == 1 ? 'y a' : 'y a' : 'y a' }} {{etablissements ? etablissements.length : 0 }} {{etablissements ? etablissements.length == 1 ? 'etablissement' : 'etablissements' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-etablissement-create-admin></app-etablissement-create-admin>
+        <app-etablissement-edit-admin></app-etablissement-edit-admin>
+        <app-etablissement-view-admin></app-etablissement-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                    <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="openCreateGestionEquipe('gestionEquipe')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help"
+                                       [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="searchGestionEquipe.chercheurVo"
+                                            id="2"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="numeroMatricule">
+                                </p-dropdown>
+                                <label for="2">Chercheur</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="campagnes" [(ngModel)]="searchGestionEquipe.campagneVo"
+                                            id="3"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Campagne</label>
+                            </span>
+                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes"
+                                            [(ngModel)]="searchGestionEquipe.etatEtapeCampagneVo"
+                                            id="4"
+                                            [filter]="true" [showClear]="true"
+                                            optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="4">Etat etape campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+            <app-table-gestion-equipe-admin></app-table-gestion-equipe-admin>
+        </div>
+
+        <app-gestion-equipe-create-admin></app-gestion-equipe-create-admin>
+        <app-gestion-equipe-edit-admin></app-gestion-equipe-edit-admin>
+        <app-gestion-equipe-view-admin></app-gestion-equipe-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

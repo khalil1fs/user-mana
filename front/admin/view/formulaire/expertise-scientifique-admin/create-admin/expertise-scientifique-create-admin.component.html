@@ -1,0 +1,311 @@
+<p-dialog [(visible)]="createExpertiseScientifiqueDialog" [style]="{width: '70vw'}"
+        header="Expertise scientifique" [modal]="true"
+        styleClass="p-fluid">
+
+
+    <ng-template pTemplate="content" >
+        <p-tabView>
+            <p-tabPanel header="Expertise scientifique">
+                <div class="p-grid">
+
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="1">Annee</label>
+                                        <p-inputNumber class="p-mb-2 p-mr-2" id="1"
+                                                       placeholder="Annee"  [(ngModel)]="selectedExpertiseScientifique.annee"
+                                                [(ngModel)]="selectedExpertiseScientifique.annee"></p-inputNumber>
+                                    </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="2">Intitule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Intitule"  [(ngModel)]="selectedExpertiseScientifique.intitule"
+                                           id="2" [(ngModel)]="selectedExpertiseScientifique.intitule"
+                                           autofocus>
+                                </div>
+
+
+
+                            <div class="p-field p-col-12 p-md-2">
+                                <label for="3">Type expertise</label>
+                                <p-dropdown [options]="typeExpertises" [(ngModel)]="selectedExpertiseScientifique.typeExpertiseVo"
+                                        id="3" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Type expertise">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatetypeExpertise('typeExpertise')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="4">Nombre jour consacre pour cette annee</label>
+                                        <p-inputNumber class="p-mb-2 p-mr-2" id="4"
+                                                       placeholder="Nombre jour consacre pour cette annee"  [(ngModel)]="selectedExpertiseScientifique.nombreJourConsacrePourCetteAnnee"
+                                                [(ngModel)]="selectedExpertiseScientifique.nombreJourConsacrePourCetteAnnee"></p-inputNumber>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="5">Periode remise rapport mois</label>
+                                        <p-inputNumber class="p-mb-2 p-mr-2" id="5"
+                                                       placeholder="Periode remise rapport mois"  [(ngModel)]="selectedExpertiseScientifique.periodeRemiseRapportMois"
+                                                [(ngModel)]="selectedExpertiseScientifique.periodeRemiseRapportMois"></p-inputNumber>
+                                    </div>
+
+                                    <div class="p-field p-col-12 p-md-3">
+                                        <label for="6">Periode remise rapport annee</label>
+                                        <p-inputNumber class="p-mb-2 p-mr-2" id="6"
+                                                       placeholder="Periode remise rapport annee"  [(ngModel)]="selectedExpertiseScientifique.periodeRemiseRapportAnnee"
+                                                [(ngModel)]="selectedExpertiseScientifique.periodeRemiseRapportAnnee"></p-inputNumber>
+                                    </div>
+
+                            <div class="p-field p-col-12 p-md-2">
+                                <label for="7">Pays</label>
+                                <p-dropdown [options]="payss" [(ngModel)]="selectedExpertiseScientifique.paysVo"
+                                        id="7" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Pays">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                            <div class="p-field p-col-12 p-md-2">
+                                <label for="8">Etablissement</label>
+                                <p-dropdown [options]="etablissements" [(ngModel)]="selectedExpertiseScientifique.etablissementVo"
+                                        id="8" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Etablissement">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="11">Commentaires eventuels</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                            placeholder="Commentaires eventuels"  [(ngModel)]="selectedExpertiseScientifique.commentairesEventuels"
+                                           id="11" [(ngModel)]="selectedExpertiseScientifique.commentairesEventuels"
+                                           autofocus>
+                                </div>
+
+
+
+                            <div class="p-field p-col-12 p-md-2">
+                                <label for="12">Etat etape campagne</label>
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedExpertiseScientifique.etatEtapeCampagneVo"
+                                        id="12" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Etat etape campagne">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                            <div class="p-field p-col-12 p-md-2">
+                                <label for="13">Chercheur</label>
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="selectedExpertiseScientifique.chercheurVo"
+                                        id="13" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="numeroMatricule"
+                                        placeholder="Chercheur">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                            <div class="p-field p-col-12 p-md-2">
+                                <label for="14">Campagne</label>
+                                <p-dropdown [options]="campagnes" [(ngModel)]="selectedExpertiseScientifique.campagneVo"
+                                        id="14" [filter]="true" filterMatchMode="contains"
+                                        [showClear]="true"
+                                        optionLabel="libelle"
+                                        placeholder="Campagne">
+                                </p-dropdown>
+                            </div>
+                            <div class="p-field p-col-12 p-md-1">
+                                <label></label>
+                                <button pButton pRipple type="button"
+                                        icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                        class="p-button-success one-colonne-btn-success-align"></button>
+                            </div>
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Communaute savoir expertise scientifiques">
+                        <div class="p-grid">
+                            <div class="p-col">
+                                        <div class="p-field">
+                                            <label for="0">Id</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="id"
+                                                    placeholder="Id"
+                                                    [(ngModel)]="selectedCommunauteSavoirExpertiseScientifiques.id"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-grid">
+                                            <div class="p-col-11 p-field">
+                                                <label>Communaute savoir</label>
+                                                <p-dropdown [options]="communauteSavoirs" [(ngModel)]="selectedCommunauteSavoirExpertiseScientifiques.communauteSavoirVo"
+                                                        id="0"  [filter]="true"
+                                                        filterMatchMode="contains" [showClear]="true"
+                                                        optionLabel="libelle"
+                                                        placeholder="Communaute savoir"
+                                                >
+                                                </p-dropdown>
+
+                                            </div>
+                                            <div class="p-col-1">
+                                                <label></label>
+                                                <button pButton pRipple type="button"
+                                                        icon="pi pi-plus"   (click)="openCreatecommunauteSavoir('communauteSavoir')"
+                                                        class="p-button-success one-colonne-btn-success-align"></button>
+                                            </div>
+
+                                        </div>
+
+                                <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                        label="OK" (click)="addCommunauteSavoirExpertiseScientifiques()"
+                                ></button>
+                            </div>
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedExpertiseScientifique.communauteSavoirExpertiseScientifiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Communaute savoir</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+                                                <td>
+                                                    <button (click)="deleteCommunauteSavoirExpertiseScientifiques(p)" pButton type="button"
+                                                             icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Discipline scientifique expertise scientifiques">
+                        <div class="p-grid">
+                            <div class="p-col">
+                                        <div class="p-field">
+                                            <label for="0">Id</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="id"
+                                                    placeholder="Id"
+                                                    [(ngModel)]="selectedDisciplineScientifiqueExpertiseScientifiques.id"></p-inputNumber>
+                                        </div>
+
+                                        <div class="p-grid">
+                                            <div class="p-col-11 p-field">
+                                                <label>Discipline scientifique</label>
+                                                <p-dropdown [options]="disciplineScientifiques" [(ngModel)]="selectedDisciplineScientifiqueExpertiseScientifiques.disciplineScientifiqueVo"
+                                                        id="0"  [filter]="true"
+                                                        filterMatchMode="contains" [showClear]="true"
+                                                        optionLabel="libelle"
+                                                        placeholder="Discipline scientifique"
+                                                >
+                                                </p-dropdown>
+
+                                            </div>
+                                            <div class="p-col-1">
+                                                <label></label>
+                                                <button pButton pRipple type="button"
+                                                        icon="pi pi-plus"   (click)="openCreatedisciplineScientifique('disciplineScientifique')"
+                                                        class="p-button-success one-colonne-btn-success-align"></button>
+                                            </div>
+
+                                        </div>
+
+                                <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                        label="OK" (click)="addDisciplineScientifiqueExpertiseScientifiques()"
+                                ></button>
+                            </div>
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedExpertiseScientifique.disciplineScientifiqueExpertiseScientifiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Discipline scientifique</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+                                                <td>
+                                                    <button (click)="deleteDisciplineScientifiqueExpertiseScientifiques(p)" pButton type="button"
+                                                             icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideCreateDialog()"></button>
+            </div>
+            <div>
+                <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-type-expertise-create-admin></app-type-expertise-create-admin>
+            <app-pays-create-admin></app-pays-create-admin>
+            <app-etablissement-create-admin></app-etablissement-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+            <app-campagne-create-admin></app-campagne-create-admin>
+
+                    <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+                    <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+
+</p-dialog>
+
+
+

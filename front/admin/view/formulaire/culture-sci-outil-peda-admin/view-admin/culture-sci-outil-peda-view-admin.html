@@ -1,0 +1,235 @@
+
+<p-dialog [(visible)]="viewCultureScientifiqueOutilPedagogiqueDialog" [style]="{width: '70vw'}"
+        header="Culture scientifique outil pedagogique" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Culture scientifique outil pedagogique">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">Role</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Role"  [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.role"
+                                           id="2" [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.role"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="4">Nom outil</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Nom outil"  [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.nomOutil"
+                                           id="4" [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.nomOutil"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="5">Sortie annee</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="5" [disabled]="true"
+                                                   placeholder="Sortie annee"  [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.sortieAnnee"
+                                            [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.sortieAnnee"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="6">Sortie mois</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="6" [disabled]="true"
+                                                   placeholder="Sortie mois"  [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.sortieMois"
+                                            [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.sortieMois"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="9">Lien web</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Lien web"  [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.lienWeb"
+                                           id="9" [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.lienWeb"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="10">Campagne</label>
+                                    <p-dropdown [options]="campagnes" [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.campagneVo"
+                                            id="10" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatecampagne('campagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="11">Chercheur</label>
+                                    <p-dropdown [options]="chercheurs" [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.chercheurVo"
+                                            id="11" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="numeroMatricule"
+                                            placeholder="Chercheur">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatechercheur('chercheur')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-3">
+                                    <label for="12">Etat etape campagne</label>
+                                    <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedCultureScientifiqueOutilPedagogique.etatEtapeCampagneVo"
+                                            id="12" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Etat etape campagne">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="Public cible culture scientifique outil pedagogiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedCultureScientifiqueOutilPedagogique.publicCibleCultureScientifiqueOutilPedagogiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Public cible</th>
+                                                            <th>Pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.publicCibleVo?.libelle |truncate}}</td>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Type outil culture scientifique outil pedagogiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedCultureScientifiqueOutilPedagogique.typeOutilCultureScientifiqueOutilPedagogiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Type outil</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.typeOutilVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Pays type outil culture scientifique outil pedagogiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedCultureScientifiqueOutilPedagogique.paysTypeOutilCultureScientifiqueOutilPedagogiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Pays</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.paysVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+                    <p-tabPanel header="Etablissement culture scientifique outil pedagogiques">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedCultureScientifiqueOutilPedagogique.etablissementCultureScientifiqueOutilPedagogiquesVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Etablissement</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.etablissementVo?.libelle |truncate}}</td>
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-campagne-create-admin></app-campagne-create-admin>
+            <app-chercheur-create-admin></app-chercheur-create-admin>
+            <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                    <app-public-cible-create-admin></app-public-cible-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+                    <app-type-outil-create-admin></app-type-outil-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+                    <app-etablissement-create-admin></app-etablissement-create-admin>
+
+
+</p-dialog>
+
+
+

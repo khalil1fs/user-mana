@@ -1,0 +1,213 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'new' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateTypeExpert('typeExpert')"></button>
+
+
+                    <button pButton pRipple label="{{'search' | i18next}}"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="{{'export' | i18next}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text"  [(ngModel)]="searchTypeExpert.libelle">
+                                    <label for="1">{{'typeExpertLibelle' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text"  [(ngModel)]="searchTypeExpert.code">
+                                    <label for="2">{{'typeExpertCode' | i18next}}</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="3" [options]="yesOrNoArchive" [(ngModel)]="searchTypeExpert.archive"
+                                            [filter]="false" [showClear]="true"  placeholder="{{'typeExpertArchive' | i18next}}"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchTypeExpert.dateArchivageMin"
+                                    id="4-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-1">{{'typeExpertDateArchivage' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchTypeExpert.dateArchivageMax"
+                                    id="4-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="4-2">{{'typeExpertDateArchivage' | i18next}} Max</label>
+                        </span>
+
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchTypeExpert.dateCreationMin"
+                                    id="5-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="5-1">{{'typeExpertDateCreation' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchTypeExpert.dateCreationMax"
+                                    id="5-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="5-2">{{'typeExpertDateCreation' | i18next}} Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | i18next}}" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="typeExperts" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['libelle', 'code', 'archive', 'dateArchivage', 'dateCreation']" [(selection)]="selectedTypeExpert"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="{{'fromTo' | i18next}}"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">{{'typeExpertHeader' | i18next}}</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | i18next}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="libelle">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'typeExpertLibelle' | i18next}}</span>
+                                        <p-sortIcon field="libelle"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="code">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'typeExpertCode' | i18next}}</span>
+                                        <p-sortIcon field="code"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'typeExpertArchive' | i18next}}</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'typeExpertDateArchivage' | i18next}}</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateCreation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'typeExpertDateCreation' | i18next}}</span>
+                                        <p-sortIcon field="dateCreation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-typeExpert>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="typeExpert"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{typeExpert.libelle | truncate:60}}</td>
+                            
+
+                            
+                                 <td>{{typeExpert.code | truncate:60}}</td>
+                            
+
+                            
+                                <td><i *ngIf="typeExpert.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!typeExpert.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{typeExpert.dateArchivage | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{typeExpert.dateCreation | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editTypeExpert(typeExpert)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewTypeExpert(typeExpert)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateTypeExpert(typeExpert)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{typeExperts ? typeExperts.length == 1 ? 'y a' : 'y a' : 'y a' }} {{typeExperts ? typeExperts.length : 0 }} {{typeExperts ? typeExperts.length == 1 ? 'type expert' : 'type experts' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-type-expert-create-admin></app-type-expert-create-admin>
+        <app-type-expert-edit-admin></app-type-expert-edit-admin>
+        <app-type-expert-view-admin></app-type-expert-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

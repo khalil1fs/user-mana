@@ -1,0 +1,76 @@
+        <p-dialog [(visible)]="createInstitutionDialog" [style]="{width: '70vw'}"
+                header="{{'institutionTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'institutionTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">{{'institutionLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'institutionLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedInstitution.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validInstitutionLibelle}"  />
+                                            <small class='p-error' *ngIf='!validInstitutionLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">{{'institutionCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'institutionCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedInstitution.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validInstitutionCode}"  />
+                                            <small class='p-error' *ngIf='!validInstitutionCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'institutionArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="3"  [(ngModel)]="selectedInstitution.archive"
+                                                     >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">{{'institutionDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="4"
+                                                        placeholder="{{'institutionDateArchivage' | i18next}}"  [(ngModel)]="selectedInstitution.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

@@ -1,0 +1,57 @@
+<div class="p-grid">
+    <div class="p-col-12 faq-container">
+        <h3>Questions fréquentes</h3>
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header searchFaq">
+            
+            <div class="p-toolbar-group-right">
+                <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input pInputText placeholder="Rechercher..." type="text" maxlength="30"   [(ngModel)]="searchQuery"/>
+            </span>
+                <button (click)="search()" class="p-button-info p-mr-2 button-search-faq" icon="pi pi-search-plus" label="rechercher"
+                        pButton pRipple></button>
+            </div>
+        </div>
+        <p>Retrouvez ici les réponses aux questions les plus courantes</p>
+        <p-toast position="center"></p-toast>
+        <div class="faqs-wrapper">
+            <p-accordion class="faq-cat" *ngFor="let catfaq of categorieFaqsSearched" (onOpen)="onOpenCat(catfaq)" expandIcon="pi pi-chevron-down" collapseIcon="pi pi-chevron-up">
+                <p-accordionTab *ngIf="catfaq.faqs" [selected]="catfaq.selected">
+                    <p-header class="faq-cat-header">
+                        <div [innerHTML]="catfaq.libelle" class="faq-cat-header-title"></div>
+                    </p-header>
+                    <div>
+                        <div *ngIf="catfaq.faqs">
+                            <p-accordion *ngFor="let faq of catfaq.faqs" class="faq-questions" (onOpen)="onOpen(faq)" expandIcon = "pi pi-chevron-down" collapseIcon = "pi pi-chevron-up">
+                                <p-accordionTab class="accordionTabFaq"  [selected]="faq.isResult">
+                                    <p-header>
+                                        <div [innerHTML]="faq.question"></div>
+                                    </p-header>
+                                    <div class="faq-response">
+                                        <div class="p-md-12 p-lg-12" [innerHTML]="faq.reponse"></div>
+                                        <div class="p-md-12 p-lg-12 contact" *ngIf="faq.contact">
+                                            <i class="pi pi-envelope contact-icon"></i>
+                                            <span>{{faq.contact}}</span>
+                                            <i class="pi pi-copy copy-icon" pTooltip="copier dans le presse-papier" tooltipPosition="top" (click)="copyMessage(faq.contact)"></i>
+                                        </div>
+                                        <div class="p-md-12 p-lg-12 link" *ngIf="faq.lien">
+                                            <i class="pi pi-link link-icon"></i>
+                                            <a [href]="faq.lien" target="_blank">Lien pour en savoir plus</a>
+                                        </div>
+                                    </div>
+                                </p-accordionTab>
+                            </p-accordion>
+                        </div>
+                    </div>
+                </p-accordionTab>
+            </p-accordion>  
+        </div>
+            
+        <div class="fixed-replie-div">
+            <button pButton type="button" (click)="ToutReplier()" icon="pi pi-chevron-up" label="Tout replier"  iconPos="right"></button>
+        </div>
+        <div *ngIf="categorieFaqsSearched && categorieFaqsSearched.length==0 && !empty(searchQuery)">
+            <p-message severity="info" text="aucun résultat trouvé à votre recherche dans cette FAQ ; essayez d’autres vocabulaires ou expressions plus génériques" styleClass="mr-2"></p-message>
+        </div>
+</div>
+</div>

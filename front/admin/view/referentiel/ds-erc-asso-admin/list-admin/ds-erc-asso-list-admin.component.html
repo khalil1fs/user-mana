@@ -1,0 +1,238 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'new' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateDisciplineScientifiqueErcAssociation('disciplineScientifiqueErcAssociation')"></button>
+
+
+                    <button pButton pRipple label="{{'search' | i18next}}"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="{{'export' | i18next}}" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="disciplineScientifiqueErcs" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.disciplineScientifiqueErcVo"
+                                        id="1"
+                                        [filter]="true" [showClear]="true"  placeholder="{{'disciplineScientifiqueErcAssociationDisciplineScientifiqueErc' | i18next}}"
+                                        optionLabel="libelleFr">
+                                </p-dropdown>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="disciplineScientifiques" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.disciplineScientifiqueVo"
+                                        id="2"
+                                        [filter]="true" [showClear]="true"  placeholder="{{'disciplineScientifiqueErcAssociationDisciplineScientifique' | i18next}}"
+                                        optionLabel="libelleFr">
+                                </p-dropdown>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="semanticRelationships" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.semanticRelationshipVo"
+                                        id="3"
+                                        [filter]="true" [showClear]="true"  placeholder="{{'disciplineScientifiqueErcAssociationSemanticRelationship' | i18next}}"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <p-dropdown  id="4" [options]="yesOrNoArchive" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.archive"
+                                            [filter]="false" [showClear]="true"  placeholder="{{'disciplineScientifiqueErcAssociationArchive' | i18next}}"
+                                                 optionLabel="label" optionValue="value">
+                                    </p-dropdown>
+                                </span>
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.dateArchivageMin"
+                                    id="5-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="5-1">{{'disciplineScientifiqueErcAssociationDateArchivage' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.dateArchivageMax"
+                                    id="5-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="5-2">{{'disciplineScientifiqueErcAssociationDateArchivage' | i18next}} Max</label>
+                        </span>
+
+
+                        <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.dateCreationMin"
+                                    id="6-1"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-1">{{'disciplineScientifiqueErcAssociationDateCreation' | i18next}} Min</label>
+                        </span>
+
+                         <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                            <p-calendar
+                                    class="p-mr-2" [(ngModel)]="searchDisciplineScientifiqueErcAssociation.dateCreationMax"
+                                    id="6-2"
+                                    dateFormat="dd-MM-yy"></p-calendar>
+                            <label for="6-2">{{'disciplineScientifiqueErcAssociationDateCreation' | i18next}} Max</label>
+                        </span>
+
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="{{'validate' | i18next}}" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="disciplineScientifiqueErcAssociations" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['disciplineScientifiqueErcVolibelleFr', 'disciplineScientifiqueVolibelleFr', 'semanticRelationshipVolibelle', 'archive', 'dateArchivage', 'dateCreation']" [(selection)]="selectedDisciplineScientifiqueErcAssociation"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="{{'fromTo' | i18next}}"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">{{'disciplineScientifiqueErcAssociationHeader' | i18next}}</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" placeholder="{{'searchInput' | i18next}}" (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="disciplineScientifiqueErc">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'disciplineScientifiqueErcAssociationDisciplineScientifiqueErc' | i18next}}</span>
+                                        <p-sortIcon field="disciplineScientifiqueErc"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="disciplineScientifique">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'disciplineScientifiqueErcAssociationDisciplineScientifique' | i18next}}</span>
+                                        <p-sortIcon field="disciplineScientifique"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="semanticRelationship">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'disciplineScientifiqueErcAssociationSemanticRelationship' | i18next}}</span>
+                                        <p-sortIcon field="semanticRelationship"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="archive">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'disciplineScientifiqueErcAssociationArchive' | i18next}}</span>
+                                        <p-sortIcon field="archive"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateArchivage">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'disciplineScientifiqueErcAssociationDateArchivage' | i18next}}</span>
+                                        <p-sortIcon field="dateArchivage"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="dateCreation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>{{'disciplineScientifiqueErcAssociationDateCreation' | i18next}}</span>
+                                        <p-sortIcon field="dateCreation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-disciplineScientifiqueErcAssociation>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="disciplineScientifiqueErcAssociation"></p-tableCheckbox>
+                        </td>
+                            
+                                <td>{{disciplineScientifiqueErcAssociation.disciplineScientifiqueErcVo?.libelleFr | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{disciplineScientifiqueErcAssociation.disciplineScientifiqueVo?.libelleFr | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{disciplineScientifiqueErcAssociation.semanticRelationshipVo?.libelle | truncate:60}}</td>
+                            
+
+                            
+                                <td><i *ngIf="disciplineScientifiqueErcAssociation.archive" class="pi pi-check checked-toogle"></i>
+                                    <i *ngIf="!disciplineScientifiqueErcAssociation.archive" class="pi pi-times unchecked-toogle"></i>
+                                </td>
+                            
+
+                            
+                                <td>{{disciplineScientifiqueErcAssociation.dateArchivage | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+                            
+                                <td>{{disciplineScientifiqueErcAssociation.dateCreation | date :'dd/MM/yyyy HH:mm'  | truncate:60}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editDisciplineScientifiqueErcAssociation(disciplineScientifiqueErcAssociation)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewDisciplineScientifiqueErcAssociation(disciplineScientifiqueErcAssociation)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateDisciplineScientifiqueErcAssociation(disciplineScientifiqueErcAssociation)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        En totale
+                        il {{disciplineScientifiqueErcAssociations ? disciplineScientifiqueErcAssociations.length == 1 ? 'y a' : 'y a' : 'y a' }} {{disciplineScientifiqueErcAssociations ? disciplineScientifiqueErcAssociations.length : 0 }} {{disciplineScientifiqueErcAssociations ? disciplineScientifiqueErcAssociations.length == 1 ? 'discipline scientifique erc association' : 'discipline scientifique erc associations' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-discipline-scientifique-erc-association-create-admin></app-discipline-scientifique-erc-association-create-admin>
+        <app-discipline-scientifique-erc-association-edit-admin></app-discipline-scientifique-erc-association-edit-admin>
+        <app-discipline-scientifique-erc-association-view-admin></app-discipline-scientifique-erc-association-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

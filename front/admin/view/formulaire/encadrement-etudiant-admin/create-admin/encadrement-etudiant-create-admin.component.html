@@ -1,0 +1,251 @@
+        <p-dialog [(visible)]="createEncadrementEtudiantDialog" [style]="{width: '70vw'}"
+                header="Encadrement etudiant" [modal]="true"
+                styleClass="p-fluid">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="Encadrement etudiant">
+                        <div class="p-grid">
+
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="1">Niveau formation post bac</label>
+                                            <p-dropdown [options]="niveauFormationPostBacs" [(ngModel)]="selectedEncadrementEtudiant.niveauFormationPostBacVo"
+                                                    id="1" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Niveau formation post bac"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="2">Responsabilite direction encadrement etudiant</label>
+                                            <p-dropdown [options]="responsabiliteDirectionEncadrementEtudiants" [(ngModel)]="selectedEncadrementEtudiant.responsabiliteDirectionEncadrementEtudiantVo"
+                                                    id="2" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Responsabilite direction encadrement etudiant"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="3">Sujet etude</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Sujet etude"  [(ngModel)]="selectedEncadrementEtudiant.sujetEtude"
+                                                   id="3" [(ngModel)]="selectedEncadrementEtudiant.sujetEtude"
+                                                   autofocus  >
+                                            
+                                        </div>
+
+
+
+
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="6">Etablissement</label>
+                                            <p-dropdown [options]="etablissements" [(ngModel)]="selectedEncadrementEtudiant.etablissementVo"
+                                                    id="6" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etablissement"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="7">Cursus</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Cursus"  [(ngModel)]="selectedEncadrementEtudiant.cursus"
+                                                   id="7" [(ngModel)]="selectedEncadrementEtudiant.cursus"
+                                                   autofocus  >
+                                            
+                                        </div>
+
+
+
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="8">Pays</label>
+                                            <p-dropdown [options]="payss" [(ngModel)]="selectedEncadrementEtudiant.paysVo"
+                                                    id="8" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Pays"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="9">Encadrement</label>
+                                            <p-dropdown [options]="encadrements" [(ngModel)]="selectedEncadrementEtudiant.encadrementVo"
+                                                    id="9" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Encadrement"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-4">
+                                            <label for="10">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedEncadrementEtudiant.etatEtapeCampagneVo"
+                                                    id="10" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Encadrement etudiant enjeux irds">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Enjeux ird</label>
+                                                        <p-dropdown [options]="enjeuxIrds" [(ngModel)]="selectedEncadrementEtudiantEnjeuxIrds.enjeuxIrdVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Enjeux ird"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateenjeuxIrd('enjeuxIrd')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEncadrementEtudiantEnjeuxIrds()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEncadrementEtudiant.encadrementEtudiantEnjeuxIrdsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Enjeux ird</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEncadrementEtudiantEnjeuxIrds(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Encadrement etudiant discipline scientifiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Discipline scientifique</label>
+                                                        <p-dropdown [options]="disciplineScientifiques" [(ngModel)]="selectedEncadrementEtudiantDisciplineScientifiques.disciplineScientifiqueVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Discipline scientifique"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatedisciplineScientifique('disciplineScientifique')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addEncadrementEtudiantDisciplineScientifiques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedEncadrementEtudiant.encadrementEtudiantDisciplineScientifiquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Discipline scientifique</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.disciplineScientifiqueVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteEncadrementEtudiantDisciplineScientifiques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-niveau-formation-post-bac-create-admin></app-niveau-formation-post-bac-create-admin>
+                    <app-responsabilite-direction-encadrement-etudiant-create-admin></app-responsabilite-direction-encadrement-etudiant-create-admin>
+                    <app-etablissement-create-admin></app-etablissement-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+                    <app-encadrement-create-admin></app-encadrement-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                            <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                            <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+
+    </p-dialog>

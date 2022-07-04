@@ -1,0 +1,77 @@
+
+<p-dialog [(visible)]="viewStatutEcoleDoctoraleDialog" [style]="{width: '70vw'}"
+        header="{{'statutEcoleDoctoraleTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'statutEcoleDoctoraleTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'statutEcoleDoctoraleLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'statutEcoleDoctoraleLibelle' | i18next}}"  [(ngModel)]="selectedStatutEcoleDoctorale.libelle"
+                                           id="1" [(ngModel)]="selectedStatutEcoleDoctorale.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'statutEcoleDoctoraleCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'statutEcoleDoctoraleCode' | i18next}}"  [(ngModel)]="selectedStatutEcoleDoctorale.code"
+                                           id="2" [(ngModel)]="selectedStatutEcoleDoctorale.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="3">{{'statutEcoleDoctoraleArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="3"  [disabled]="true" [(ngModel)]="selectedStatutEcoleDoctorale.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">{{'statutEcoleDoctoraleDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="4" [disabled]="true"
+                                                placeholder="{{'statutEcoleDoctoraleDateArchivage' | i18next}}"  [(ngModel)]="selectedStatutEcoleDoctorale.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'statutEcoleDoctoraleDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'statutEcoleDoctoraleDateCreation' | i18next}}"  [(ngModel)]="selectedStatutEcoleDoctorale.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

@@ -1,0 +1,70 @@
+
+<p-dialog [(visible)]="viewEcoleDoctoraleDialog" [style]="{width: '70vw'}"
+        header="Ecole doctorale" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="Ecole doctorale">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">Intitule</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText [disabled]="true"
+                                           placeholder="Intitule"  [(ngModel)]="selectedEcoleDoctorale.intitule"
+                                           id="1" [(ngModel)]="selectedEcoleDoctorale.intitule"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="2">International</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="2"  [(ngModel)]="selectedEcoleDoctorale.international"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-5">
+                                    <label for="3">Pays</label>
+                                    <p-dropdown [options]="payss" [(ngModel)]="selectedEcoleDoctorale.paysVo"
+                                            id="3" [filter]="true" filterMatchMode="contains"
+                                            [showClear]="true" [disabled]="true"
+                                            optionLabel="libelle"
+                                            placeholder="Pays">
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-field p-col-12 p-md-1">
+                                    <label></label>
+                                    <button pButton pRipple type="button"
+                                            icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                            class="p-button-success one-colonne-btn-success-align" [disabled]="true"></button>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+            <app-pays-create-admin></app-pays-create-admin>
+
+
+
+</p-dialog>
+
+
+

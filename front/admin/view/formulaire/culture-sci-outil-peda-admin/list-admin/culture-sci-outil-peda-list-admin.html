@@ -1,0 +1,247 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateCultureScientifiqueOutilPedagogique('cultureScientifiqueOutilPedagogique')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="2"
+                                           type="text" maxlength="30"    [(ngModel)]="searchCultureScientifiqueOutilPedagogique.role">
+                                    <label for="2">Role</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="4"
+                                           type="text" maxlength="30"    [(ngModel)]="searchCultureScientifiqueOutilPedagogique.nomOutil">
+                                    <label for="4">Nom outil</label>
+                                </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="9"
+                                           type="text" maxlength="30"    [(ngModel)]="searchCultureScientifiqueOutilPedagogique.lienWeb">
+                                    <label for="9">Lien web</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="campagnes" [(ngModel)]="searchCultureScientifiqueOutilPedagogique.campagneVo"
+                                        id="10"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="10">Campagne</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="searchCultureScientifiqueOutilPedagogique.chercheurVo"
+                                        id="11"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="numeroMatricule">
+                                </p-dropdown>
+                                <label for="11">Chercheur</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="searchCultureScientifiqueOutilPedagogique.etatEtapeCampagneVo"
+                                        id="12"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="12">Etat etape campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="cultureScientifiqueOutilPedagogiques" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['role', 'nomOutil', 'sortieAnnee', 'sortieMois', 'lienWeb', 'libelle', 'numeroMatricule', 'libelle']" [(selection)]="selectedCultureScientifiqueOutilPedagogique"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Culture scientifique outil pedagogiques</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+
+                                
+                                <th pSortableColumn="role">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Role</span>
+                                        <p-sortIcon field="role"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="nomOutil">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Nom outil</span>
+                                        <p-sortIcon field="nomOutil"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="sortieAnnee">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Sortie annee</span>
+                                        <p-sortIcon field="sortieAnnee"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="sortieMois">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Sortie mois</span>
+                                        <p-sortIcon field="sortieMois"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+
+                                
+                                <th pSortableColumn="lienWeb">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Lien web</span>
+                                        <p-sortIcon field="lienWeb"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="campagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Campagne</span>
+                                        <p-sortIcon field="campagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="chercheur">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Chercheur</span>
+                                        <p-sortIcon field="chercheur"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="etatEtapeCampagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etat etape campagne</span>
+                                        <p-sortIcon field="etatEtapeCampagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-cultureScientifiqueOutilPedagogique>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="cultureScientifiqueOutilPedagogique"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{cultureScientifiqueOutilPedagogique.role |truncate}}</td>
+                            
+
+                            
+                                 <td>{{cultureScientifiqueOutilPedagogique.nomOutil |truncate}}</td>
+                            
+
+                            
+                                 <td>{{cultureScientifiqueOutilPedagogique.sortieAnnee |truncate}}</td>
+                            
+
+                            
+                                 <td>{{cultureScientifiqueOutilPedagogique.sortieMois |truncate}}</td>
+                            
+
+                            
+                                 <td>{{cultureScientifiqueOutilPedagogique.lienWeb |truncate}}</td>
+                            
+
+                            
+                                <td>{{cultureScientifiqueOutilPedagogique.campagneVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{cultureScientifiqueOutilPedagogique.chercheurVo?.numeroMatricule |truncate}}</td>
+                            
+
+                            
+                                <td>{{cultureScientifiqueOutilPedagogique.etatEtapeCampagneVo?.libelle |truncate}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editCultureScientifiqueOutilPedagogique(cultureScientifiqueOutilPedagogique)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewCultureScientifiqueOutilPedagogique(cultureScientifiqueOutilPedagogique)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteCultureScientifiqueOutilPedagogique(cultureScientifiqueOutilPedagogique)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateCultureScientifiqueOutilPedagogique(cultureScientifiqueOutilPedagogique)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{cultureScientifiqueOutilPedagogiques ? cultureScientifiqueOutilPedagogiques.length == 1 ? 'y a' : 'y a' : 'y a' }} {{cultureScientifiqueOutilPedagogiques ? cultureScientifiqueOutilPedagogiques.length : 0 }} {{cultureScientifiqueOutilPedagogiques ? cultureScientifiqueOutilPedagogiques.length == 1 ? 'cultureScientifiqueOutilPedagogique' : 'cultureScientifiqueOutilPedagogiques' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-culture-scientifique-outil-pedagogique-create-admin></app-culture-scientifique-outil-pedagogique-create-admin>
+        <app-culture-scientifique-outil-pedagogique-edit-admin></app-culture-scientifique-outil-pedagogique-edit-admin>
+        <app-culture-scientifique-outil-pedagogique-view-admin></app-culture-scientifique-outil-pedagogique-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

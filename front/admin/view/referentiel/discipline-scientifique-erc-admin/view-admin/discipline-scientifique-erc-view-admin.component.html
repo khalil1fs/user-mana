@@ -1,0 +1,131 @@
+
+<p-dialog [(visible)]="viewDisciplineScientifiqueErcDialog" [style]="{width: '70vw'}"
+        header="{{'disciplineScientifiqueErcTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'disciplineScientifiqueErcTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="1">{{'disciplineScientifiqueErcLibelleFr' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'disciplineScientifiqueErcLibelleFr' | i18next}}"  [(ngModel)]="selectedDisciplineScientifiqueErc.libelleFr"
+                                           id="1" [(ngModel)]="selectedDisciplineScientifiqueErc.libelleFr"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="2">{{'disciplineScientifiqueErcLibelleEng' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'disciplineScientifiqueErcLibelleEng' | i18next}}"  [(ngModel)]="selectedDisciplineScientifiqueErc.libelleEng"
+                                           id="2" [(ngModel)]="selectedDisciplineScientifiqueErc.libelleEng"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="3">{{'disciplineScientifiqueErcCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'disciplineScientifiqueErcCode' | i18next}}"  [(ngModel)]="selectedDisciplineScientifiqueErc.code"
+                                           id="3" [(ngModel)]="selectedDisciplineScientifiqueErc.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="4">{{'disciplineScientifiqueErcNiveau' | i18next}}</label>
+                                    <p-inputNumber class="p-mb-2 p-mr-2" id="4" [disabled]="true"
+                                                   placeholder="{{'disciplineScientifiqueErcNiveau' | i18next}}"  [(ngModel)]="selectedDisciplineScientifiqueErc.niveau"
+                                            [(ngModel)]="selectedDisciplineScientifiqueErc.niveau"></p-inputNumber>
+                                </div>
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-4">
+                                    <div  class="label-inputswitch">
+                                        <label for="6">{{'disciplineScientifiqueErcArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="6"  [disabled]="true" [(ngModel)]="selectedDisciplineScientifiqueErc.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="7">{{'disciplineScientifiqueErcDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="7" [disabled]="true"
+                                                placeholder="{{'disciplineScientifiqueErcDateArchivage' | i18next}}"  [(ngModel)]="selectedDisciplineScientifiqueErc.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-4">
+                                    <label for="8">{{'disciplineScientifiqueErcDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="8" [disabled]="true"
+                                                placeholder="{{'disciplineScientifiqueErcDateCreation' | i18next}}"  [(ngModel)]="selectedDisciplineScientifiqueErc.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+                    <p-tabPanel header="{{'disciplineScientifiqueErcKeyWordDisciplineScientifiqueErcsTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                            <div class="p-col">
+                                <div class="card">
+                                    <p-table [value]="selectedDisciplineScientifiqueErc.keyWordDisciplineScientifiqueErcsVo" [scrollable]="true"
+                                            scrollHeight="200px">
+                                        <ng-template pTemplate="header">
+                                            <tr>
+                                                            <th>Key word</th>
+                                                            <th>Archive</th>
+                                                            <th>Date archivage</th>
+                                                            <th>Date creation</th>
+                                            </tr>
+                                        </ng-template>
+                                        <ng-template pTemplate="body" let-p>
+                                            <tr>
+                                                        <td>{{p.keyWordVo?.libelleFr | truncate:60}}</td>
+                                                            <td><i *ngIf="p.archive" class="pi pi-check checked-toogle"></i>
+                                                                <i *ngIf="!p.archive" class="pi pi-times unchecked-toogle"></i>
+                                                            </td>
+
+                                                            <td>{{p.dateArchivage | date: dateFormatColumn | truncate:60}}</td>
+
+                                                            <td>{{p.dateCreation | date: dateFormatColumn | truncate:60}}</td>
+
+
+                                            </tr>
+                                        </ng-template>
+                                    </p-table>
+                                </div>
+                            </div>
+                        </div>
+
+                    </p-tabPanel>
+
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+                    <app-key-word-create-admin></app-key-word-create-admin>
+
+
+</p-dialog>
+
+
+

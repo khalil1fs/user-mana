@@ -1,0 +1,127 @@
+<div class="card">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2"
+                (click)="openNew()"></button>
+        </ng-template>
+
+<!--        <ng-template pTemplate="right">-->
+<!--            <button pButton pRipple label="Exporter" icon="pi pi-upload" class="p-button-help"></button>-->
+<!--        </ng-template>-->
+    </p-toolbar>
+
+    <p-table #dt [value]="users" [rows]="10" [paginator]="true"
+        [globalFilterFields]="['prenom','nom','email','username']" [(selection)]="selectedUsers"
+        [rowHover]="true" dataKey="id" currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+        [showCurrentPageReport]="true">
+        <ng-template pTemplate="caption">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                <h5 class="p-m-0">Gestion des pilotes de données</h5>
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" maxlength="30"   (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Chercher..." />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                </th>
+                <th pSortableColumn="prenom">Prénom <p-sortIcon field="prenom"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nom">Nom <p-sortIcon field="nom"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">Nom Utilisateur <p-sortIcon field="username"></p-sortIcon>
+                </th>
+
+
+                <th>Actions</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="user"></p-tableCheckbox>
+                </td>
+                <td>{{user.prenom |truncate}}</td>
+                <td>{{user.nom |truncate}}</td>
+                <td>{{user.email |truncate}}</td>
+                <td>{{user.username |truncate}}</td>
+
+                <td>
+                    <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                        (click)="editUser(user)"></button>
+                    <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="deleteUser(user)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                En total il y a {{users ? users.length : 0 }} Pilotes de données.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="userDialog" [style]="{width: '70vw'}" header="Pilote de données" [modal]="true"
+          styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <div class="p-fluid p-formgrid p-grid">
+
+
+        <div class="p-field p-col-12 p-md-3">
+            <label for="28">Prénom</label>
+            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Prenom"
+                   [(ngModel)]="user.prenom" id="28"
+                   autofocus>
+        </div>
+
+
+
+        <div class="p-field p-col-12 p-md-3">
+            <label for="29">Nom</label>
+            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Nom"
+                   [(ngModel)]="user.nom" id="29"  autofocus>
+        </div>
+
+        <div class="p-field p-col-12 p-md-3">
+            <label for="2">Email</label>
+            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Email"
+                   [(ngModel)]="user.email" id="2"
+                   autofocus>
+        </div>
+
+        <div class="p-field p-col-12 p-md-3">
+            <label for="1">Nom d'utilisateur</label>
+            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Nom d'utilisateur"
+                   [(ngModel)]="user.username" id="1"
+                   autofocus>
+        </div>
+
+        <div class="p-field p-col-12 p-md-3" *ngIf="user.id">
+            <label for="27">Mot de passe</label>
+            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText placeholder="Password"
+                   [(ngModel)]="user.password" id="27"
+                   autofocus>
+        </div>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="{{'Cancel' | i18next}}" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+        <button pButton pRipple *ngIf="!user.id" label="{{'Save' | i18next}}" icon="pi pi-check" class="p-button-text"
+            (click)="saveUser()"></button>
+        <button pButton pRipple *ngIf="user.id" label="{{'Edit' | i18next}}" icon="pi pi-check" class="p-button-text"
+            (click)="editUserSubmit()"></button>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+<p-toast position="bottom-center"></p-toast>

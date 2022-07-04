@@ -1,0 +1,77 @@
+
+<p-dialog [(visible)]="viewResponsabiliteEncadrementDoctorantDialog" [style]="{width: '70vw'}"
+        header="{{'responsabiliteEncadrementDoctorantTabPan' | i18next}}" [modal]="true"
+        styleClass="p-fluid">
+
+    <ng-template pTemplate="content">
+        <p-tabView>
+            <p-tabPanel header="{{'responsabiliteEncadrementDoctorantTabPan' | i18next}}">
+                <div class="p-grid">
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="1">{{'responsabiliteEncadrementDoctorantLibelle' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'responsabiliteEncadrementDoctorantLibelle' | i18next}}"  [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.libelle"
+                                           id="1" [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.libelle"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="2">{{'responsabiliteEncadrementDoctorantCode' | i18next}}</label>
+                                    <input class="p-mb-2 p-mr-2" type="text" pInputText [disabled]="true"
+                                           placeholder="{{'responsabiliteEncadrementDoctorantCode' | i18next}}"  [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.code"
+                                           id="2" [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.code"
+                                           autofocus>
+                                </div>
+
+
+
+                                <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                    <div  class="label-inputswitch">
+                                        <label for="3">{{'responsabiliteEncadrementDoctorantArchive' | i18next}}</label>
+                                    </div>
+                                    <div class="input-switch">
+                                        <p-inputSwitch id="3"  [disabled]="true" [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.archive"></p-inputSwitch>
+                                    </div>
+                                </div>
+
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="4">{{'responsabiliteEncadrementDoctorantDateArchivage' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="4" [disabled]="true"
+                                                placeholder="{{'responsabiliteEncadrementDoctorantDateArchivage' | i18next}}"  [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.dateArchivage"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                                <div class="p-field p-col-12 p-md-6">
+                                    <label for="5">{{'responsabiliteEncadrementDoctorantDateCreation' | i18next}}</label>
+                                    <p-calendar  [showTime]="true" [showSeconds]="false"   id="5" [disabled]="true"
+                                                placeholder="{{'responsabiliteEncadrementDoctorantDateCreation' | i18next}}"  [(ngModel)]="selectedResponsabiliteEncadrementDoctorant.dateCreation"
+                                            dateFormat="{{dateFormat}}"></p-calendar>
+                                </div>
+
+                </div>
+            </p-tabPanel>
+
+        </p-tabView>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer" >
+        <div class="p-grid">
+            <div>
+                <button pButton pRipple label="Annuler" icon="pi pi-times"
+                        class="p-button-text" (click)="hideViewDialog()"></button>
+            </div>
+        </div>
+    </ng-template>
+
+
+
+
+</p-dialog>
+
+
+

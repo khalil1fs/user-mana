@@ -1,0 +1,165 @@
+        <p-dialog [(visible)]="createEnseignementDialog" [style]="{width: '70vw'}"
+                header="Enseignement" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="Enseignement">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">Intitule<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Intitule"
+                                                   id="1" [(ngModel)]="selectedEnseignement.intitule"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : validIntitule}" required />
+                                            <small class='p-error' *ngIf='!validIntitule'>Intitule est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">Nombre heure<span style="color: red;">*</span></label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="2"
+                                                           placeholder="Nombre heure"
+                                                    [(ngModel)]="selectedEnseignement.nombreHeure" [ngClass]="{'ng-invalid ng-dirty' : validNombreHeure}" required >
+                                            </p-inputNumber>
+                                            <small class='p-error' *ngIf='!validNombreHeure'>NombreHeure est obligatoire.</small>
+                                        </div>
+
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="3">Modalite etude<span style="color: red;">*</span></label>
+                                            <p-dropdown [options]="modaliteEtudes" [(ngModel)]="selectedEnseignement.modaliteEtudeVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Modalite etude" [ngClass]="{'ng-invalid ng-dirty' : validModaliteEtude}" required >
+                                            </p-dropdown>
+                                            <small class='p-error' *ngIf='!validModaliteEtude'>ModaliteEtude est obligatoire.</small>
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatemodaliteEtude('modaliteEtude')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Type etude</label>
+                                        <p-multiSelect [options]="typeEtudeEnseignements" [(ngModel)]="selectedEnseignement.typeEtudeEnseignementsVo" defaultLabel="Sélectionnez un typeEtude" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Nature enseignement</label>
+                                        <p-multiSelect [options]="enseignementNatures"
+                                                       [(ngModel)]="selectedEnseignement.enseignementNaturesVo"
+                                                       defaultLabel="Sélectionnez une nature enseignement"
+                                                       optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Niveau etude</label>
+                                        <p-multiSelect [options]="niveauEtudeEnseignements" [(ngModel)]="selectedEnseignement.niveauEtudeEnseignementsVo" defaultLabel="Sélectionnez un niveauEtude" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="7">Etabilssement non reconnu</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="7"  [(ngModel)]="selectedEnseignement.etabilssementNonReconnu">
+                                                    
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Etablissement</label>
+                                        <p-multiSelect [options]="etablissementEnseignements"
+                                                       [(ngModel)]="selectedEnseignement.etablissementEnseignementsVo" defaultLabel="Sélectionnez un établissement" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Pays</label>
+                                        <p-multiSelect [options]="enseignementPayss" [(ngModel)]="selectedEnseignement.enseignementPayssVo" defaultLabel="Sélectionnez un pays" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Zone geographique</label>
+                                        <p-multiSelect [options]="enseignementZoneGeographiques"
+                                                       [(ngModel)]="selectedEnseignement.enseignementZoneGeographiquesVo" defaultLabel="Sélectionnez une zone géographique" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Enjeux ird</label>
+                                        <p-multiSelect [options]="enseignementEnjeuxIrds"
+                                                       [(ngModel)]="selectedEnseignement.enseignementEnjeuxIrdsVo"
+                                                       defaultLabel="Sélectionnez un enjeux IRD" optionLabel="libelle"
+                                                       display="chip"></p-multiSelect>
+                                    </div>
+                                    <div class="p-field p-col-12  p-md-6">
+                                        <label>Discipline scientifique</label>
+                                        <p-multiSelect [options]="enseignementDisciplineScientifiques"
+                                                       [(ngModel)]="selectedEnseignement.enseignementDisciplineScientifiquesVo" defaultLabel="Sélectionnez une discipline scientifique" optionLabel="libelle"  display="chip"></p-multiSelect>
+                                    </div>
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="13">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedEnseignement.etatEtapeCampagneVo"
+                                                    id="13" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateetatEtapeCampagne('etatEtapeCampagne')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                                        <div class="p-field p-col-11 p-md-5">
+                                            <label for="14">Enseignement et formation</label>
+                                            <p-dropdown [options]="enseignementEtFormations" [(ngModel)]="selectedEnseignement.enseignementEtFormationVo"
+                                                    id="14" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Enseignement et formation"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                                        <div class="p-col-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateenseignementEtFormation('enseignementEtFormation')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-modalite-etude-create-admin></app-modalite-etude-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+                    <app-enseignement-et-formation-create-admin></app-enseignement-et-formation-create-admin>
+
+                            <app-type-etude-create-admin></app-type-etude-create-admin>
+                            <app-nature-enseignement-create-admin></app-nature-enseignement-create-admin>
+                            <app-niveau-etude-create-admin></app-niveau-etude-create-admin>
+                            <app-etablissement-create-admin></app-etablissement-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+                            <app-zone-geographique-create-admin></app-zone-geographique-create-admin>
+                            <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                            <app-discipline-scientifique-create-admin></app-discipline-scientifique-create-admin>
+
+    </p-dialog>

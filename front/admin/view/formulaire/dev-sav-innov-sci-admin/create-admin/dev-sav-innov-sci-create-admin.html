@@ -1,0 +1,591 @@
+        <p-dialog [(visible)]="createDeveloppementDeSavoirEtInnovationScientifiqueDialog" [style]="{width: '70vw'}"
+                header="Developpement de savoir et innovation scientifique" [modal]="true"
+                styleClass="p-fluid">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="Developpement de savoir et innovation scientifique">
+                        <div class="p-grid">
+
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">Titre instrument</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Titre instrument"  [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.titreInstrument"
+                                                   id="2" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.titreInstrument"
+                                                   autofocus  >
+                                            
+                                        </div>
+
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="3">Role developpement de savoir</label>
+                                            <p-dropdown [options]="roleDeveloppementDeSavoirs" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.roleDeveloppementDeSavoirVo"
+                                                    id="3" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Role developpement de savoir"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="5">Annee mise en oeuvre</label>
+                                            <p-inputNumber class="p-mb-2 p-mr-2" id="5"
+                                                           placeholder="Annee mise en oeuvre"  [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.anneeMiseEnOeuvre"
+                                                    [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.anneeMiseEnOeuvre" autofocus  >
+                                            </p-inputNumber>
+                                            
+                                        </div>
+
+
+
+
+
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="12">Lien web</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Lien web"  [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.lienWeb"
+                                                   id="12" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.lienWeb"
+                                                   autofocus  >
+                                            
+                                        </div>
+
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="13">Savoir et innovation</label>
+                                            <p-dropdown [options]="savoirEtInnovations" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.savoirEtInnovationVo"
+                                                    id="13" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="id"
+                                                    placeholder="Savoir et innovation"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="14">Etat etape campagne</label>
+                                            <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifique.etatEtapeCampagneVo"
+                                                    id="14" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Etat etape campagne"  >
+                                            </p-dropdown>
+                                            
+                                        </div>
+                        </div>
+                    </p-tabPanel>
+                            <p-tabPanel header="Type savoir developpement de savoir et innovation scientifiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Type savoir</label>
+                                                        <p-dropdown [options]="typeSavoirs" [(ngModel)]="selectedTypeSavoirDeveloppementDeSavoirEtInnovationScientifiques.typeSavoirVo"
+                                                                id="1"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Type savoir"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatetypeSavoir('typeSavoir')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addTypeSavoirDeveloppementDeSavoirEtInnovationScientifiques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.typeSavoirDeveloppementDeSavoirEtInnovationScientifiquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Type savoir</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.typeSavoirVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteTypeSavoirDeveloppementDeSavoirEtInnovationScientifiques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Type utilisateur savoir concus">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Type utilisateur</label>
+                                                        <p-dropdown [options]="typeUtilisateurs" [(ngModel)]="selectedTypeUtilisateurSavoirConcus.typeUtilisateurVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Type utilisateur"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatetypeUtilisateur('typeUtilisateur')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addTypeUtilisateurSavoirConcus()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.typeUtilisateurSavoirConcusVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Type utilisateur</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.typeUtilisateurVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteTypeUtilisateurSavoirConcus(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Developpement de savoir et innovation scientifique mode diffusions">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Mode diffusion</label>
+                                                        <p-dropdown [options]="modeDiffusions" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifiqueModeDiffusions.modeDiffusionVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Mode diffusion"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatemodeDiffusion('modeDiffusion')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addDeveloppementDeSavoirEtInnovationScientifiqueModeDiffusions()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.developpementDeSavoirEtInnovationScientifiqueModeDiffusionsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Mode diffusion</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.modeDiffusionVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDeveloppementDeSavoirEtInnovationScientifiqueModeDiffusions(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Developpement de savoir et innovation scientifique enjeux irds">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Enjeux ird</label>
+                                                        <p-dropdown [options]="enjeuxIrds" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifiqueEnjeuxIrds.enjeuxIrdVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Enjeux ird"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateenjeuxIrd('enjeuxIrd')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addDeveloppementDeSavoirEtInnovationScientifiqueEnjeuxIrds()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.developpementDeSavoirEtInnovationScientifiqueEnjeuxIrdsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Enjeux ird</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.enjeuxIrdVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDeveloppementDeSavoirEtInnovationScientifiqueEnjeuxIrds(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Developpement de savoir et innovation scientifique discipline scientifiques">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Communaute savoir</label>
+                                                        <p-dropdown [options]="communauteSavoirs" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifiqueDisciplineScientifiques.communauteSavoirVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Communaute savoir"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatecommunauteSavoir('communauteSavoir')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addDeveloppementDeSavoirEtInnovationScientifiqueDisciplineScientifiques()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.developpementDeSavoirEtInnovationScientifiqueDisciplineScientifiquesVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Communaute savoir</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDeveloppementDeSavoirEtInnovationScientifiqueDisciplineScientifiques(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Developpement de savoir et innovation scientifique communaute savoirs">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Communaute savoir</label>
+                                                        <p-dropdown [options]="communauteSavoirs" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifiqueCommunauteSavoirs.communauteSavoirVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Communaute savoir"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatecommunauteSavoir('communauteSavoir')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addDeveloppementDeSavoirEtInnovationScientifiqueCommunauteSavoirs()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.developpementDeSavoirEtInnovationScientifiqueCommunauteSavoirsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Communaute savoir</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.communauteSavoirVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDeveloppementDeSavoirEtInnovationScientifiqueCommunauteSavoirs(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Developpement de savoir et innovation scientifique payss">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Pays</label>
+                                                        <p-dropdown [options]="payss" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifiquePayss.paysVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Pays"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addDeveloppementDeSavoirEtInnovationScientifiquePayss()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.developpementDeSavoirEtInnovationScientifiquePayssVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Pays</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.paysVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDeveloppementDeSavoirEtInnovationScientifiquePayss(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+                            <p-tabPanel header="Developpement de savoir et innovation scientifique etablissements">
+                                <div class="p-grid">
+                                    <div class="p-col">
+
+                                                <div class="p-grid">
+                                                    <div class="p-col-11 p-field">
+                                                        <label>Etablissement</label>
+                                                        <p-dropdown [options]="etablissements" [(ngModel)]="selectedDeveloppementDeSavoirEtInnovationScientifiqueEtablissements.etablissementVo"
+                                                                id="0"  [filter]="true"
+                                                                filterMatchMode="contains" [showClear]="true"
+                                                                optionLabel="libelle"
+                                                                placeholder="Etablissement"  
+                                                        >
+                                                        </p-dropdown>
+                                                        
+                                                    </div>
+                                                    <div class="p-col-1">
+                                                        <label></label>
+                                                        <button pButton pRipple type="button"
+                                                                icon="pi pi-plus"   (click)="openCreateetablissement('etablissement')"
+                                                                class="p-button-success one-colonne-btn-success-align"></button>
+                                                    </div>
+
+                                                </div>
+
+
+
+
+                                        <button pButton pRipple type="button" icon="pi pi-plus" class="p-mt-4"
+                                                label="OK" (click)="addDeveloppementDeSavoirEtInnovationScientifiqueEtablissements()"
+                                        ></button>
+                                    </div>
+                                    <div class="p-col">
+                                        <div class="card">
+                                            <p-table [value]="selectedDeveloppementDeSavoirEtInnovationScientifique.developpementDeSavoirEtInnovationScientifiqueEtablissementsVo" [scrollable]="true"
+                                                    scrollHeight="200px">
+                                                <ng-template pTemplate="header">
+                                                    <tr>
+                                                                    <th>Etablissement</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </ng-template>
+                                                <ng-template pTemplate="body" let-p>
+                                                    <tr>
+                                                                <td>{{p.etablissementVo?.libelle |truncate}}</td>
+                                                        <td>
+                                                            <button (click)="deleteDeveloppementDeSavoirEtInnovationScientifiqueEtablissements(p)" pButton type="button"
+                                                                                                                 icon="pi pi-times"  class="p-button-rounded p-button-danger">
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </ng-template>
+                                            </p-table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </p-tabPanel>
+
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-role-developpement-de-savoir-create-admin></app-role-developpement-de-savoir-create-admin>
+                    <app-savoir-et-innovation-create-admin></app-savoir-et-innovation-create-admin>
+                    <app-etat-etape-campagne-create-admin></app-etat-etape-campagne-create-admin>
+
+                            <app-type-savoir-create-admin></app-type-savoir-create-admin>
+                            <app-type-utilisateur-create-admin></app-type-utilisateur-create-admin>
+                            <app-mode-diffusion-create-admin></app-mode-diffusion-create-admin>
+                            <app-enjeux-ird-create-admin></app-enjeux-ird-create-admin>
+                            <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+                            <app-communaute-savoir-create-admin></app-communaute-savoir-create-admin>
+                            <app-pays-create-admin></app-pays-create-admin>
+                            <app-etablissement-create-admin></app-etablissement-create-admin>
+
+    </p-dialog>

@@ -1,0 +1,295 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateEvaluationRechercheUniversitaire('evaluationRechercheUniversitaire')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="typeExperts" [(ngModel)]="searchEvaluationRechercheUniversitaire.typeExpertVo"
+                                        id="2"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="2">Type expert</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="roleEvaluationRechercheUniversitaires" [(ngModel)]="searchEvaluationRechercheUniversitaire.roleEvaluationRechercheUniversitaireVo"
+                                        id="3"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="3">Role evaluation recherche universitaire</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="payss" [(ngModel)]="searchEvaluationRechercheUniversitaire.paysVo"
+                                        id="4"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="4">Pays</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etablissements" [(ngModel)]="searchEvaluationRechercheUniversitaire.etablissementVo"
+                                        id="5"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="5">Etablissement</label>
+                            </span>
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="9"
+                                           type="text" maxlength="30"    [(ngModel)]="searchEvaluationRechercheUniversitaire.commentaire">
+                                    <label for="9">Commentaire</label>
+                                </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="chercheurs" [(ngModel)]="searchEvaluationRechercheUniversitaire.chercheurVo"
+                                        id="10"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="numeroMatricule">
+                                </p-dropdown>
+                                <label for="10">Chercheur</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="campagnes" [(ngModel)]="searchEvaluationRechercheUniversitaire.campagneVo"
+                                        id="11"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="11">Campagne</label>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="searchEvaluationRechercheUniversitaire.etatEtapeCampagneVo"
+                                        id="12"
+                                        [filter]="true" [showClear]="true"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                                <label for="12">Etat etape campagne</label>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="evaluationRechercheUniversitaires" [columns]="cols" [rows]="8" [paginator]="true"
+                    [globalFilterFields]="['annee', 'libelle', 'libelle', 'libelle', 'libelle', 'nombreJourConsacrePourCetteAnnee', 'commentaire', 'numeroMatricule', 'libelle', 'libelle']" [(selection)]="selectedEvaluationRechercheUniversitaire"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Evaluation recherche universitaires</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Chercher..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="annee">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Annee</span>
+                                        <p-sortIcon field="annee"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="typeExpert">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Type expert</span>
+                                        <p-sortIcon field="typeExpert"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="roleEvaluationRechercheUniversitaire">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Role evaluation recherche universitaire</span>
+                                        <p-sortIcon field="roleEvaluationRechercheUniversitaire"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="pays">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Pays</span>
+                                        <p-sortIcon field="pays"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="etablissement">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etablissement</span>
+                                        <p-sortIcon field="etablissement"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="nombreJourConsacrePourCetteAnnee">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Nombre jour consacre pour cette annee</span>
+                                        <p-sortIcon field="nombreJourConsacrePourCetteAnnee"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+
+                                
+                                <th pSortableColumn="commentaire">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Commentaire</span>
+                                        <p-sortIcon field="commentaire"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="chercheur">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Chercheur</span>
+                                        <p-sortIcon field="chercheur"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                <!-- 
+                                <th pSortableColumn="campagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Campagne</span>
+                                        <p-sortIcon field="campagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                                <!-- 
+                                <th pSortableColumn="etatEtapeCampagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etat etape campagne</span>
+                                        <p-sortIcon field="etatEtapeCampagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                --> 
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-evaluationRechercheUniversitaire>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="evaluationRechercheUniversitaire"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{evaluationRechercheUniversitaire.annee |truncate}}</td>
+                            
+
+                            
+                                <td>{{evaluationRechercheUniversitaire.typeExpertVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{evaluationRechercheUniversitaire.roleEvaluationRechercheUniversitaireVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{evaluationRechercheUniversitaire.paysVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{evaluationRechercheUniversitaire.etablissementVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                 <td>{{evaluationRechercheUniversitaire.nombreJourConsacrePourCetteAnnee |truncate}}</td>
+                            
+
+                            
+                                 <td>{{evaluationRechercheUniversitaire.commentaire |truncate}}</td>
+                            
+
+                            
+                                <td>{{evaluationRechercheUniversitaire.chercheurVo?.numeroMatricule |truncate}}</td>
+                            
+
+                            <!-- 
+                                <td>{{evaluationRechercheUniversitaire.campagneVo?.libelle |truncate}}</td>
+                            --> 
+
+                            <!-- 
+                                <td>{{evaluationRechercheUniversitaire.etatEtapeCampagneVo?.libelle |truncate}}</td>
+                            --> 
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editEvaluationRechercheUniversitaire(evaluationRechercheUniversitaire)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewEvaluationRechercheUniversitaire(evaluationRechercheUniversitaire)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteEvaluationRechercheUniversitaire(evaluationRechercheUniversitaire)"></button>
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateEvaluationRechercheUniversitaire(evaluationRechercheUniversitaire)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{evaluationRechercheUniversitaires ? evaluationRechercheUniversitaires.length == 1 ? 'y a' : 'y a' : 'y a' }} {{evaluationRechercheUniversitaires ? evaluationRechercheUniversitaires.length : 0 }} {{evaluationRechercheUniversitaires ? evaluationRechercheUniversitaires.length == 1 ? 'evaluationRechercheUniversitaire' : 'evaluationRechercheUniversitaires' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-evaluation-recherche-universitaire-create-admin></app-evaluation-recherche-universitaire-create-admin>
+        <app-evaluation-recherche-universitaire-edit-admin></app-evaluation-recherche-universitaire-edit-admin>
+        <app-evaluation-recherche-universitaire-view-admin></app-evaluation-recherche-universitaire-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>

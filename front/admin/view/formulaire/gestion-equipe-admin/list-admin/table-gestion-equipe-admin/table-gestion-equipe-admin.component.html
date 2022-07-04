@@ -1,0 +1,111 @@
+<app-badge-card-view
+        (switchCardViewOutput)="updateDisplay($event)"></app-badge-card-view>
+
+<p-table #dt [value]="gestionEquipes" [columns]="cols" [rows]="10" [paginator]="true" [responsive]="true"
+         [ngClass]="{'faa-custom-card-table': isCardDisplayActivated }"
+         [globalFilterFields]="['tempsEstimePourCetteAnnne', 'numeroMatricule', 'libelle', 'libelle']"
+         [(selection)]="selectedGestionEquipe" [rowsPerPageOptions]="[10,25,50,100,500]"
+         [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+         currentPageReportTemplate="De {first} à {last} (total {totalRecords} )"
+         [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+            <h5 class="p-m-0">Liste des Gestion equipes tableau
+            </h5>
+
+            <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder=" Search..."
+                                   (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+        </div>
+        <app-select-box-sort-table-gestion-equipe-admin *ngIf="isCardDisplayActivated"
+                                                        [cols]="cols"
+                                                        (sortByColumn)="sortByColumnName($event, dt)"></app-select-box-sort-table-gestion-equipe-admin>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th style="width: 3rem">
+                <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+
+            <th *ngFor="let column of cols" [pSortableColumn]="column.field">
+                <div class="p-d-flex p-jc-between p-ai-center">
+                    <span>{{column.header}}</span>
+                    <p-sortIcon [field]="column.field"></p-sortIcon>
+                </div>
+            </th>
+
+            <th>Actions</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-gestionEquipe>
+
+        <!--        Blocs cartes        -->
+        <app-custom-card *ngIf="isCardDisplayActivated" [dateCreation]="dateActuelle" [status]="getRandomStatus(gestionEquipe.tempsEstimePourCetteAnnne)"
+                         [cardTitle]="'Estimation temps :' + gestionEquipe.tempsEstimePourCetteAnnne">
+            <div card-body>
+                <ul>
+                    <li><b>Temps estimé pour cette année :</b>
+                        {{gestionEquipe.tempsEstimePourCetteAnnne}}
+                    </li>
+
+                    <li><b>Numéro matricule :</b>
+                    {{gestionEquipe.chercheurVo?.numeroMatricule}}</li>
+
+                   <li> <b>Campagne :</b>
+                    {{gestionEquipe.campagneVo?.libelle}}</li>
+
+                    <li><b>Etat :</b>
+                    {{gestionEquipe.etatEtapeCampagneVo?.libelle}}</li>
+                </ul>
+            </div>
+            <div card-buttons>
+                <ng-template [ngTemplateOutlet]="boutonsActions"
+                             ngTemplateOutletContext="{gestionEquipe: gestionEquipe}"></ng-template>
+            </div>
+        </app-custom-card>
+
+        <!--        Blocs tableau        -->
+        <tr *ngIf="!isCardDisplayActivated">
+            <td>
+                <p-tableCheckbox [value]="gestionEquipe"></p-tableCheckbox>
+            </td>
+
+            <td>{{gestionEquipe.tempsEstimePourCetteAnnne |truncate}}</td>
+
+            <td>{{gestionEquipe.chercheurVo?.numeroMatricule |truncate}}</td>
+
+            <td>{{gestionEquipe.campagneVo?.libelle |truncate}}</td>
+
+            <td>{{gestionEquipe.etatEtapeCampagneVo?.libelle |truncate}}</td>
+
+
+            <td>
+                <ng-template [ngTemplateOutlet]="boutonsActions"
+                             ngTemplateOutletContext="{gestionEquipe: gestionEquipe}"></ng-template>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+        <div class="p-d-flex p-ai-center p-jc-between">
+            Total :  {{gestionEquipes.length}} équipe(s)
+        </div>
+    </ng-template>
+
+    <ng-template #boutonsActions let-gestionEquipe="gestionEquipe">
+        <button pButton pRipple icon="pi pi-pencil"
+                class="p-button-rounded p-button-success p-mr-2"
+                (click)="editGestionEquipe(gestionEquipe)"></button>
+        <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                (click)="viewGestionEquipe(gestionEquipe)"></button>
+        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                (click)="deleteGestionEquipe(gestionEquipe)"></button>
+
+        <button pButton pRipple icon="pi pi-copy"
+                class="p-button-rounded p-button-raised p-button-warning"
+                (click)="duplicateGestionEquipe(gestionEquipe)"></button>
+    </ng-template>
+</p-table>

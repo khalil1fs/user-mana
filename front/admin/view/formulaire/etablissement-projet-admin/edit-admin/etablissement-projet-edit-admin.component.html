@@ -1,0 +1,157 @@
+
+        <p-dialog [(visible)]="editEtablissementProjetDialog" [style]="{width: '70vw'}"
+                header="Etablissement projet" [modal]="true"
+                styleClass="p-fluid">
+
+            <ng-template pTemplate="content">
+                <p-tabView>
+                    <p-tabPanel header="Etablissement projet">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="1">Libelle</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Libelle"  [(ngModel)]="selectedEtablissementProjet.libelle"
+                                                   id="1" [(ngModel)]="selectedEtablissementProjet.libelle"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="2">Code</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Code"  [(ngModel)]="selectedEtablissementProjet.code"
+                                                   id="2" [(ngModel)]="selectedEtablissementProjet.code"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="3">Description</label>
+                                            <textarea id="3" pInputTextarea rows="5" cols="30"
+                                                      placeholder="Description"  [(ngModel)]="selectedEtablissementProjet.description"
+                                            ></textarea>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="4">Sigle officiel</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Sigle officiel"  [(ngModel)]="selectedEtablissementProjet.sigleOfficiel"
+                                                   id="4" [(ngModel)]="selectedEtablissementProjet.sigleOfficiel"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="5">Nom en francais</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Nom en francais"  [(ngModel)]="selectedEtablissementProjet.nomEnFrancais"
+                                                   id="5" [(ngModel)]="selectedEtablissementProjet.nomEnFrancais"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="6">Sigle en francais</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Sigle en francais"  [(ngModel)]="selectedEtablissementProjet.sigleEnFrancais"
+                                                   id="6" [(ngModel)]="selectedEtablissementProjet.sigleEnFrancais"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="7">Anciens nom</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Anciens nom"  [(ngModel)]="selectedEtablissementProjet.anciensNom"
+                                                   id="7" [(ngModel)]="selectedEtablissementProjet.anciensNom"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-2">
+                                            <label for="8">Ville</label>
+                                            <p-dropdown [options]="villes" [(ngModel)]="selectedEtablissementProjet.villeVo"
+                                                    id="8" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Ville">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreateville('ville')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-2">
+                                            <label for="9">Pays</label>
+                                            <p-dropdown [options]="payss" [(ngModel)]="selectedEtablissementProjet.paysVo"
+                                                    id="9" [filter]="true" filterMatchMode="contains"
+                                                    [showClear]="true"
+                                                    optionLabel="libelle"
+                                                    placeholder="Pays">
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-field p-col-12 p-md-1">
+                                            <label></label>
+                                            <button pButton pRipple type="button"
+                                                    icon="pi pi-plus"   (click)="openCreatepays('pays')"
+                                                    class="p-button-success one-colonne-btn-success-align"></button>
+                                        </div>
+
+                                        <div class="p-field p-col-12 p-md-3">
+                                            <label for="10">Champ intervention</label>
+                                            <input class="p-mb-2 p-mr-2" type="text" maxlength="30"   pInputText
+                                                   placeholder="Champ intervention"  [(ngModel)]="selectedEtablissementProjet.champIntervention"
+                                                   id="10" [(ngModel)]="selectedEtablissementProjet.champIntervention"
+                                                   autofocus>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-3">
+                                            <div  class="label-inputswitch">
+                                                <label for="11">Valide</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="11"  [(ngModel)]="selectedEtablissementProjet.valide"></p-inputSwitch>
+                                            </div>
+                                        </div>
+
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideEditDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check"  style="margin:10px" (click)="edit()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+                    <app-ville-create-admin></app-ville-create-admin>
+                    <app-pays-create-admin></app-pays-create-admin>
+
+
+
+    </p-dialog>
+
+
+

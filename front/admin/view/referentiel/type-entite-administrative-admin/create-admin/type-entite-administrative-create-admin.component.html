@@ -1,0 +1,76 @@
+        <p-dialog [(visible)]="createTypeEntiteAdministrativeDialog" [style]="{width: '70vw'}"
+                header="{{'typeEntiteAdministrativeTabPan' | i18next}}" [modal]="true"
+                styleClass="p-fluid" [maximizable]="true" [draggable]="false" [resizable]="false">
+
+
+            <ng-template pTemplate="content" >
+                <p-tabView>
+                    <p-tabPanel header="{{'typeEntiteAdministrativeTabPan' | i18next}}">
+                        <div class="p-grid">
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="1">{{'typeEntiteAdministrativeLibelle' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'typeEntiteAdministrativeLibelle' | i18next}}"
+                                                   id="1" [(ngModel)]="selectedTypeEntiteAdministrative.libelle"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validTypeEntiteAdministrativeLibelle}"  />
+                                            <small class='p-error' *ngIf='!validTypeEntiteAdministrativeLibelle'>Libelle est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="2">{{'typeEntiteAdministrativeCode' | i18next}}<span style="color: red;">*</span></label>
+                                            <input class="p-mb-2 p-mr-2" type="text" pInputText
+                                                   placeholder="{{'typeEntiteAdministrativeCode' | i18next}}"
+                                                   id="2" [(ngModel)]="selectedTypeEntiteAdministrative.code"
+                                                    [ngClass]="{'ng-invalid ng-dirty' : !validTypeEntiteAdministrativeCode}"  />
+                                            <small class='p-error' *ngIf='!validTypeEntiteAdministrativeCode'>Code est obligatoire.</small>
+                                        </div>
+
+
+
+                                        <div class="p-field align-inputswitch p-col-12  p-md-6">
+                                            <div  class="label-inputswitch">
+                                                <label for="3">{{'typeEntiteAdministrativeArchive' | i18next}}</label>
+                                            </div>
+                                            <div class="input-switch">
+                                                <p-inputSwitch id="3"  [(ngModel)]="selectedTypeEntiteAdministrative.archive"
+                                                     >
+                                                </p-inputSwitch>
+                                                
+                                            </div>
+                                        </div>
+
+
+                                        <div class="p-field p-col-12 p-md-6">
+                                            <label for="4">{{'typeEntiteAdministrativeDateArchivage' | i18next}}</label>
+                                            <p-calendar  [showTime]="true" [showSeconds]="false"   id="4"
+                                                        placeholder="{{'typeEntiteAdministrativeDateArchivage' | i18next}}"  [(ngModel)]="selectedTypeEntiteAdministrative.dateArchivage"
+                                                    dateFormat="{{dateFormat}}"  >
+                                            </p-calendar>
+                                            
+                                        </div>
+
+                        </div>
+                    </p-tabPanel>
+
+                </p-tabView>
+
+            </ng-template>
+
+            <ng-template pTemplate="footer" >
+                <div class="p-grid">
+                        <div>
+                            <button pButton pRipple label="Annuler" icon="pi pi-times"
+                                    class="p-button-text" (click)="hideCreateDialog()"></button>
+                        </div>
+                    <div>
+                        <button pButton pRipple label="Valider" icon="pi pi-check" style="margin:10px" (click)="save()"></button>
+                    </div>
+                </div>
+            </ng-template>
+
+
+
+    </p-dialog>

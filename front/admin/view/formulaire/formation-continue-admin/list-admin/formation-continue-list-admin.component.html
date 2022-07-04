@@ -1,0 +1,208 @@
+<div class="p-grid">
+    <div class="p-col-12">
+        <p-toast></p-toast>
+        <div class="card">
+            <p-toolbar styleClass="p-mb-4">
+                <ng-template pTemplate="left">
+                                            <button pButton pRipple label="{{'New' | i18next}}" icon="pi pi-plus" class="p-button-success p-mr-2 p-mb-2"
+                                (click)="openCreateFormationContinue('formationContinue')"></button>
+
+
+                    <button pButton pRipple label="Recherche"
+                            icon="pi pi-{{findByCriteriaShow?'angle-down':'angle-right'}}"
+                            class="p-button-success p-mr-2 p-mb-2"
+                            (click)="this.findByCriteriaShow = !this.findByCriteriaShow"></button>
+                </ng-template>
+                <ng-template pTemplate="right">
+                    <div class="flex">
+                        <p-splitButton label="Exporter" icon="pi pi-download" styleClass="p-button-help" [model]="excelPdfButons"></p-splitButton>
+                    </div>
+                </ng-template>
+
+            </p-toolbar>
+            <p-toolbar *ngIf="findByCriteriaShow">
+
+                <div class="align-form-search">
+                                <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                    <input class="p-mr-2" pInputText id="1"
+                                           type="text" maxlength="30"    [(ngModel)]="searchFormationContinue.intitule">
+                                    <label for="1">Intitule</label>
+                                </span>
+                                    <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                              <p-inputNumber class="p-mr-2"
+                                                             mode="decimal" [(ngModel)]="searchFormationContinue.nombreHeuresDispenseesDansAnneeMin"
+                                                             id="3-1"></p-inputNumber>
+                                              <label for="3-1">Nombre heures dispensees dans annee Min</label>
+                                       </span>
+                                       <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                              <p-inputNumber class="p-mr-2"
+                                                             mode="decimal" [(ngModel)]="searchFormationContinue.nombreHeuresDispenseesDansAnneeMax"
+                                                             id="3-2"></p-inputNumber>
+                                             <label for="3-2">Nombre heures dispensees dans annee Max</label>
+                                       </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="modaliteFormationContinues" [(ngModel)]="searchFormationContinue.modaliteFormationContinueVo"
+                                        id="4"
+                                        [filter]="true" [showClear]="true"  placeholder="Modalite formation continue"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="enseignementEtFormations" [(ngModel)]="searchFormationContinue.enseignementEtFormationVo"
+                                        id="11"
+                                        [filter]="true" [showClear]="true"  placeholder="Enseignement et formation"
+                                        optionLabel="id">
+                                </p-dropdown>
+                            </span>
+                            <span class=" p-float-label p-mr-3 align-search-items p-mt-4">
+                                <p-dropdown [options]="etatEtapeCampagnes" [(ngModel)]="searchFormationContinue.etatEtapeCampagneVo"
+                                        id="12"
+                                        [filter]="true" [showClear]="true"  placeholder="Etat etape campagne"
+                                        optionLabel="libelle">
+                                </p-dropdown>
+                            </span>
+                </div>
+
+                <div class="align-search-button">
+                    <button pButton pRipple label="Valider" icon="pi pi-sort-amount-down"
+                            class="p-button-info p-mr-2" (click)="searchRequest()"></button>
+                </div>
+            </p-toolbar>
+
+
+            <p-table #dt [value]="formationContinues" [columns]="cols" [rows]="4" [paginator]="true"
+                    [globalFilterFields]="['intitule', 'nombreHeuresDispenseesDansAnnee', 'libelle', 'id', 'libelle']" [(selection)]="selectedFormationContinue"
+                    [rowHover]="true" dataKey="id" styleClass="p-datatable-customers"
+                                      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+                    [showCurrentPageReport]="true">
+                <ng-template pTemplate="caption">
+                    <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between table-header">
+                        <h5 class="p-m-0">Liste des Formation continues</h5>
+                        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" maxlength="30"   placeholder="Search..." (input)="dt.filterGlobal($event.target.value, 'contains')"/>
+                        </span>
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header">
+                    <tr>
+                        <th style="width: 3rem">
+                            <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+                        </th>
+
+                                
+                                <th pSortableColumn="intitule">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Intitule</span>
+                                        <p-sortIcon field="intitule"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+                                
+                                <th pSortableColumn="nombreHeuresDispenseesDansAnnee">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Nombre heures dispensees dans annee</span>
+                                        <p-sortIcon field="nombreHeuresDispenseesDansAnnee"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="modaliteFormationContinue">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Modalite formation continue</span>
+                                        <p-sortIcon field="modaliteFormationContinue"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+
+
+
+
+
+
+                                
+                                <th pSortableColumn="enseignementEtFormation">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Enseignement et formation</span>
+                                        <p-sortIcon field="enseignementEtFormation"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                                
+                                <th pSortableColumn="etatEtapeCampagne">
+                                    <div class="p-d-flex p-jc-between p-ai-center">
+                                        <span>Etat etape campagne</span>
+                                        <p-sortIcon field="etatEtapeCampagne"></p-sortIcon>
+                                    </div>
+                                </th>
+                                
+
+
+                        <th>Actions</th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-formationContinue>
+                    <tr>
+                        <td>
+                            <p-tableCheckbox [value]="formationContinue"></p-tableCheckbox>
+                        </td>
+                            
+                                 <td>{{formationContinue.intitule |truncate}}</td>
+                            
+
+                            
+                                 <td>{{formationContinue.nombreHeuresDispenseesDansAnnee |truncate}}</td>
+                            
+
+                            
+                                <td>{{formationContinue.modaliteFormationContinueVo?.libelle |truncate}}</td>
+                            
+
+                            
+                                <td>{{formationContinue.enseignementEtFormationVo?.id |truncate}}</td>
+                            
+
+                            
+                                <td>{{formationContinue.etatEtapeCampagneVo?.libelle |truncate}}</td>
+                            
+
+
+                        <td>
+                            <button pButton pRipple icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success p-mr-2"
+                                    (click)="editFormationContinue(formationContinue)"></button>
+                            <button pButton pRipple icon="pi pi-list" class="p-button-rounded p-button-info p-mr-2"
+                                    (click)="viewFormationContinue(formationContinue)"></button>
+                            <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger p-mr-2"
+                                    (click)="deleteFormationContinue(formationContinue)"></button>
+
+                            <button pButton pRipple icon="pi pi-copy" class="p-button-rounded p-button-raised p-button-warning"
+                                    (click)="duplicateFormationContinue(formationContinue)"></button>
+                        </td>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="summary">
+                    <div class="p-d-flex p-ai-center p-jc-between">
+                        Au total
+                        il {{formationContinues ? formationContinues.length == 1 ? 'y a' : 'y a' : 'y a' }} {{formationContinues ? formationContinues.length : 0 }} {{formationContinues ? formationContinues.length == 1 ? 'formationContinue' : 'formationContinues' : 0 }}
+                        .
+                    </div>
+                </ng-template>
+            </p-table>
+        </div>
+
+        <app-formation-continue-create-admin></app-formation-continue-create-admin>
+        <app-formation-continue-edit-admin></app-formation-continue-edit-admin>
+        <app-formation-continue-view-admin></app-formation-continue-view-admin>
+        <p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>
+    </div>
+</div>
